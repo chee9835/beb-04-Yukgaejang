@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Button from "./components/common/Button";
-import Header from "./components/Header";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
 import { metaMaskActions } from "./store/metaMaskSlice";
-
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,9 +30,6 @@ const App = () => {
 
   return (
     <>
-      <Header />
-      <Button type="primary">Explore</Button>
-      <Button type="secondary">Create</Button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
