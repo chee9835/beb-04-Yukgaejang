@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Button from "./components/common/Button";
 import Header from "./components/Header";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
@@ -46,8 +45,6 @@ const App = () => {
   return (
       <>
       <Header />
-      <Button type="primary">Explore</Button>
-      <Button type="secondary">Create</Button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
