@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
 import { metaMaskActions } from "./store/metaMaskSlice";
-import Header from "./components/Header";
+import Web3 from "web3";
+import { web3Actions } from "./store/web3Slice";
 
 const App = () => {
+  const web3 = useSelector((state) => state.web3.web3);
+
+  console.log(web3);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +28,13 @@ const App = () => {
         if (metaMaskAddress) {
           dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAddress));
         }
+
+        try {
+          const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
+          dispatch(web3Actions.setWeb3(web));
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
 
@@ -31,7 +43,6 @@ const App = () => {
 
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />

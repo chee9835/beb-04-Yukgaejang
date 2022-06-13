@@ -22,15 +22,20 @@ const Header = () => {
       cursor: pointer;
     `
     const MenusContainer = styled.section`
-      flex: 1;
+      //flex: 1;
+      vertical-align: middle;
     `
     const Menus = styled.button`
       all: unset;
       color: #424c55;
       font-size: 20px;
-      margin: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
       font-weight: 600;
       cursor: pointer;
+      .text {
+      margin-bottom: 50px;
+    }
 
       &:hover {
         color: #0c1822;
@@ -51,8 +56,8 @@ const Header = () => {
                     />
                 </div>
                 <MenusContainer>
-                    <Menus>Explore</Menus>
-                    <Menus>Stats</Menus>
+                    <Menus className='text'>Explore</Menus>
+                    <Menus className='text'>Stats</Menus>
                     <Menus>Resources</Menus>
                     <Menus>Create</Menus>
                     <Menus><RiAccountCircleLine size={'35px'}/></Menus>

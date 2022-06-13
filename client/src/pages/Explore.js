@@ -54,6 +54,12 @@ const Container = styled.section`
     padding: 40px;
     gap: 20px;
   }
+
+  @media screen and (max-width: 500px) {
+    .contents {
+      grid-template-columns: 1fr;
+    }
+  }
 `;
 
 const Explore = () => {

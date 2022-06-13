@@ -24,7 +24,7 @@ const Container = styled.div`
   .name {
     text-align: center;
     font-weight: 500;
-    margin: ${({ author }) => (author ? "30px 0 10px" : "47px 0")};
+    margin: ${({ author }) => (author ? "30px 0 10px" : "40px 0")};
     font-size: 16px;
   }
 
@@ -52,7 +52,7 @@ const Container = styled.div`
     height: 44px;
     position: absolute;
     top: calc(50% - 14px);
-    left: calc(50% - 14px);
+    left: calc(50% - 22px);
     border: 1px solid #e5e8eb;
     padding: 2px;
     border-radius: 50%;
