@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Button from "./components/common/Button";
-import MetaMaskButton from "./components/MetaMaskButton";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
@@ -32,9 +30,6 @@ const App = () => {
 
   return (
     <>
-      <Button type="primary">Explore</Button>
-      <Button type="secondary">Create</Button>
-      <MetaMaskButton />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />

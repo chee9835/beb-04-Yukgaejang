@@ -55,6 +55,7 @@ const Container = styled.button`
   padding: 17px 24px;
   border-radius: 12px;
   font-size: 16px;
+  font-family: Poppins, sans-serif;
   cursor: pointer;
 
   ${({ size }) => getButtonSize(size)};
