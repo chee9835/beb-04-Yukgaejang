@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { store } from "../store";
+import { store } from "./store";
 import App from "./App";
-import GlobalStyle from "./styles/globalStyle";
+import GlobalStyle from "./styles/GlobalStyle";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
