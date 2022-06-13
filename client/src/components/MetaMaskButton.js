@@ -10,9 +10,7 @@ const Container = styled.button`
   all: unset;
   box-sizing: border-box;
   cursor: pointer;
-  padding: 10px;
   color: #424c55;
-
 `;
 
 const MetaMaskButton = () => {
@@ -27,7 +25,9 @@ const MetaMaskButton = () => {
     }
   };
 
-  return <Container onClick={onClickMetaMask}><MdOutlineAccountBalanceWallet color={'424c55'} size={'35px'}/></Container>;
+  return <Container onClick={onClickMetaMask}>
+    <MdOutlineAccountBalanceWallet color={'424c55'} size={'35px'} />
+  </Container>;
 };
 
 export default MetaMaskButton;

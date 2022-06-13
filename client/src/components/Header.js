@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import MetaMaskButton from "./MetaMaskButton";
+import {RiAccountCircleLine} from "react-icons/ri";
+import Input from "./common/Input";
 
 
 const Header = () => {
@@ -10,7 +12,7 @@ const Header = () => {
       background-color: #FFFFFF;
       height: 100px;
       align-items: center;
-      box-shadow: 5px 5px 5px  #e6e5e5;
+      box-shadow: 5px 5px 5px #e6e5e5;
 
     `
     const LogoImg = styled.div`
@@ -19,14 +21,20 @@ const Header = () => {
       margin-left: 10px;
       cursor: pointer;
     `
-
+    const MenusContainer = styled.section`
+      flex: 1;
+    `
     const Menus = styled.button`
       all: unset;
       color: #424c55;
       font-size: 20px;
-      margin: 10px;
+      margin: 20px;
       font-weight: 600;
       cursor: pointer;
+
+      &:hover {
+        color: #0c1822;
+      }
     `
 
     return (
@@ -35,11 +43,21 @@ const Header = () => {
                 <LogoImg>
                     <img src='/logo.png' alt={'로고'}/>
                 </LogoImg>
-                <Menus>Explore</Menus>
-                <Menus>Stats</Menus>
-                <Menus>Resources</Menus>
-                <Menus>Create</Menus>
-                <MetaMaskButton />
+                <div className="input-wrapper" >
+                    <Input
+                        type="search"
+                        placeholder="Search items, collections, and accounts"
+                        width="600"
+                    />
+                </div>
+                <MenusContainer>
+                    <Menus>Explore</Menus>
+                    <Menus>Stats</Menus>
+                    <Menus>Resources</Menus>
+                    <Menus>Create</Menus>
+                    <Menus><RiAccountCircleLine size={'35px'}/></Menus>
+                    <Menus><MetaMaskButton/></Menus>
+                </MenusContainer>
             </MainContainer>
         </div>
     );
