@@ -1,4 +1,5 @@
 import React from "react";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { metaMaskActions } from "../store/metaMaskSlice";
@@ -6,9 +7,14 @@ import { metaMaskActions } from "../store/metaMaskSlice";
 const Container = styled.div`
   width: 32px;
   height: 32px;
-  background-color: gray;
   border-radius: 50%;
   cursor: pointer;
+
+  .icon {
+    &:hover {
+      color: red;
+    }
+  }
 `;
 
 const MetaMaskButton = () => {
@@ -23,7 +29,11 @@ const MetaMaskButton = () => {
     }
   };
 
-  return <Container onClick={onClickMetaMask} />;
+  return (
+    <Container onClick={onClickMetaMask}>
+      <MdOutlineAccountBalanceWallet className="icon" size={"100px"} />
+    </Container>
+  );
 };
 
 export default MetaMaskButton;

@@ -30,7 +30,7 @@ const App = () => {
         }
 
         try {
-          const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
+          const web = new Web3(window.ethereum);
           dispatch(web3Actions.setWeb3(web));
         } catch (err) {
           console.log(err);
