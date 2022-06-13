@@ -24,7 +24,7 @@ const Container = styled.div`
   .name {
     text-align: center;
     font-weight: 500;
-    margin: ${({ author }) => (author ? "30px 0" : "47px 0")};
+    margin: ${({ author }) => (author ? "30px 0 10px" : "47px 0")};
     font-size: 16px;
   }
 

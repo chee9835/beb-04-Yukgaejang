@@ -44,6 +44,7 @@ const Container = styled.section`
   .tab-underline {
     width: 112px;
     height: 4px;
+    border-radius: 2px;
     background-color: #2081e2;
   }
 
