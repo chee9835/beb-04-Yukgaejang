@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-<<<<<<<<< Temporary merge branch 1
-=========
 import Button from "./components/common/Button";
 import Header from "./components/Header";
->>>>>>>>> Temporary merge branch 2
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
@@ -35,7 +32,7 @@ const App = () => {
         }
 
         try {
-          const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
+          const web = new Web3(window.ethereum);
           dispatch(web3Actions.setWeb3(web));
         } catch (err) {
           console.log(err);
@@ -47,13 +44,10 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-<<<<<<<<< Temporary merge branch 1
-=========
+      <>
       <Header />
       <Button type="primary">Explore</Button>
       <Button type="secondary">Create</Button>
->>>>>>>>> Temporary merge branch 2
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />

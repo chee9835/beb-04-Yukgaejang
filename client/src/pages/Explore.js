@@ -50,14 +50,15 @@ const Container = styled.section`
 
   .contents {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     padding: 40px;
+    justify-items: center;
     gap: 20px;
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (min-width: 720px) {
     .contents {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 `;
