@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+<<<<<<<<< Temporary merge branch 1
+=========
+import Button from "./components/common/Button";
+import Header from "./components/Header";
+>>>>>>>>> Temporary merge branch 2
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
@@ -43,6 +48,12 @@ const App = () => {
 
   return (
     <>
+<<<<<<<<< Temporary merge branch 1
+=========
+      <Header />
+      <Button type="primary">Explore</Button>
+      <Button type="secondary">Create</Button>
+>>>>>>>>> Temporary merge branch 2
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
