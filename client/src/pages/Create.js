@@ -11,7 +11,7 @@ const Create = () => {
     (state) => state.metaMask.metaMaskAddress
   );
 
-  const { addNewErc721Token } = useNFT({
+  const { erc721List, addNewErc721Token } = useNFT({
     newErc721addr,
     erc721Abi: "ERC721ABI",
     web3,
@@ -27,7 +27,11 @@ const Create = () => {
         <input type="text" onChange={onChangeTextInput} />
       </div>
       <button onClick={addNewErc721Token}>Add New erc721</button>
-      <TokenList web3={web3} account={metaMaskAddress} />;
+      <TokenList
+        web3={web3}
+        account={metaMaskAddress}
+        erc721List={erc721List}
+      />
     </>
   );
 };

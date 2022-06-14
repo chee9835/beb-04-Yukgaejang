@@ -11,8 +11,6 @@ import { web3Actions } from "./store/web3Slice";
 const App = () => {
   const web3 = useSelector((state) => state.web3.web3);
 
-  console.log(web3);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,6 +38,8 @@ const App = () => {
 
     checkMetaMask();
   }, [dispatch]);
+
+  console.log(`web3: ${web3}`);
 
   return (
     <>
