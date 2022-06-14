@@ -17,7 +17,6 @@ const Container = styled.div`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 199px;
-
     border-bottom: 1px solid #e5e8eb;
   }
 
@@ -62,7 +61,7 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: black;
+    background-color: white;
   }
 `;
 
