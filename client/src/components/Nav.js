@@ -1,52 +1,51 @@
 import React from 'react';
 import styled from "styled-components";
 import MetaMaskButton from "./MetaMaskButton";
-import {RiAccountCircleLine} from "react-icons/ri";
+import AccountButton from "./AccountButton";
+import {Link} from "react-router-dom";
 
+const MainContainer = styled.section`
+  display: flex;
+  min-width: 200px;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  align-items: center;
+`
 
+const MenusContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  margin-right: 40px;
+`
+const Menus = styled.button`
+  all: unset;
+  color: #424c55;
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: 30px;
+  cursor: pointer;
+
+  &:hover {
+    color: #0c1822;
+  }
+`
 const Nav = () => {
-    const MainContainer = styled.section`
-      display: flex;
-      width: 100%;
-      height: 100%;
-      background-color: #8d4242;
-      align-items: center;
-      box-shadow: 5px 5px 5px #e6e5e5;
 
-    `
-
-    const MenusContainer = styled.div`
-      flex: 1;
-      justify-content: flex-end;
-      text-align: right;
-    `
-    const Menus = styled.button`
-      all: unset;
-      color: #424c55;
-      font-size: 20px;
-      font-weight: 600;
-      margin-left: 20px;
-      margin-right: 20px;
-      cursor: pointer;
-      .text {
-      margin-bottom: 50px;
-    }
-
-      &:hover {
-        color: #0c1822;
-      }
-    `
 
     return (
         <div>
             <MainContainer>
                 <MenusContainer>
-                    <Menus>Explore</Menus>
+                    <Menus><Link to="/explore">Explore</Link></Menus>
                     <Menus>Stats</Menus>
                     <Menus>Resources</Menus>
-                    <Menus>Create</Menus>
-                    <Menus><RiAccountCircleLine font-size={'30px'} /></Menus>
-                    <Menus><MetaMaskButton/></Menus>
+                    <Menus> <Link to="/create">Create</Link></Menus>
+                    <div className='icon-wrapper'>
+                        <Menus><AccountButton/></Menus>
+                        <Menus><MetaMaskButton/></Menus>
+                    </div>
                 </MenusContainer>
             </MainContainer>
         </div>
