@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MetaMaskButton from "./MetaMaskButton";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
-import Nav from "./Nav";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const Header = () => {
   const [showInput, setShowInput] = useState(false);
@@ -81,6 +80,7 @@ const Header = () => {
     text-align: right;
     margin-left: 20px;
   `;
+
   const Menus = styled.button`
     all: unset;
     color: #424c55;
@@ -118,7 +118,7 @@ const Header = () => {
             <RiAccountCircleLine className="account" font-size={"35px"} />
           </Menus>
           <Menus>
-            <MetaMaskButton className="wallet" />
+            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
           </Menus>
           <Menus>
             <AiOutlineSearch

@@ -5,9 +5,9 @@ import Header from "./components/Header";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
-import { metaMaskActions } from "./store/metaMaskSlice";
 import Web3 from "web3";
 import { web3Actions } from "./store/web3Slice";
+import Login from "./pages/Login";
 
 const App = () => {
   const web3 = useSelector((state) => state.web3.web3);
@@ -15,40 +15,26 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const checkMetaMask = async () => {
-      if (typeof window.ethereum !== "undefined") {
-        const res = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
+    if (!window.ethereum) return;
 
-        const metaMaskAddress = res[0];
-        console.log(metaMaskAddress);
-
-        if (metaMaskAddress) {
-          dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAddress));
-        }
-
-        try {
-          const web = new Web3(window.ethereum);
-          dispatch(web3Actions.setWeb3(web));
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    };
-
-    checkMetaMask();
+    try {
+      const web = new Web3(window.ethereum);
+      dispatch(web3Actions.setWeb3(web));
+    } catch (err) {
+      console.log(err);
+    }
   }, [dispatch]);
 
   console.log(`web3: ${web3}`);
 
   return (
-      <>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<Create />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

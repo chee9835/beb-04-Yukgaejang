@@ -4,7 +4,7 @@ import Textarea from "../components/common/Textarea";
 const Create = () => {
   return (
     <>
-      <Textarea />
+      <Textarea placeholder="Provide a detail" />
     </>
   );
 };
