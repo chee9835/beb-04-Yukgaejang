@@ -1,12 +1,11 @@
 // no license
 pragma solidity ^0.8.7;
 
-//RemixIDE에서 ABI,Bytecode만 뽑아오기
-
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
 
 contract YGJ is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
@@ -25,6 +24,10 @@ contract YGJ is ERC721URIStorage, Ownable {
         _setTokenURI(newItemId, tokenURI);
 
         return newItemId;
+    }
+
+    function totalSupply() public view returns(uint256) {
+        return _tokenIds.current();
     }
 
     // function buy {
