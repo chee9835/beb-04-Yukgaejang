@@ -15,13 +15,13 @@ const useNFT = ({ newErc721addr, erc721Abi, web3 }) => {
     const totalSupply = await tokenContract.methods.totalSupply().call();
 
     const arr = Array(totalSupply)
-      .fill(null)
+      .fill(0)
       .map((_, index) => index + 1);
 
     for (let tokenId of arr) {
       let tokenOwner = await tokenContract.methods.ownerOf(tokenId).call();
 
-      // ACCOUNT??
+      // ACCOUNT: metamask address
       if (String(tokenOwner).toLowerCase() === "ACCOUNT") {
         let tokenURI = await tokenContract.methods.tokenURI(tokenId).call();
         setErc721List((Erc721List) => [
@@ -30,11 +30,9 @@ const useNFT = ({ newErc721addr, erc721Abi, web3 }) => {
         ]);
       }
     }
-
-    return erc721List;
   };
 
-  return { addNewErc721Token };
+  return { erc721List, addNewErc721Token };
 };
 
 export default useNFT;

@@ -5,6 +5,7 @@ const globalStyle = css`
   ${reset};
   * {
     box-sizing: border-box;
+    font-family: Poppins, sans-serif;
   }
 
   body {
@@ -13,11 +14,18 @@ const globalStyle = css`
 
   a {
     text-decoration: none;
+    &:visited {
+      color: #424c55;
+    }
+    &:hover {
+      color: #0c1822;
+    }
   }
 `;
 
 const GlobalStyle = createGlobalStyle`
     ${globalStyle};
+    
 `;
 
 export default GlobalStyle;
