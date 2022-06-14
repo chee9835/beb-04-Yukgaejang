@@ -13,11 +13,18 @@ const globalStyle = css`
 
   a {
     text-decoration: none;
+    &:visited {
+      color: #424c55;
+    }
+    &:hover {
+      color: #0c1822;
+    }
   }
 `;
 
 const GlobalStyle = createGlobalStyle`
     ${globalStyle};
+    
 `;
 
 export default GlobalStyle;
