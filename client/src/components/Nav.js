@@ -39,10 +39,9 @@ const Nav = () => {
           <Menus>
             <Link to="/explore">Explore</Link>
           </Menus>
-          <Menus>Stats</Menus>
-          <Menus>Resources</Menus>
+          {/*<Menus>Stats</Menus>*/}
+          {/*<Menus>Resources</Menus>*/}
           <Menus>
-            {" "}
             <Link to="/create">Create</Link>
           </Menus>
           <div className="icon-wrapper">
