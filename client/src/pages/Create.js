@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import TokenList from "../components/TokenList";
 import useNFT from "../hooks/useNFT";
+import Input from "../components/common/Input";
 
 const Create = () => {
     const [newErc721addr, setNewErc721Addr] = useState();

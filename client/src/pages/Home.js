@@ -80,7 +80,7 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: 1200px) {
     flex-direction: row;
 
     padding: 40px 0;
