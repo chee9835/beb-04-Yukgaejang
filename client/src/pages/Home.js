@@ -4,6 +4,7 @@ import Button from "../components/common/Button";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import HomeCard from "../components/HomeCard";
 
 const Container = styled.div`
   display: flex;
@@ -59,13 +60,6 @@ const Container = styled.div`
 
   .play-circle {
     color: #2081e2;
-  }
-
-  .card {
-    width: 355px;
-    height: 299px;
-    background-color: #999999;
-    border-radius: 10px;
   }
 
   .mobile-learn-more-wrapper {
@@ -142,13 +136,6 @@ const Container = styled.div`
       color: #2081e2;
     }
 
-    .card {
-      width: 550px;
-      height: 419px;
-      background-color: #999999;
-      border-radius: 10px;
-    }
-
     .mobile-learn-more-wrapper {
       display: none;
     }
@@ -197,7 +184,7 @@ const Home = () => {
             <div className="learn-more">Learn more about OpenSea</div>
           </div>
         </div>
-        <div className="card"></div>
+        <HomeCard />
         <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
           <AiFillPlayCircle className="play-circle" size={"20px"} />
           <div className="learn-more">Learn more about OpenSea</div>
