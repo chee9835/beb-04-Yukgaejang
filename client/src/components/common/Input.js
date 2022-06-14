@@ -13,7 +13,7 @@ const Container = styled.div`
   padding: ${({ type }) => (type === "search" ? "0 10px" : "0 10px 0 0")};
 
   &:focus-within {
-    box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.1);
     transition: 0.2s ease;
   }
 

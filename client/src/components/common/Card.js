@@ -9,7 +9,7 @@ const Container = styled.div`
   position: relative;
 
   &:hover {
-    box-shadow: rgb(0 0 0 / 10%) 0px 2px 15px;
+    box-shadow: rgb(0 0 0 / 10%) 0 2px 15px;
     transition: 0.2s ease;
   }
 

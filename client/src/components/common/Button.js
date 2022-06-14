@@ -35,7 +35,7 @@ const getButtonType = (type) => {
         color: #2081e2;
         border: 2px solid #e5e8eb;
         &:hover {
-          box-shadow: rgb(0 0 0 / 10%) 0px 2px 10px;
+          box-shadow: rgb(0 0 0 / 10%) 0 2px 10px;
           transition: 0.2s ease;
         }
       `;
