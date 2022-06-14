@@ -25,10 +25,14 @@ const Container = styled.div`
   .contents {
     display: flex;
     justify-content: space-between;
-    height: 74px;
+    height: 75px;
     align-items: center;
     font-size: 14px;
     padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? "white" : "#303339"};
   }
 
   .profile-image-text-wrapper {

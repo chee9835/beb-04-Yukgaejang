@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Textarea from "../components/common/Textarea";
 import Input from "../components/common/Input";
 import ImgInput from "../components/common/ImgInput";
 import Button from "../components/common/Button";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  padding: 50px;
-  margin: 0 50px;
+  padding: 50px 100px;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
 
   .container-paper {
     display: flex;
@@ -60,60 +61,68 @@ const Container = styled.div`
     padding: 0 20%;
   }
 
-`
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .heading {
+        color: white;
+      }
+
+      .content-title {
+        color: white;
+      }
+    `}
+`;
 const Create = () => {
-    const [img, setImg] = useState('')
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+  const [img, setImg] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
+  return (
+    <>
+      <Container>
+        <div className="container-paper">
+          <div className="heading-wrapper">
+            <h1 className="heading">Create New Item</h1>
+          </div>
+          <div className="content-wrapper">
+            <span className="required">*</span>
+            <span className="content-description">Required fields</span>
+          </div>
+          <div className="content-wrapper">
+            <span className="content-title">
+              Image, Video, Audio, or 3D Model
+            </span>
+            <span className="required">*</span>
+            <p className="content-description">
+              File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV,
+              OGG, GLB, GLTF. Max size: 100 MB
+            </p>
+            <ImgInput />
+          </div>
+          <div className="content-wrapper">
+            <span className="content-title">Name</span>
+            <span className="required">*</span>
+            <p className="content-description" />
+            <Input type="common" placeholder="Item name" />
+          </div>
+          <div className="content-wrapper">
+            <span className="content-title">Description</span>
+            <p className="content-description">
+              The description will be included on the item's detail page
+              underneath its image. Markdown syntax is supported.
+            </p>
+            <Textarea placeholder="Provide a detailed description of your item" />
+          </div>
 
-    return (
-        <>
-            <Container>
-                <div className='container-paper'>
-                    <div className="heading-wrapper">
-                        <h1 className="heading">Create New Item</h1>
-                    </div>
-                    <div className="content-wrapper">
-                        <span className="required">*</span>
-                        <span className="content-description">Required fields</span>
-                    </div>
-                    <div className="content-wrapper">
-                        <span className="content-title">
-                            Image, Video, Audio, or 3D Model
-                        </span>
-                        <span className="required">*</span>
-                        <p className="content-description">
-                            File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100
-                            MB
-                        </p>
-                        <ImgInput />
-                    </div>
-                    <div className="content-wrapper">
-                        <span className="content-title">
-                            Name
-                        </span>
-                        <span className="required">*</span>
-                        <p className="content-description"/>
-                        <Input placeholder="Item name"/>
-                    </div>
-                    <div className="content-wrapper">
-                        <span className="content-title">
-                            Description
-                        </span>
-                        <p className="content-description">
-                            The description will be included on the item's detail page underneath its image. Markdown
-                            syntax is supported.
-                        </p>
-                        <Textarea placeholder="Provide a detailed description of your item"/>
-                    </div>
-
-                    <br />
-                    <Button className='button'>Create</Button>
-                </div>
-            </Container>
-        </>
-    );
+          <br />
+          <Button type="primary" size="small">
+            Create
+          </Button>
+        </div>
+      </Container>
+    </>
+  );
 };
 
 export default Create;

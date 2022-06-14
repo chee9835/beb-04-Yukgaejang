@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Button from "../components/common/Button";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import HomeCard from "../components/HomeCard";
+import { useDispatch } from "react-redux";
+import { themeActions } from "../store/themeSlice";
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +14,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 0;
+
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.background};
 
   .title {
     display: flex;
@@ -74,9 +79,18 @@ const Container = styled.div`
     }
   }
 
+  .toggle-theme-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gray;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+
   @media screen and (min-width: 1200px) {
     flex-direction: row;
-
     padding: 40px 0;
     gap: 60px;
 
@@ -140,9 +154,19 @@ const Container = styled.div`
       display: none;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .description {
+        color: #8a939b;
+      }
+    `}
 `;
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const bottomRef = useRef();
 
   const onClickLearnMore = () => {
@@ -151,6 +175,10 @@ const Home = () => {
       block: "end",
       inline: "nearest",
     });
+  };
+
+  const onClickToggleTheme = () => {
+    dispatch(themeActions.toggleThemeMode());
   };
 
   return (
@@ -189,6 +217,7 @@ const Home = () => {
           <AiFillPlayCircle className="play-circle" size={"20px"} />
           <div className="learn-more">Learn more about OpenSea</div>
         </div>
+        <div className="toggle-theme-button" onClick={onClickToggleTheme} />
       </Container>
       <Footer />
       <div className="scroll-to-bottom" ref={bottomRef} />

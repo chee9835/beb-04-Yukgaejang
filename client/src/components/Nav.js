@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import { Link } from "react-router-dom";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
@@ -9,8 +9,14 @@ const MainContainer = styled.section`
   min-width: 200px;
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: white;
   align-items: center;
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #05111d;
+    `}
 `;
 
 const MenusContainer = styled.div`
@@ -19,6 +25,7 @@ const MenusContainer = styled.div`
   text-align: right;
   margin-right: 40px;
 `;
+
 const Menus = styled.button`
   all: unset;
   color: #424c55;
@@ -30,6 +37,20 @@ const Menus = styled.button`
   &:hover {
     color: #0c1822;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      color: #cbcbcb;
+
+      .link {
+        color: #cbcbcb;
+
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 const Nav = () => {
   return (
@@ -37,16 +58,20 @@ const Nav = () => {
       <MainContainer>
         <MenusContainer>
           <Menus>
-            <Link to="/explore">Explore</Link>
+            <Link className="link" to="/explore">
+              Explore
+            </Link>
           </Menus>
           {/*<Menus>Stats</Menus>*/}
           {/*<Menus>Resources</Menus>*/}
           <Menus>
-            <Link to="/create">Create</Link>
+            <Link className="link" to="/create">
+              Create
+            </Link>
           </Menus>
           <div className="icon-wrapper">
             <Menus>
-              <AccountButton />
+              <AccountButton className="icon" />
             </Menus>
             <Menus>
               <MdOutlineAccountBalanceWallet className="icon" size="35px" />
