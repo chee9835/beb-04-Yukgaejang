@@ -127,15 +127,15 @@ const Container = styled.div`
       align-items: center;
       gap: 5px;
       cursor: pointer;
-
-      &:hover {
-        color: #1868b7;
-      }
     }
 
     .learn-more {
       color: #2081e2;
       font-weight: 600;
+
+      &:hover {
+        color: #1868b7;
+      }
     }
 
     .play-circle {
