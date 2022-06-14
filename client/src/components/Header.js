@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MetaMaskButton from "./MetaMaskButton";
 import AccountButton from "./AccountButton";
 import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const MainContainer = styled.section`
   display: flex;
@@ -114,15 +114,15 @@ const MainContainer = styled.section`
     .nav {
       display: revert;
     }
-
   }
-
 `;
+
 const MenusContainer = styled.div`
   justify-content: flex-end;
   text-align: right;
   margin-left: 20px;
 `;
+
 const Menus = styled.button`
   all: unset;
   color: #424c55;
@@ -152,7 +152,7 @@ const Header = () => {
       <MainContainer>
         <div className="logo-wrapper">
           <Link to="/">
-            <img src="/logo.png" alt={"로고"} />
+            <img src="/logo.png" alt="로고" />
           </Link>
         </div>
         {/*{showInput ?*/}
@@ -168,13 +168,13 @@ const Header = () => {
             <AccountButton />
           </Menus>
           <Menus className="wallet">
-            <MetaMaskButton />
+            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
           </Menus>
           <Menus className="search">
-            <AiOutlineSearch onClick={handleInput} size={"30px"} />
+            <AiOutlineSearch onClick={handleInput} size="30px" />
           </Menus>
           <Menus className="menu">
-            <AiOutlineMenu size={"30px"} />
+            <AiOutlineMenu size="30px" />
           </Menus>
           <div className="nav">
             <Nav />
