@@ -4,6 +4,7 @@ import Input from "../components/common/Input";
 import ImgInput from "../components/common/ImgInput";
 import Button from "../components/common/Button";
 import styled from "styled-components";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -29,6 +30,12 @@ const Container = styled.div`
   .required {
     color: red;
     padding: 0 2px;
+  }
+
+  .validation-check {
+    color: #e95656;
+    padding: 10px;
+    text-shadow: 0.1px 0.1px 0.1px whitesmoke;
   }
 
   .content-wrapper {
@@ -66,6 +73,16 @@ const Create = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
 
+    const [verified, setVerified] = useState(false);
+
+    const handleValidation = () => {
+        if(name === '') {
+            setVerified(true);
+        } else {
+            setVerified(false);
+        }
+
+    }
 
     return (
         <>
@@ -87,7 +104,8 @@ const Create = () => {
                             File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100
                             MB
                         </p>
-                        <ImgInput />
+                        <ImgInput onChange={(e) => {
+                            setImg(e.target.files[0])}}/>
                     </div>
                     <div className="content-wrapper">
                         <span className="content-title">
@@ -95,7 +113,14 @@ const Create = () => {
                         </span>
                         <span className="required">*</span>
                         <p className="content-description"/>
-                        <Input placeholder="Item name"/>
+                        <Input
+                            placeholder="Item name"
+                            onChange={(e) => setName(e.target.value)}
+                            validated={verified}
+                            onBlur={handleValidation}/>
+                        { !verified ?
+                            <p className="validation-check"><AiOutlineClose/>This field is required.</p>
+                            : null }
                     </div>
                     <div className="content-wrapper">
                         <span className="content-title">
@@ -105,11 +130,16 @@ const Create = () => {
                             The description will be included on the item's detail page underneath its image. Markdown
                             syntax is supported.
                         </p>
-                        <Textarea placeholder="Provide a detailed description of your item"/>
+                        <Textarea
+                            placeholder="Provide a detailed description of your item"
+                            onChange={(e) => setDescription(e.target.value)}/>
                     </div>
-
                     <br />
-                    <Button className='button'>Create</Button>
+                    <Button
+                        className='button'
+                        disabled={img === '' || name === ''} >
+                        Create
+                    </Button>
                 </div>
             </Container>
         </>
