@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import styled from "styled-components";
-import MetaMaskButton from "./MetaMaskButton";
 import AccountButton from "./AccountButton";
-import {AiOutlineSearch} from "react-icons/ai";
-import {AiOutlineMenu} from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const MainContainer = styled.section`
   display: flex;
@@ -114,15 +114,15 @@ const MainContainer = styled.section`
     .nav {
       display: revert;
     }
-
   }
+`;
 
-`
 const MenusContainer = styled.div`
   justify-content: flex-end;
   text-align: right;
   margin-left: 20px;
-`
+`;
+
 const Menus = styled.button`
   all: unset;
   color: #424c55;
@@ -138,41 +138,51 @@ const Menus = styled.button`
   &:hover {
     color: #0c1822;
   }
-`
+`;
 
 const Header = () => {
-    const [showInput, setShowInput] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
-    const handleInput = () => {
-        setShowInput(!showInput)
-    }
+  const handleInput = () => {
+    setShowInput(!showInput);
+  };
 
-    return (
-        <div>
-            <MainContainer>
-                <div className="logo-wrapper">
-                    <Link to="/">
-                        <img src='/logo.png' alt={'로고'}/>
-                    </Link>
-                </div>
-                {/*{showInput ?*/}
-                <div className="input-wrapper">
-                    <Input
-                        type="search"
-                        placeholder="Search items, collections, and accounts"
-                    />
-                </div>
-                {/*: null}*/}
-                <MenusContainer>
-                    <Menus className='account'><AccountButton/></Menus>
-                    <Menus className='wallet'><MetaMaskButton/></Menus>
-                    <Menus className='search'><AiOutlineSearch onClick={handleInput} size={'30px'}/></Menus>
-                    <Menus className='menu'><AiOutlineMenu size={'30px'}/></Menus>
-                    <div className='nav'><Nav/></div>
-                </MenusContainer>
-            </MainContainer>
+  return (
+    <div>
+      <MainContainer>
+        <div className="logo-wrapper">
+          <Link to="/">
+            <img src="/logo.png" alt="로고" />
+          </Link>
         </div>
-    );
+        {/*{showInput ?*/}
+        <div className="input-wrapper">
+          <Input
+            type="search"
+            placeholder="Search items, collections, and accounts"
+          />
+        </div>
+        {/*: null}*/}
+        <MenusContainer>
+          <Menus className="account">
+            <AccountButton />
+          </Menus>
+          <Menus className="wallet">
+            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
+          </Menus>
+          <Menus className="search">
+            <AiOutlineSearch onClick={handleInput} size="30px" />
+          </Menus>
+          <Menus className="menu">
+            <AiOutlineMenu size="30px" />
+          </Menus>
+          <div className="nav">
+            <Nav />
+          </div>
+        </MenusContainer>
+      </MainContainer>
+    </div>
+  );
 };
 
 export default Header;

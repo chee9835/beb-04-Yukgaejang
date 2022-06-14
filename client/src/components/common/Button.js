@@ -59,14 +59,21 @@ const Container = styled.button`
   font-weight: 600;
   cursor: pointer;
 
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: default;
+      opacity: 0.4;
+    `}
+
   ${({ size }) => getButtonSize(size)};
 
-  ${({ type }) => getButtonType(type)}
+  ${({ type }) => getButtonType(type)};
 `;
 
-const Button = ({ type, size, children, ...props }) => {
+const Button = ({ disabled, type, size, children, ...props }) => {
   return (
-    <Container type={type} size={size} {...props}>
+    <Container disabled={disabled} type={type} size={size} {...props}>
       {children}
     </Container>
   );
