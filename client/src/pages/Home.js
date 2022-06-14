@@ -4,6 +4,7 @@ import Button from "../components/common/Button";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import HomeCard from "../components/HomeCard";
 
 const Container = styled.div`
   display: flex;
@@ -59,13 +60,6 @@ const Container = styled.div`
 
   .play-circle {
     color: #2081e2;
-  }
-
-  .card {
-    width: 355px;
-    height: 299px;
-    background-color: #999999;
-    border-radius: 10px;
   }
 
   .mobile-learn-more-wrapper {
@@ -127,26 +121,19 @@ const Container = styled.div`
       align-items: center;
       gap: 5px;
       cursor: pointer;
+    }
+
+    .learn-more {
+      color: #2081e2;
+      font-weight: 600;
 
       &:hover {
         color: #1868b7;
       }
     }
 
-    .learn-more {
-      color: #2081e2;
-      font-weight: 600;
-    }
-
     .play-circle {
       color: #2081e2;
-    }
-
-    .card {
-      width: 550px;
-      height: 419px;
-      background-color: #999999;
-      border-radius: 10px;
     }
 
     .mobile-learn-more-wrapper {
@@ -156,57 +143,57 @@ const Container = styled.div`
 `;
 
 const Home = () => {
-    const bottomRef = useRef();
+  const bottomRef = useRef();
 
-    const onClickLearnMore = () => {
-        bottomRef?.current.scrollIntoView({
-            behavior: "smooth",
-            block: "end",
-            inline: "nearest",
-        });
-    };
+  const onClickLearnMore = () => {
+    bottomRef?.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
 
-    return (
-        <>
-            <Container>
-                <div className="title">
-                    <div className="heading-wrapper">
-                        <h1 className="heading">
-                            Discover, collect, and sell extraordinary NFTs
-                        </h1>
-                    </div>
-                    <div className="description-wrapper">
-                        <p className="description">
-                            OpenSea is the world's first and largest NFT marketplace
-                        </p>
-                    </div>
-                    <div className="buttons-wrapper">
-                        <Link to="/explore">
-                            <Button className="button" type="primary">
-                                Explore
-                            </Button>
-                        </Link>
-                        <Link to="/create">
-                            <Button className="button" type="secondary">
-                                Create
-                            </Button>
-                        </Link>
-                    </div>
-                    <div className="learn-more-wrapper" onClick={onClickLearnMore}>
-                        <AiFillPlayCircle className="play-circle" size={"20px"} />
-                        <div className="learn-more">Learn more about OpenSea</div>
-                    </div>
-                </div>
-                <div className="card"></div>
-                <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
-                    <AiFillPlayCircle className="play-circle" size={"20px"} />
-                    <div className="learn-more">Learn more about OpenSea</div>
-                </div>
-            </Container>
-            <Footer />
-            <div className="scroll-to-bottom" ref={bottomRef} />
-        </>
-    );
+  return (
+    <>
+      <Container>
+        <div className="title">
+          <div className="heading-wrapper">
+            <h1 className="heading">
+              Discover, collect, and sell extraordinary NFTs
+            </h1>
+          </div>
+          <div className="description-wrapper">
+            <p className="description">
+              OpenSea is the world's first and largest NFT marketplace
+            </p>
+          </div>
+          <div className="buttons-wrapper">
+            <Link to="/explore">
+              <Button className="button" type="primary">
+                Explore
+              </Button>
+            </Link>
+            <Link to="/create">
+              <Button className="button" type="secondary">
+                Create
+              </Button>
+            </Link>
+          </div>
+          <div className="learn-more-wrapper" onClick={onClickLearnMore}>
+            <AiFillPlayCircle className="play-circle" size={"20px"} />
+            <div className="learn-more">Learn more about OpenSea</div>
+          </div>
+        </div>
+        <HomeCard />
+        <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
+          <AiFillPlayCircle className="play-circle" size={"20px"} />
+          <div className="learn-more">Learn more about OpenSea</div>
+        </div>
+      </Container>
+      <Footer />
+      <div className="scroll-to-bottom" ref={bottomRef} />
+    </>
+  );
 };
 
 export default Home;

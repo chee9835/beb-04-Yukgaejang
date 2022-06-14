@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import Card from "../components/common/Card";
+import CardSkeleton from "../components/skeletons/CardSkeleton";
+
+const FAKE_ARRAY = Array(6).fill(0);
 
 const DESCRIPTION_PLACEHOLDER =
   'Autoglyphs are the first "on-chain generative art on the Ethereum blockchain. A completely self-con...';
@@ -56,6 +59,17 @@ const Container = styled.section`
     gap: 20px;
   }
 
+  .loading {
+    width: 100%;
+    height: 600px;
+    background-color: gray;
+  }
+
+  .observer {
+    border: 3px solid black;
+    display: ${({ showObserver }) => (showObserver ? "default" : "none")};
+  }
+
   @media screen and (min-width: 720px) {
     .contents {
       grid-template-columns: 1fr 1fr 1fr;
@@ -65,8 +79,44 @@ const Container = styled.section`
 //여긴 그냥 크립토 펑크 가져오기
 //DB 구축
 const Explore = () => {
+  const [fakeArray, setFakeArray] = useState(FAKE_ARRAY);
+  const [loading, setLoading] = useState(false);
+  const [showObserver, setShowObserver] = useState(true);
+
+  const targetRef = useRef();
+
+  const observer = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      if (!targetRef?.current) return;
+
+      if (entries[0].isIntersecting) {
+        console.log("intersection observer triggered");
+        const newFakeArray = Array(6).fill(0);
+
+        setLoading(true);
+        setShowObserver(false);
+
+        setTimeout(() => {
+          setFakeArray((fakeArray) => [...fakeArray, ...newFakeArray]);
+          setLoading(false);
+          setShowObserver(true);
+        }, 3000);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!targetRef?.current) return;
+
+    observer.observe(targetRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [observer]);
+
   return (
-    <Container>
+    <Container showObserver={showObserver}>
       <div className="header" />
       <div className="heading-wrapper">
         <h1 className="heading">Explore Collections</h1>
@@ -78,17 +128,20 @@ const Explore = () => {
         </div>
       </div>
       <div className="contents">
-        <Card
-          name="Autoglyphs"
-          description={DESCRIPTION_PLACEHOLDER}
-          author="NeoHuntersSolana"
-        />
-        <Card name="Autoglyphs" description={DESCRIPTION_PLACEHOLDER} />
-        <Card name="Autoglyphs" description={DESCRIPTION_PLACEHOLDER} />
-        <Card name="Autoglyphs" description={DESCRIPTION_PLACEHOLDER} />
-        <Card name="Autoglyphs" description={DESCRIPTION_PLACEHOLDER} />
-        <Card name="Autoglyphs" description={DESCRIPTION_PLACEHOLDER} />
+        {fakeArray.map((_, index) => (
+          <Card
+            key={index}
+            name="Autoglyphs"
+            description={DESCRIPTION_PLACEHOLDER}
+            author="NeoHuntersSolana"
+          />
+        ))}
+        {loading &&
+          Array(3)
+            .fill(0)
+            .map((_, index) => <CardSkeleton key={index} />)}
       </div>
+      <div className="observer" ref={targetRef} />
     </Container>
   );
 };
