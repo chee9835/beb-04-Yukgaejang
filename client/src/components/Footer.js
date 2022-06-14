@@ -78,7 +78,7 @@ const Container = styled.footer`
     }
   }
 
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: 1200px) {
     .footer-sub {
       height: 100px;
     }
