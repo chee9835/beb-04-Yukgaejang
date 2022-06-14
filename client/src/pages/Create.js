@@ -73,13 +73,13 @@ const Create = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
 
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(true);
 
     const handleValidation = () => {
         if(name === '') {
-            setVerified(true);
-        } else {
             setVerified(false);
+        } else {
+            setVerified(true);
         }
 
     }
