@@ -33,7 +33,7 @@ const Container = styled.div`
   }
 `;
 
-const Input = ({type, value, width, placeholder, validated, ...props}) => {
+const Input = ({type, value, width, placeholder, validated=true, ...props}) => {
     return (
         <Container validated={validated} type={type} width={width}>
             {type === "search" && <AiOutlineSearch size={"25px"} color={"#707A83"}/>}
