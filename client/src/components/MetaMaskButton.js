@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { metaMaskActions } from "../store/metaMaskSlice";
-import {MdOutlineAccountBalanceWallet} from 'react-icons/md'
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const Container = styled.div`
   width: 32px;
@@ -25,12 +25,15 @@ const MetaMaskButton = () => {
         method: "eth_requestAccounts",
       });
       dispatch(metaMaskActions.setMetaMaskAddress(res[0]));
+      console.log(res[0]);
     }
   };
 
-  return <Container onClick={onClickMetaMask}>
-    <MdOutlineAccountBalanceWallet className='icon' size={'35px'} />
-  </Container>;
+  return (
+    <Container onClick={onClickMetaMask}>
+      <MdOutlineAccountBalanceWallet className="icon" size={"35px"} />
+    </Container>
+  );
 };
 
 export default MetaMaskButton;

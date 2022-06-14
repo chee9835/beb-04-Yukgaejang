@@ -156,57 +156,57 @@ const Container = styled.div`
 `;
 
 const Home = () => {
-    const bottomRef = useRef();
+  const bottomRef = useRef();
 
-    const onClickLearnMore = () => {
-        bottomRef?.current.scrollIntoView({
-            behavior: "smooth",
-            block: "end",
-            inline: "nearest",
-        });
-    };
+  const onClickLearnMore = () => {
+    bottomRef?.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
 
-    return (
-        <>
-            <Container>
-                <div className="title">
-                    <div className="heading-wrapper">
-                        <h1 className="heading">
-                            Discover, collect, and sell extraordinary NFTs
-                        </h1>
-                    </div>
-                    <div className="description-wrapper">
-                        <p className="description">
-                            OpenSea is the world's first and largest NFT marketplace
-                        </p>
-                    </div>
-                    <div className="buttons-wrapper">
-                        <Link to="/explore">
-                            <Button className="button" type="primary">
-                                Explore
-                            </Button>
-                        </Link>
-                        <Link to="/create">
-                            <Button className="button" type="secondary">
-                                Create
-                            </Button>
-                        </Link>
-                    </div>
-                    <div className="learn-more-wrapper" onClick={onClickLearnMore}>
-                        <AiFillPlayCircle className="play-circle" size={"20px"} />
-                        <div className="learn-more">Learn more about OpenSea</div>
-                    </div>
-                </div>
-                <div className="card"></div>
-                <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
-                    <AiFillPlayCircle className="play-circle" size={"20px"} />
-                    <div className="learn-more">Learn more about OpenSea</div>
-                </div>
-            </Container>
-            <Footer />
-            <div className="scroll-to-bottom" ref={bottomRef} />
-        </>
-    );
+  return (
+    <>
+      <Container>
+        <div className="title">
+          <div className="heading-wrapper">
+            <h1 className="heading">
+              Discover, collect, and sell extraordinary NFTs
+            </h1>
+          </div>
+          <div className="description-wrapper">
+            <p className="description">
+              OpenSea is the world's first and largest NFT marketplace
+            </p>
+          </div>
+          <div className="buttons-wrapper">
+            <Link to="/explore">
+              <Button className="button" type="primary">
+                Explore
+              </Button>
+            </Link>
+            <Link to="/create">
+              <Button className="button" type="secondary">
+                Create
+              </Button>
+            </Link>
+          </div>
+          <div className="learn-more-wrapper" onClick={onClickLearnMore}>
+            <AiFillPlayCircle className="play-circle" size={"20px"} />
+            <div className="learn-more">Learn more about OpenSea</div>
+          </div>
+        </div>
+        <div className="card"></div>
+        <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
+          <AiFillPlayCircle className="play-circle" size={"20px"} />
+          <div className="learn-more">Learn more about OpenSea</div>
+        </div>
+      </Container>
+      <Footer />
+      <div className="scroll-to-bottom" ref={bottomRef} />
+    </>
+  );
 };
 
 export default Home;

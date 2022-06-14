@@ -15,7 +15,7 @@ const useNFT = ({ newErc721addr, erc721Abi, web3 }) => {
     const totalSupply = await tokenContract.methods.totalSupply().call();
 
     const arr = Array(totalSupply)
-      .fill(null)
+      .fill(0)
       .map((_, index) => index + 1);
 
     for (let tokenId of arr) {
