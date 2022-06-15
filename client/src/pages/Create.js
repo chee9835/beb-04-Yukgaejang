@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import { create } from "ipfs-http-client";
 import nftABI from "../db/testABI.json";
-const Contract = require("web3-eth-contract");
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -94,6 +94,8 @@ const Create = () => {
   );
   const client = create("https://ipfs.infura.io:5001/api/v0");
 
+  const web3 = useSelector((state) => state.web3.web3);
+
   async function getImageUri(e) {
     const file = e.target.files[0];
     try {
@@ -138,10 +140,14 @@ const Create = () => {
       console.log(NFTUri);
       const abi = nftABI;
       const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
-      Contract.setProvider(
+      web3.eth.Contract.setProvider(
         "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
       );
-      window.contract = new Contract(abi, address);
+
+      // Contract.setProvider(
+      //   "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
+      // );
+      window.contract = new web3.eth.Contract(abi, address);
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.

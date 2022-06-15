@@ -7,7 +7,7 @@ import themeSlice from "./themeSlice";
 import web3Slice from "./web3Slice";
 
 const serializableMiddleware = createSerializableStateInvariantMiddleware({
-  getEntries: () => ["web3", "theme"],
+  getEntries: () => ["web3"],
 });
 
 export const store = configureStore({

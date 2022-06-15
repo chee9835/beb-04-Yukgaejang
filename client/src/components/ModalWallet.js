@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
-import {RiAccountCircleFill} from "react-icons/ri";
+import { RiAccountCircleFill } from "react-icons/ri";
 
 const Background = styled.section`
   position: fixed;
@@ -14,12 +14,12 @@ const Background = styled.section`
   flex-direction: column;
   text-align: left;
   align-items: end;
-`
+`;
 const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
   animation: 1s ease-in 1s infinite reverse both running slidein;
-`
+`;
 
 const TitleContainer = styled.div`
   width: 400px;
@@ -36,7 +36,7 @@ const TitleContainer = styled.div`
     padding: 20px;
     border-bottom: 1px solid #e3e6e9;
   }
-  
+
   .title-wrapper-left {
     display: flex;
     flex: 1;
@@ -49,7 +49,7 @@ const TitleContainer = styled.div`
     font-weight: 600;
     text-align: left;
   }
-`
+`;
 const ContentContainer = styled.div`
   width: 400px;
   height: 100%;
@@ -81,7 +81,6 @@ const ContentContainer = styled.div`
     gap: 10px;
     border: 1px solid #e5e8eb;
     border-radius: 10px 10px 0 0;
-
   }
 
   .total {
@@ -113,51 +112,48 @@ const ContentContainer = styled.div`
       transition: 0.2s ease;
       opacity: 0.8;
     }
-
   }
-
-
-`
+`;
 const ModalWallet = () => {
-    const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
-    const {loginWithMetaMask} = useMetaMask();
+  const { loginWithMetaMask } = useMetaMask();
 
-    const onClickMetaMask = () => {
-        setDisabled(true);
+  const onClickMetaMask = () => {
+    setDisabled(true);
 
-        loginWithMetaMask();
+    loginWithMetaMask();
 
-        // 로그인에 성공하면 리다이렉트
-    };
-    return (
-        <Background>
-            <Container>
-                <TitleContainer disabled={disabled}>
-                    <div className="contents">
-                        <div className='title-wrapper'>
-                            <div className='title-wrapper-left'>
-                                <RiAccountCircleFill size='30px'/>
-                                <span className="title">My wallet</span>
-                            </div>
-                            <span className='wallet-address'>지갑주소</span>
-                        </div>
-                    </div>
-                </TitleContainer>
-                <ContentContainer disabled={disabled}>
-                    <div className="contents">
-                        <div className="metamask-balance-wrapper" onClick={onClickMetaMask}>
-                            <div className="metamask-balance-text-wrapper">
-                                <div className="total">Total balance</div>
-                                <div className="balance">$0.00 USD</div>
-                            </div>
-                            <button className="add-funds-button">Add Funds</button>
-                        </div>
-                    </div>
-                </ContentContainer>
-            </Container>
-        </Background>
-    );
+    // 로그인에 성공하면 리다이렉트
+  };
+  return (
+    <Background>
+      <Container>
+        <TitleContainer disabled={disabled}>
+          <div className="contents">
+            <div className="title-wrapper">
+              <div className="title-wrapper-left">
+                <RiAccountCircleFill size="30px" />
+                <span className="title">My wallet</span>
+              </div>
+              <span className="wallet-address">지갑주소</span>
+            </div>
+          </div>
+        </TitleContainer>
+        <ContentContainer disabled={disabled}>
+          <div className="contents">
+            <div className="metamask-balance-wrapper" onClick={onClickMetaMask}>
+              <div className="metamask-balance-text-wrapper">
+                <div className="total">Total balance</div>
+                <div className="balance">$0.00 USD</div>
+              </div>
+              <button className="add-funds-button">Add Funds</button>
+            </div>
+          </div>
+        </ContentContainer>
+      </Container>
+    </Background>
+  );
 };
 
 export default ModalWallet;

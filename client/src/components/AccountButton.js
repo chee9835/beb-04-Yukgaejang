@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {RiAccountCircleLine} from "react-icons/ri";
-import {Link} from "react-router-dom";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 32px;
@@ -17,13 +17,13 @@ const Container = styled.div`
 `;
 
 const AccountButton = () => {
-    return (
-        <Container>
-            <Link to="/login">
-                <RiAccountCircleLine className='icon' size={'35px'}/>
-            </Link>
-        </Container>
-);
+  return (
+    <Container>
+      <Link to="/login">
+        <RiAccountCircleLine className="icon" size={"35px"} />
+      </Link>
+    </Container>
+  );
 };
 
 export default AccountButton;
