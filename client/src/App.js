@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
@@ -13,7 +13,9 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { themeActions } from "./store/themeSlice";
 import Test from "./pages/Test";
+import ModalLogin from "./components/ModalLogin";
 import ModalWallet from "./components/ModalWallet";
+import ModalNavBar from "./components/ModalNavBar";
 
 const App = () => {
   const web3 = useSelector((state) => state.web3.web3);
@@ -42,18 +44,11 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const [modal, setModal] = useState(false);
-
-  const openModal = () => {
-    setModal(!modal);
-  }
 
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <Header openModal={openModal}/>
-      {modal ? <ModalWallet/> : null}
-
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
