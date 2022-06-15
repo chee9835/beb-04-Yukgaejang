@@ -8,12 +8,14 @@ const globalStyle = css`
     font-family: Poppins, sans-serif;
   }
 
+  *,
   body {
     font-family: Poppins, sans-serif;
   }
 
   a {
     text-decoration: none;
+
     &:visited {
       color: #424c55;
     }

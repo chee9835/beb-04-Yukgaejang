@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
 
@@ -9,13 +9,15 @@ const DESCRIPTION_PLACEHOLDER =
   'Autoglyphs are the first "on-chain generative art on the Ethereum blockchain. A completely self-con...';
 
 const Container = styled.section`
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+
   .heading-wrapper {
     padding: 50px 0;
   }
 
   .heading {
     font-size: 40px;
-    color: #04111d;
     text-align: center;
     font-weight: 600;
   }
@@ -75,6 +77,14 @@ const Container = styled.section`
       grid-template-columns: 1fr 1fr 1fr;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .tab-menu {
+        border-bottom: 1px solid #151b22;
+      }
+    `}
 `;
 //여긴 그냥 크립토 펑크 가져오기
 //DB 구축
@@ -90,7 +100,6 @@ const Explore = () => {
       if (!targetRef?.current) return;
 
       if (entries[0].isIntersecting) {
-        console.log("intersection observer triggered");
         const newFakeArray = Array(6).fill(0);
 
         setLoading(true);

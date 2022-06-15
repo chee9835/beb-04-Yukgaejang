@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import palette from "../../styles/palette";
 
 const getButtonSize = (size) => {
   switch (size) {
@@ -9,7 +10,7 @@ const getButtonSize = (size) => {
       `;
     case "small":
       return css`
-        width: 112px;
+        width: 108px;
       `;
     default:
       return css`
@@ -22,33 +23,53 @@ const getButtonType = (type) => {
   switch (type) {
     case "primary":
       return css`
-        background-color: #2081e2;
+        background-color: ${palette.primary};
         color: white;
         &:hover {
           background-color: #42a0ff;
           transition: 0.2s ease;
         }
+        &:active {
+          background-color: #1768b8;
+        }
       `;
     case "secondary":
       return css`
         background-color: white;
-        color: #2081e2;
+        color: ${palette.primary};
         border: 2px solid #e5e8eb;
+
         &:hover {
           box-shadow: rgb(0 0 0 / 10%) 0 2px 10px;
           transition: 0.2s ease;
         }
+
+        ${({ theme }) =>
+          theme.mode === "dark" &&
+          css`
+            background-color: #303339;
+            color: white;
+            border: none;
+
+            &:hover {
+              background-color: #4c505c;
+              transition: 0.2s ease;
+            }
+            &:active {
+              opacity: 0.4;
+            }
+          `};
       `;
     default:
       return css`
-        background-color: #2081e2;
+        background-color: ${palette.primary};
         color: white;
       `;
   }
 };
 
 const Container = styled.button`
-  background-color: #2081e2;
+  background-color: ${palette.primary};
   height: 60px;
   border: none;
   color: white;

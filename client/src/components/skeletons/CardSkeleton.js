@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   width: 379px;
@@ -13,13 +13,6 @@ const Container = styled.div`
     border-top-right-radius: 10px;
     height: 199px;
     border-bottom: 1px solid #e5e8eb;
-
-    background: linear-gradient(
-      to right,
-      transparent 25%,
-      #e8e8e8 50%,
-      transparent 100%
-    );
 
     // 스켈레톤 애니메이션
   }
@@ -40,6 +33,16 @@ const Container = styled.div`
     border-radius: 50%;
     background-color: white;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      border: 1px solid #151b22;
+
+      .image {
+        border-bottom: 1px solid #151b22;
+      }
+    `}
 `;
 
 const CardSkeleton = () => {
