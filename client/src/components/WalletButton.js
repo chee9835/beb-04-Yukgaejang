@@ -14,13 +14,14 @@ const Container = styled.div`
   }
 `;
 
-const WalletButton = () => {
+const WalletButton = ({openModal}) => {
 
     return (
         <Container>
             <MdOutlineAccountBalanceWallet
                 className='icon'
-                size={'35px'} />
+                size={'35px'}
+                onClick={openModal}/>
         </Container>
     );
 };

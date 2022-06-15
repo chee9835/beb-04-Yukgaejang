@@ -6,10 +6,11 @@ import {RiAccountCircleFill} from "react-icons/ri";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px; //헤더 밑에 위치
+  top: 80px;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 998;
   background-color: rgba(0, 0, 0, 0.2);
   flex-direction: column;
   text-align: left;

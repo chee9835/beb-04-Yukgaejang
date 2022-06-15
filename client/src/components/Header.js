@@ -180,7 +180,7 @@ const Menus = styled.button`
   }
 `;
 
-const Header = () => {
+const Header = ({openModal}) => {
     const [showInput, setShowInput] = useState(false);
 
     const handleInput = () => {
@@ -209,7 +209,7 @@ const Header = () => {
                         <AccountButton className="icon"/>
                     </Menus>
                     <Menus className="wallet">
-                        <WalletButton className="icon"/>
+                        <WalletButton className="icon" openModal={openModal}/>
                     </Menus>
                     <Menus className="search">
                         <AiOutlineSearch

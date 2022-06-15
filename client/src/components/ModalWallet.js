@@ -6,10 +6,11 @@ import {RiAccountCircleFill} from "react-icons/ri";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px; //헤더 밑에 위치
+  top: 80px; 
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 998;
   background-color: rgba(0, 0, 0, 0.2);
   flex-direction: column;
   text-align: left;
@@ -18,7 +19,9 @@ const Background = styled.section`
 const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
-  animation: 1s ease-in 1s infinite reverse both running slidein;
+  position: fixed;
+  animation: fadeIn 15s ease-out;
+  transition: visibility 15s ease-out;
 `
 
 const TitleContainer = styled.div`
