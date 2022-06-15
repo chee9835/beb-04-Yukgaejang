@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import styled, {css} from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import {AiOutlineSearch} from "react-icons/ai";
-import {AiOutlineMenu} from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -136,25 +136,25 @@ const MainContainer = styled.div`
     }
   }
 
-  ${({theme}) =>
-          theme.mode === "dark" &&
-          css`
-            .header {
-              background-color: #05111d;
-            }
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .header {
+        background-color: #05111d;
+      }
 
-            .logo-text {
-              color: white;
-            }
+      .logo-text {
+        color: white;
+      }
 
-            .icon {
-              color: #424c55;
+      .icon {
+        color: #424c55;
 
-              &:hover {
-                color: white;
-              }
-            }
-          `}
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 
 const MenusContainer = styled.div`
@@ -181,55 +181,12 @@ const Menus = styled.button`
 `;
 
 const Header = () => {
-    const [showInput, setShowInput] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
-    const handleInput = () => {
-        setShowInput(!showInput);
-    };
+  const handleInput = () => {
+    setShowInput(!showInput);
+  };
 
-<<<<<<< HEAD
-    return (
-        <MainContainer>
-            <section className="header">
-                <Link to="/">
-                    <div className="logo-wrapper">
-                        <img src="/open-sea-logo.png" width="42px" alt="로고"/>
-                        <p className="logo-text">OpenSea</p>
-                    </div>
-                </Link>
-                {/*{showInput ?*/}
-                <div className="input-wrapper">
-                    <Input
-                        type="search"
-                        placeholder="Search items, collections, and accounts"
-                    />
-                </div>
-                {/*: null}*/}
-                <MenusContainer className="menu-wrapper">
-                    <Menus className="account">
-                        <AccountButton className="icon"/>
-                    </Menus>
-                    <Menus className="wallet">
-                        <WalletButton className="icon"/>
-                    </Menus>
-                    <Menus className="search">
-                        <AiOutlineSearch
-                            className="icon"
-                            onClick={handleInput}
-                            size="30px"
-                        />
-                    </Menus>
-                    <Menus className="menu">
-                        <AiOutlineMenu className="icon" size="30px"/>
-                    </Menus>
-                    <div className="nav">
-                        <Nav/>
-                    </div>
-                </MenusContainer>
-            </section>
-        </MainContainer>
-    );
-=======
   return (
     <MainContainer>
       <section className="header">
@@ -247,16 +204,12 @@ const Header = () => {
           />
         </div>
         {/*: null}*/}
-        <MenusContainer>
+        <MenusContainer className="menu-wrapper">
           <Menus className="account">
             <AccountButton className="icon" />
           </Menus>
           <Menus className="wallet">
-            <MdOutlineAccountBalanceWallet
-              className="icon"
-              size="35px"
-              onClick={() => console.log("clicked")}
-            />
+            <WalletButton className="icon" />
           </Menus>
           <Menus className="search">
             <AiOutlineSearch
@@ -275,7 +228,6 @@ const Header = () => {
       </section>
     </MainContainer>
   );
->>>>>>> e3c2dc1 (fix)
 };
 
 export default Header;

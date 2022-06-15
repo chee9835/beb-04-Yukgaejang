@@ -70,14 +70,25 @@ const Container = styled.div`
     margin-top: 50px;
     padding: 0 20%;
   }
-`;
 
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .heading {
+        color: white;
+      }
+
+      .content-title {
+        color: white;
+      }
+    `}
+`;
 const Create = () => {
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [fileUrl, updateFileUrl] = useState(``);
-  const [verified, setVerified] = useState(true);
+  const [validated, setValidated] = useState(true);
   const [account, setAccount] = useState(
     "0x4981BfE09E4963248aA2Fcf918031b816b88b526"
   );
@@ -104,44 +115,6 @@ const Create = () => {
 
     metadata = JSON.stringify(metadata);
 
-<<<<<<< HEAD
-            console.log(NFTUri);
-            const abi = nftABI;
-            const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
-            Contract.setProvider(
-                "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
-            );
-            window.contract = new Contract(abi, address);
-            const transactionParameters = {
-                to: address, // Required except during contract publications.
-                from: window.ethereum.selectedAddress, // must match user's active address.
-                data: window.contract.methods.mintNFT(address,NFTUri).encodeABI(), //make call to NFT smart contract
-            };
-            //sign transaction via Metamask
-            try {
-                const txHash = await window.ethereum.request({
-                    method: "eth_sendTransaction",
-                    params: [transactionParameters],
-                });
-                setImg("")
-                setName("")
-                setDescription("")
-                return {
-                    success: true,
-                    status:
-                        "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" +
-                        txHash,
-                };
-            } catch (error) {
-                return {
-                    success: false,
-                    status: "😥 Something went wrong: " + error.message,
-                };
-            }
-        } catch (e) {
-            console.log(e);
-        }
-=======
     try {
       const added = await client.add(metadata);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
@@ -150,7 +123,6 @@ const Create = () => {
       console.log(account);
     } catch (e) {
       console.log(e);
->>>>>>> e3c2dc1 (fix)
     }
   }
 
@@ -165,15 +137,15 @@ const Create = () => {
     try {
       console.log(NFTUri);
       const abi = nftABI;
-      const address = "0x93bef0458d76d6f5e5a0415840f6a118733eb87c";
+      const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
       Contract.setProvider(
-        "https://rinkeby.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
+        "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
       );
       window.contract = new Contract(abi, address);
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
-        data: window.contract.methods.mintNFT(account, NFTUri).encodeABI(), //make call to NFT smart contract
+        data: window.contract.methods.mintNFT(address, NFTUri).encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
       try {
@@ -201,12 +173,21 @@ const Create = () => {
     }
   }
 
-  const handleValidation = () => {
+  const validate = () => {
     if (name === "") {
-      setVerified(false);
+      setValidated(false);
     } else {
-      setVerified(true);
+      setValidated(true);
     }
+  };
+
+  const onChangeImageInput = (event) => {
+    const files = event.target.files;
+    const fileUrl = URL.createObjectURL(files[0]);
+    setImg(fileUrl);
+
+    console.log(fileUrl);
+    getImageUri(event).then();
   };
 
   return (
@@ -229,24 +210,20 @@ const Create = () => {
               File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV,
               OGG, GLB, GLTF. Max size: 100 MB
             </p>
-            <ImgInput
-              onChange={(e) => {
-                setImg(e.target.files[0]);
-                getImageUri(e).then();
-              }}
-            />
+            <ImgInput img={img} onChange={onChangeImageInput} />
           </div>
           <div className="content-wrapper">
             <span className="content-title">Name</span>
             <span className="required">*</span>
             <p className="content-description" />
             <Input
+              type="common"
               placeholder="Item name"
               onChange={(e) => setName(e.target.value)}
-              validated={verified}
-              onBlur={handleValidation}
+              validated={validated}
+              onBlur={validate}
             />
-            {!verified ? (
+            {!validated ? (
               <p className="validation-check">
                 <AiOutlineClose />
                 This field is required.
@@ -268,7 +245,7 @@ const Create = () => {
           <Button
             className="button"
             disabled={img === "" || name === ""}
-            onClick={() => getNFTUri()}
+            onClick={getNFTUri}
           >
             Create
           </Button>
