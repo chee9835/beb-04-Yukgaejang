@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
+import WalletButton from "./WalletButton";
 import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const MainContainer = styled.div`
-  box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+  box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -32,6 +32,7 @@ const MainContainer = styled.div`
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    padding-right: 110px;
   }
 
   .logo-text {
@@ -42,6 +43,10 @@ const MainContainer = styled.div`
 
   .input-wrapper {
     display: none;
+  }
+
+  .menu-wrapper {
+    padding-left: 110px;
   }
 
   .account {
@@ -144,6 +149,7 @@ const MainContainer = styled.div`
 
       .icon {
         color: #424c55;
+
         &:hover {
           color: white;
         }
@@ -198,12 +204,12 @@ const Header = () => {
           />
         </div>
         {/*: null}*/}
-        <MenusContainer>
+        <MenusContainer className="menu-wrapper">
           <Menus className="account">
             <AccountButton className="icon" />
           </Menus>
           <Menus className="wallet">
-            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
+            <WalletButton className="icon" />
           </Menus>
           <Menus className="search">
             <AiOutlineSearch

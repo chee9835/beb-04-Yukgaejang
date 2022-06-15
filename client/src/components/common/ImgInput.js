@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { AiFillPicture } from "react-icons/ai";
 
@@ -18,6 +18,8 @@ const Container = styled.div`
     width: 330px;
     height: 230px;
     border-radius: 10px;
+    position: relative;
+    overflow: hidden;
 
     &:hover {
       background-color: #d6d6d6;
@@ -27,18 +29,32 @@ const Container = styled.div`
   .imgInput {
     display: none;
   }
+
+  .img {
+    position: absolute;
+  }
 `;
 
-const ImgInput = () => {
-  const ImgHandler = () => {
-    console.log("이미지");
-  };
+const ImgInput = ({ onChange, img }) => {
+  const selectFile = useRef("");
 
   return (
     <Container>
-      <div className="container-inner" onClick={ImgHandler}>
+      <div
+        className="container-inner"
+        onClick={() => selectFile.current.click()}
+      >
         <AiFillPicture size={"70px"} color={"#707A83"} />
-        <input type="file" className="imgInput" />
+        <input
+          type="file"
+          className="imgInput"
+          accept="image/*"
+          ref={selectFile}
+          onChange={(e) => {
+            onChange(e);
+          }}
+        />
+        {img && <img className="img" src={img} alt="" />}
       </div>
     </Container>
   );
