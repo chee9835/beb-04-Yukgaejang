@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div`
@@ -25,10 +25,14 @@ const Container = styled.div`
   .contents {
     display: flex;
     justify-content: space-between;
-    height: 74px;
+    height: 75px;
     align-items: center;
     font-size: 14px;
     padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? "white" : "#303339"};
   }
 
   .profile-image-text-wrapper {
@@ -76,6 +80,16 @@ const Container = styled.div`
       height: 419px;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .info-icon {
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 
 const HomeCard = () => {

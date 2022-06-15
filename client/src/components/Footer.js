@@ -5,7 +5,7 @@ const Container = styled.footer`
   color: white;
 
   .footer-sub {
-    margin-top: 100px;
+    padding-top: 100px;
     height: 220px;
     background-color: #2081e2;
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
   width: 379px;
@@ -63,6 +63,21 @@ const Container = styled.div`
     border-radius: 50%;
     background-color: white;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #303339;
+      border: 1px solid #151b22;
+
+      .image {
+        border-bottom: 1px solid #151b22;
+      }
+
+      .description-wrapper {
+        color: #e5e8eb;
+      }
+    `}
 `;
 
 const Card = ({ image, profileImage, name, author, description }) => {

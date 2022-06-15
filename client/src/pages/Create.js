@@ -3,16 +3,15 @@ import Textarea from "../components/common/Textarea";
 import Input from "../components/common/Input";
 import ImgInput from "../components/common/ImgInput";
 import Button from "../components/common/Button";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
-import { create } from "ipfs-http-client";
-import nftABI from "../db/testABI.json";
-const Contract = require("web3-eth-contract");
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  padding: 50px;
-  margin: 0 50px;
+  padding: 50px 100px;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
 
   .container-paper {
     display: flex;

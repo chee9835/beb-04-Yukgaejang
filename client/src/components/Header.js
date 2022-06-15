@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -8,20 +8,36 @@ import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
-const MainContainer = styled.section`
-  display: flex;
-  min-width: 200px;
-  width: 100%;
-  height: 80px;
-  background-color: #FFFFFF;
-  align-items: center;
-  box-shadow: 5px 5px 5px #e6e5e5;
+const MainContainer = styled.div`
+  box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 200px;
+    width: 100%;
+    height: 80px;
+    background-color: white;
+  }
 
   .logo-wrapper {
     flex: 1 1 auto;
     height: 40px;
-    margin: 0 10px 15px 20px;
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
+  }
+
+  .logo-text {
+    color: black;
+    font-size: 21px;
+    font-weight: 700;
   }
 
   .input-wrapper {
@@ -39,51 +55,25 @@ const MainContainer = styled.section`
   .nav {
     display: none;
   }
-}
 
-@media screen and (min-width: 720px) {
-  .search {
-    display: none;
+  @media screen and (min-width: 720px) {
+    .search {
+      display: none;
+    }
+
+    .logo-wrapper {
+      flex: 0;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      min-width: 300px;
+      width: 100%;
+      display: flex;
+    }
   }
 
-  .logo-wrapper {
-    flex: 0;
-  }
-
-  .input-wrapper {
-    flex: 1;
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-  }
-
-}
-
-@media screen and (min-width: 1000px) {
-  .search {
-    display: none;
-  }
-
-  .logo-wrapper {
-    flex: 0;
-  }
-
-  .input-wrapper {
-    flex: 1;
-    min-width: 300px;
-    width: 100%;
-    display: flex;
-  }
-
-  .account {
-    display: revert;
-  }
-
-  .wallet {
-    display: revert;
-  }
-
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1000px) {
     .search {
       display: none;
     }
@@ -100,21 +90,65 @@ const MainContainer = styled.section`
     }
 
     .account {
-      display: none;
+      display: revert;
     }
 
     .wallet {
-      display: none;
-    }
-
-    .menu {
-      display: none;
-    }
-
-    .nav {
       display: revert;
     }
+
+    @media screen and (min-width: 1200px) {
+      .search {
+        display: none;
+      }
+
+      .logo-wrapper {
+        flex: 0;
+      }
+
+      .input-wrapper {
+        flex: 1;
+        min-width: 300px;
+        width: 100%;
+        display: flex;
+      }
+
+      .account {
+        display: none;
+      }
+
+      .wallet {
+        display: none;
+      }
+
+      .menu {
+        display: none;
+      }
+
+      .nav {
+        display: revert;
+      }
+    }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .header {
+        background-color: #05111d;
+      }
+
+      .logo-text {
+        color: white;
+      }
+
+      .icon {
+        color: #424c55;
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 
 const MenusContainer = styled.div`
@@ -148,13 +182,14 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <MainContainer>
-        <div className="logo-wrapper">
-          <Link to="/">
-            <img src="/logo.png" alt="로고" />
-          </Link>
-        </div>
+    <MainContainer>
+      <section className="header">
+        <Link to="/">
+          <div className="logo-wrapper">
+            <img src="/open-sea-logo.png" width="42px" alt="로고" />
+            <p className="logo-text">OpenSea</p>
+          </div>
+        </Link>
         {/*{showInput ?*/}
         <div className="input-wrapper">
           <Input
@@ -165,23 +200,27 @@ const Header = () => {
         {/*: null}*/}
         <MenusContainer>
           <Menus className="account">
-            <AccountButton />
+            <AccountButton className="icon" />
           </Menus>
           <Menus className="wallet">
             <MdOutlineAccountBalanceWallet className="icon" size="35px" />
           </Menus>
           <Menus className="search">
-            <AiOutlineSearch onClick={handleInput} size="30px" />
+            <AiOutlineSearch
+              className="icon"
+              onClick={handleInput}
+              size="30px"
+            />
           </Menus>
           <Menus className="menu">
-            <AiOutlineMenu size="30px" />
+            <AiOutlineMenu className="icon" size="30px" />
           </Menus>
           <div className="nav">
             <Nav />
           </div>
         </MenusContainer>
-      </MainContainer>
-    </div>
+      </section>
+    </MainContainer>
   );
 };
 

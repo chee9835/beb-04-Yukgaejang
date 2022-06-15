@@ -1,10 +1,14 @@
 import React, { useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Button from "../components/common/Button";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import HomeCard from "../components/HomeCard";
+import { useDispatch, useSelector } from "react-redux";
+import { themeActions } from "../store/themeSlice";
+
+import ThemeButton from "../components/ThemeButton";
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +16,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 0;
+
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.background};
 
   .title {
     display: flex;
@@ -76,7 +83,6 @@ const Container = styled.div`
 
   @media screen and (min-width: 1200px) {
     flex-direction: row;
-
     padding: 40px 0;
     gap: 60px;
 
@@ -140,9 +146,21 @@ const Container = styled.div`
       display: none;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .description {
+        color: #8a939b;
+      }
+    `}
 `;
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const themeMode = useSelector((state) => state.theme.themeMode);
+
   const bottomRef = useRef();
 
   const onClickLearnMore = () => {
@@ -151,6 +169,13 @@ const Home = () => {
       block: "end",
       inline: "nearest",
     });
+  };
+
+  const onClickToggleTheme = () => {
+    dispatch(themeActions.toggleThemeMode());
+    // themeMode: previous theme
+    if (themeMode === "light") localStorage.setItem("darkMode", true);
+    if (themeMode === "dark") localStorage.removeItem("darkMode");
   };
 
   return (
@@ -189,6 +214,7 @@ const Home = () => {
           <AiFillPlayCircle className="play-circle" size={"20px"} />
           <div className="learn-more">Learn more about OpenSea</div>
         </div>
+        <ThemeButton themeMode={themeMode} onClick={onClickToggleTheme} />
       </Container>
       <Footer />
       <div className="scroll-to-bottom" ref={bottomRef} />

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.textarea`
   width: 100%;
@@ -20,6 +20,18 @@ const Container = styled.textarea`
   ::placeholder {
     color: #bdc2c6;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #35383f;
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: #4c505c;
+      }
+    `}
 `;
 
 const Textarea = ({ ...props }) => {
