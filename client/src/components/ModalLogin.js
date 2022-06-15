@@ -6,7 +6,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px; //헤더 밑에 위치
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
@@ -16,6 +16,7 @@ const Background = styled.section`
   align-items: end;
 `;
 const Container = styled.div`
+  margin-top: 80px;
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
 `;
@@ -115,50 +116,68 @@ const ContentContainer = styled.div`
     background-color: #2081e2;
     border-radius: 10px;
   }
-`;
-const ModalLogin = () => {
-  const [disabled, setDisabled] = useState(false);
+`
+const ModalLogin = ({closeModalLogin}) => {
+    const [disabled, setDisabled] = useState(false);
 
-  const { loginWithMetaMask } = useMetaMask();
+    const {loginWithMetaMask} = useMetaMask();
 
-  const onClickMetaMask = () => {
-    setDisabled(true);
+    const onClickMetaMask = () => {
+        setDisabled(true);
 
-    loginWithMetaMask();
+        loginWithMetaMask();
 
-    // 로그인에 성공하면 리다이렉트
-  };
-  return (
-    <Background>
-      <Container>
-        <TitleContainer disabled={disabled}>
-          <div className="contents">
-            <div className="title-wrapper">
-              <RiAccountCircleFill size="30px" />
-              <span className="title">My wallet</span>
-            </div>
-          </div>
-        </TitleContainer>
-        <ContentContainer disabled={disabled}>
-          <div className="contents">
-            <p className="description">
-              Connect with one of our available{" "}
-              <span className="wallet-button">wallet</span> providers or create
-              a new one.
-            </p>
-            <br />
-            <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
-              <div className="metamask-icon-text-wrapper">
-                <div className="icon" />
-                <span className="metamask-text">MetaMask</span>
-              </div>
-              <div className="chip">Popular</div>
-            </div>
-          </div>
-        </ContentContainer>
-      </Container>
-    </Background>
-  );
+        // 로그인에 성공하면 리다이렉트
+    };
+
+    const [isModalClicked, setIsModalClicked] = useState(true);
+
+    const handleModalOff = (e) => {
+        const clicked = e.target.closest('.background');
+        if (clicked) return closeModalLogin(e);
+        else {
+            setIsModalClicked(true);
+        }
+    };
+
+
+    return (
+        <Background className="background" onClick={(e) => {
+            setIsModalClicked(false);
+            handleModalOff(e)
+        }}>
+            <Container className="container" onClick={(e) => {
+                setIsModalClicked(true);
+                e.stopPropagation();
+            }}>
+                <TitleContainer disabled={disabled}>
+                    <div className="contents">
+                        <div className='title-wrapper'>
+                            <RiAccountCircleFill size='30px'/>
+                            <span className="title">My wallet</span>
+                        </div>
+                    </div>
+                </TitleContainer>
+                <ContentContainer disabled={disabled}>
+                    <div className="contents">
+                        <p className="description">
+                            Connect with one of our available{" "}
+                            <span className="wallet-button">wallet</span> providers or create a
+                            new one.
+                        </p>
+                        <br/>
+                        <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
+                            <div className="metamask-icon-text-wrapper">
+                                <div className="icon"/>
+                                <span className="metamask-text">MetaMask</span>
+                            </div>
+                            <div className="chip">Popular</div>
+                        </div>
+                    </div>
+                </ContentContainer>
+            </Container>
+        </Background>
+    );
 };
 
 export default ModalLogin;

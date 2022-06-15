@@ -17,13 +17,13 @@ const Container = styled.div`
 `;
 
 const AccountButton = () => {
-  return (
-    <Container>
-      <Link to="/login">
-        <RiAccountCircleLine className="icon" size={"35px"} />
-      </Link>
-    </Container>
-  );
+    return (
+        <Container>
+            <Link to="/login">
+                <RiAccountCircleLine className='icon' size={'30px'}/>
+            </Link>
+        </Container>
+    );
 };
 
 export default AccountButton;
