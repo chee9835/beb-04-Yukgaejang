@@ -159,6 +159,8 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
     }
     return items;
   }
+  
+  //SaleProceedings MarketItem.sold로 확인하고 Withdraw 
 }
 
 /// Thanks for inspiration: https://github.com/dabit3/polygon-ethereum-nextjs-marketplace/
