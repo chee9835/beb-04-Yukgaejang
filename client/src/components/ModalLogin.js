@@ -144,8 +144,14 @@ const ModalLogin = ({closeModalLogin}) => {
 
 
     return (
-        <Background className="background" onClick={(e) => {setIsModalClicked(false); handleModalOff(e)}}>
-            <Container onClick={(e) => {setIsModalClicked(true); e.stopPropagation();}}>
+        <Background className="background" onClick={(e) => {
+            setIsModalClicked(false);
+            handleModalOff(e)
+        }}>
+            <Container className="container" onClick={(e) => {
+                setIsModalClicked(true);
+                e.stopPropagation();
+            }}>
                 <TitleContainer disabled={disabled}>
                     <div className="contents">
                         <div className='title-wrapper'>
