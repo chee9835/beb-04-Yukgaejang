@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import {RiAccountCircleFill} from "react-icons/ri";
@@ -7,7 +7,7 @@ import {RiAccountCircleFill} from "react-icons/ri";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px; 
+  top: 80px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -40,7 +40,7 @@ const TitleContainer = styled.div`
     padding: 20px;
     border-bottom: 1px solid #e3e6e9;
   }
-  
+
   .title-wrapper-left {
     display: flex;
     flex: 1;
@@ -53,12 +53,10 @@ const TitleContainer = styled.div`
     font-weight: 600;
     text-align: left;
   }
-  
+
   .wallet-address {
-    flex: 0.3;
+    flex: 0.5;
     min-width: 20px;
-    text-overflow : ellipsis;
-    overflow: hidden;
   }
 `
 const ContentContainer = styled.div`
@@ -142,6 +140,14 @@ const ModalWallet = () => {
         // 로그인에 성공하면 리다이렉트
     };
     const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
+
+    function makeShort(metaMaskAddress) {
+        if (metaMaskAddress === '') return '';
+        else {
+            return metaMaskAddress.slice(0, 7) + '...' + metaMaskAddress.slice(metaMaskAddress.length - 4, metaMaskAddress.length);
+        }
+    }
+
     return (
         <Background>
             <Container>
@@ -152,7 +158,7 @@ const ModalWallet = () => {
                                 <RiAccountCircleFill size='30px'/>
                                 <span className="title">My wallet</span>
                             </div>
-                            <span className='wallet-address'>{metaMaskAddress}</span>
+                            <span className='wallet-address'>{makeShort(metaMaskAddress)}</span>
                         </div>
                     </div>
                 </TitleContainer>
