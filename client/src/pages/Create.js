@@ -5,6 +5,9 @@ import ImgInput from "../components/common/ImgInput";
 import Button from "../components/common/Button";
 import styled, { css } from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
+import { create } from "ipfs-http-client";
+import nftABI from "../db/testABI.json";
+const Contract = require("web3-eth-contract");
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +78,7 @@ const Create = () => {
     const [description, setDescription] = useState('')
     const [fileUrl, updateFileUrl] = useState(``);
     const [verified, setVerified] = useState(true);
-    const [account, setAccount] = useState('');
+    const [account, setAccount] = useState('0x4981BfE09E4963248aA2Fcf918031b816b88b526');
     const client = create("https://ipfs.infura.io:5001/api/v0");
 
     async function getImageUri(e) {
@@ -103,7 +106,7 @@ const Create = () => {
             const added = await client.add(metadata);
             const url = `https://ipfs.infura.io/ipfs/${added.path}`;
             await connectWallet()
-            await console.log(mintNFT(url));
+            await mintNFT(url);
             console.log(account)
         } catch (e) {
             console.log(e);
@@ -111,10 +114,10 @@ const Create = () => {
     }
 
     const connectWallet = async () => {
+
         const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
         });
-
         setAccount(accounts[0]);
     };
 
