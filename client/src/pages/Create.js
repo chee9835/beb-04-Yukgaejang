@@ -5,7 +5,9 @@ import ImgInput from "../components/common/ImgInput";
 import Button from "../components/common/Button";
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
-
+import { create } from "ipfs-http-client";
+import nftABI from "../db/testABI.json";
+const Contract = require("web3-eth-contract");
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -72,8 +74,91 @@ const Create = () => {
     const [img, setImg] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-
+    const [fileUrl, updateFileUrl] = useState(``);
     const [verified, setVerified] = useState(true);
+    const [account, setAccount] = useState('');
+    const client = create("https://ipfs.infura.io:5001/api/v0");
+
+    async function getImageUri(e) {
+        const file = e.target.files[0];
+        try {
+            const added = await client.add(file);
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            updateFileUrl(url);
+            console.log(url);
+        } catch (error) {
+            console.log("Error uploading file: ", error);
+        }
+    }
+
+    async function getNFTUri() {
+        let metadata = {
+            name: name,
+            description: description,
+            image: fileUrl,
+        };
+
+        metadata = JSON.stringify(metadata);
+
+        try {
+            const added = await client.add(metadata);
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            await connectWallet()
+            await console.log(mintNFT(url));
+            console.log(account)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const connectWallet = async () => {
+        const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+        });
+
+        setAccount(accounts[0]);
+    };
+
+    async function mintNFT(NFTUri) {
+        try {
+
+            console.log(NFTUri);
+            const abi = nftABI;
+            const address = "0x93bef0458d76d6f5e5a0415840f6a118733eb87c";
+            Contract.setProvider(
+                "https://rinkeby.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
+            );
+            window.contract = new Contract(abi, address);
+            const transactionParameters = {
+                to: address, // Required except during contract publications.
+                from: window.ethereum.selectedAddress, // must match user's active address.
+                data: window.contract.methods.mintNFT(account,NFTUri).encodeABI(), //make call to NFT smart contract
+            };
+            //sign transaction via Metamask
+            try {
+                const txHash = await window.ethereum.request({
+                    method: "eth_sendTransaction",
+                    params: [transactionParameters],
+                });
+                setImg("")
+                setName("")
+                setDescription("")
+                return {
+                    success: true,
+                    status:
+                        "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" +
+                        txHash,
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    status: "😥 Something went wrong: " + error.message,
+                };
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleValidation = () => {
         if(name === '') {
@@ -105,7 +190,11 @@ const Create = () => {
                             MB
                         </p>
                         <ImgInput onChange={(e) => {
-                            setImg(e.target.files[0])}}/>
+                            setImg(e.target.files[0])
+                            getImageUri(e).then()
+
+
+                        }}/>
                     </div>
                     <div className="content-wrapper">
                         <span className="content-title">
@@ -137,7 +226,9 @@ const Create = () => {
                     <br />
                     <Button
                         className='button'
-                        disabled={img === '' || name === ''} >
+                        disabled={img === '' || name === ''}
+                        onClick={() => getNFTUri()}
+                    >
                         Create
                     </Button>
                 </div>
