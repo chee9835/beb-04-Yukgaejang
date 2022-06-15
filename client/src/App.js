@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
+import { themeActions } from "./store/themeSlice";
+import Test from "./pages/Test";
 
 const App = () => {
   const web3 = useSelector((state) => state.web3.web3);
@@ -31,6 +33,14 @@ const App = () => {
 
   console.log(`web3: ${web3}`);
 
+  useEffect(() => {
+    const darkMode = localStorage.getItem("darkMode");
+    if (darkMode) {
+      dispatch(themeActions.setThemeMode("dark"));
+      localStorage.setItem("darkMode", true);
+    }
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
@@ -40,6 +50,7 @@ const App = () => {
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<Create />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </ThemeProvider>
   );
