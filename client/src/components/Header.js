@@ -187,6 +187,7 @@ const Header = () => {
         setShowInput(!showInput);
     };
 
+<<<<<<< HEAD
     return (
         <MainContainer>
             <section className="header">
@@ -228,6 +229,53 @@ const Header = () => {
             </section>
         </MainContainer>
     );
+=======
+  return (
+    <MainContainer>
+      <section className="header">
+        <Link to="/">
+          <div className="logo-wrapper">
+            <img src="/open-sea-logo.png" width="42px" alt="로고" />
+            <p className="logo-text">OpenSea</p>
+          </div>
+        </Link>
+        {/*{showInput ?*/}
+        <div className="input-wrapper">
+          <Input
+            type="search"
+            placeholder="Search items, collections, and accounts"
+          />
+        </div>
+        {/*: null}*/}
+        <MenusContainer>
+          <Menus className="account">
+            <AccountButton className="icon" />
+          </Menus>
+          <Menus className="wallet">
+            <MdOutlineAccountBalanceWallet
+              className="icon"
+              size="35px"
+              onClick={() => console.log("clicked")}
+            />
+          </Menus>
+          <Menus className="search">
+            <AiOutlineSearch
+              className="icon"
+              onClick={handleInput}
+              size="30px"
+            />
+          </Menus>
+          <Menus className="menu">
+            <AiOutlineMenu className="icon" size="30px" />
+          </Menus>
+          <div className="nav">
+            <Nav />
+          </div>
+        </MenusContainer>
+      </section>
+    </MainContainer>
+  );
+>>>>>>> e3c2dc1 (fix)
 };
 
 export default Header;

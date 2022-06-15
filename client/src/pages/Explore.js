@@ -86,6 +86,7 @@ const Container = styled.section`
       }
     `}
 `;
+
 //여긴 그냥 크립토 펑크 가져오기
 //DB 구축
 const Explore = () => {
