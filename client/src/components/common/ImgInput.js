@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {AiFillPicture} from "react-icons/ai";
+import { AiFillPicture } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -30,20 +30,18 @@ const Container = styled.div`
 `;
 
 const ImgInput = () => {
+  const ImgHandler = () => {
+    console.log("이미지");
+  };
 
-    const ImgHandler = () => {
-        console.log("이미지");
-
-    }
-
-    return (
-        <Container>
-            <div className="container-inner" onClick={ImgHandler}>
-                <AiFillPicture size={"70px"} color={"#707A83"}/>
-                <input type="file" className='imgInput' />
-            </div>
-        </Container>
-    );
+  return (
+    <Container>
+      <div className="container-inner" onClick={ImgHandler}>
+        <AiFillPicture size={"70px"} color={"#707A83"} />
+        <input type="file" className="imgInput" />
+      </div>
+    </Container>
+  );
 };
 
 export default ImgInput;
