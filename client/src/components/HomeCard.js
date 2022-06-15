@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div`
@@ -80,6 +80,16 @@ const Container = styled.div`
       height: 419px;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .info-icon {
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 
 const HomeCard = () => {

@@ -16,11 +16,12 @@ const MainContainer = styled.div`
 
   .header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     min-width: 200px;
     width: 100%;
     height: 80px;
     background-color: white;
-    align-items: center;
   }
 
   .logo-wrapper {
