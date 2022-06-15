@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
+import WalletButton from "./WalletButton";
 import { Link } from "react-router-dom";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const MainContainer = styled.section`
   display: flex;
@@ -70,10 +70,10 @@ const Nav = () => {
         </Menus>
         <div className="icon-wrapper">
           <Menus>
-            <AccountButton className="icon" />
+            <AccountButton className="icon"/>
           </Menus>
           <Menus>
-            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
+            <WalletButton className="icon" />
           </Menus>
         </div>
       </MenusContainer>
