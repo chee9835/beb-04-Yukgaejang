@@ -120,8 +120,6 @@ const Explore = () => {
     const getMarketNFTs = async () => {
       setLoading(true);
       const nfts = await contract.methods.fetchMarketItems().call();
-      console.log("@@@ nfts @@@");
-      console.log(nfts);
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
@@ -171,7 +169,7 @@ const Explore = () => {
           setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
           setLoading(false);
           setShowObserver(true);
-        }, 2000);
+        }, 1000);
       }
     });
   }, [marketArray]);

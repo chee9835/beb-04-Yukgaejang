@@ -5,12 +5,12 @@ const globalStyle = css`
   ${reset};
   * {
     box-sizing: border-box;
-    font-family: Poppins, sans-serif;
+    font-family: Poppins, "Noto Sans KR", sans-serif;
   }
 
   *,
   body {
-    font-family: Poppins, sans-serif;
+    font-family: Poppins, "Noto Sans KR", sans-serif;
   }
 
   a {

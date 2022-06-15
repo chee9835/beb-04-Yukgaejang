@@ -22,10 +22,11 @@ const Container = styled.div`
     border-top-right-radius: 10px;
     height: 199px;
     border-bottom: 1px solid #e5e8eb;
+    overflow: hidden;
   }
 
   .nft-image {
-    width: 50%;
+    width: 100%;
   }
 
   .card-contents {
@@ -58,6 +59,7 @@ const Container = styled.div`
     line-height: 1.4;
     font-weight: 300;
     margin-top: 30px;
+    padding: 0 40px;
   }
 
   .profile-image-wrapper {
@@ -104,8 +106,8 @@ const Card = ({ imageUrl, name, author, description }) => {
   };
 
   const parseDescription = (description) => {
-    if (description.length > 90) {
-      return `${description.slice(0, 90)}...`;
+    if (description.length > 70) {
+      return `${description.slice(0, 70)}...`;
     } else {
       return description;
     }
