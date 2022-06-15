@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {MdOutlineAccountBalanceWallet} from "react-icons/md";
+
 const Container = styled.div`
   width: 32px;
   height: 32px;
@@ -20,7 +21,7 @@ const WalletButton = ({openModal}) => {
         <Container>
             <MdOutlineAccountBalanceWallet
                 className='icon'
-                size={'35px'}
+                size={'30px'}
                 onClick={openModal}/>
         </Container>
     );

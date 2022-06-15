@@ -20,10 +20,10 @@ const AccountButton = () => {
     return (
         <Container>
             <Link to="/login">
-                <RiAccountCircleLine className='icon' size={'35px'}/>
+                <RiAccountCircleLine className='icon' size={'30px'}/>
             </Link>
         </Container>
-);
+    );
 };
 
 export default AccountButton;

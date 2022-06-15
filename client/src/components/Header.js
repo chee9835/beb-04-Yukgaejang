@@ -158,6 +158,8 @@ const MainContainer = styled.div`
 `;
 
 const MenusContainer = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
   text-align: right;
   margin-left: 20px;
@@ -180,7 +182,7 @@ const Menus = styled.button`
   }
 `;
 
-const Header = ({openModal}) => {
+const Header = () => {
     const [showInput, setShowInput] = useState(false);
 
     const handleInput = () => {
@@ -209,7 +211,7 @@ const Header = ({openModal}) => {
                         <AccountButton className="icon"/>
                     </Menus>
                     <Menus className="wallet">
-                        <WalletButton className="icon" openModal={openModal}/>
+                        <WalletButton className="icon" />
                     </Menus>
                     <Menus className="search">
                         <AiOutlineSearch
