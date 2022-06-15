@@ -14,7 +14,6 @@ import { darkTheme, lightTheme } from "./styles/theme";
 
 const App = () => {
   const web3 = useSelector((state) => state.web3.web3);
-
   const themeMode = useSelector((state) => state.theme.themeMode);
 
   const dispatch = useDispatch();

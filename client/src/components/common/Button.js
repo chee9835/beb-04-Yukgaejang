@@ -29,31 +29,36 @@ const getButtonType = (type) => {
           background-color: #42a0ff;
           transition: 0.2s ease;
         }
+        &:active {
+          background-color: #1768b8;
+        }
       `;
     case "secondary":
       return css`
+        background-color: white;
+        color: ${palette.primary};
+        border: 2px solid #e5e8eb;
+
+        &:hover {
+          box-shadow: rgb(0 0 0 / 10%) 0 2px 10px;
+          transition: 0.2s ease;
+        }
+
         ${({ theme }) =>
-          theme.mode === "light"
-            ? css`
-                background-color: white;
-                color: ${palette.primary};
-                border: 2px solid #e5e8eb;
+          theme.mode === "dark" &&
+          css`
+            background-color: #303339;
+            color: white;
+            border: none;
 
-                &:hover {
-                  box-shadow: rgb(0 0 0 / 10%) 0 2px 10px;
-                  transition: 0.2s ease;
-                }
-              `
-            : css`
-                background-color: #303339;
-                color: white;
-                border: none;
-
-                &:hover {
-                  background-color: #4c505c;
-                  transition: 0.2s ease;
-                }
-              `};
+            &:hover {
+              background-color: #4c505c;
+              transition: 0.2s ease;
+            }
+            &:active {
+              opacity: 0.4;
+            }
+          `};
       `;
     default:
       return css`

@@ -87,6 +87,12 @@ const Container = styled.div`
     position: fixed;
     bottom: 20px;
     right: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #111111;
+      transition: 0.4s ease;
+    }
   }
 
   @media screen and (min-width: 1200px) {

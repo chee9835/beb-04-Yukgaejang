@@ -54,32 +54,30 @@ const Menus = styled.button`
 `;
 const Nav = () => {
   return (
-    <div>
-      <MainContainer>
-        <MenusContainer>
+    <MainContainer>
+      <MenusContainer>
+        <Menus>
+          <Link className="link" to="/explore">
+            Explore
+          </Link>
+        </Menus>
+        {/*<Menus>Stats</Menus>*/}
+        {/*<Menus>Resources</Menus>*/}
+        <Menus>
+          <Link className="link" to="/create">
+            Create
+          </Link>
+        </Menus>
+        <div className="icon-wrapper">
           <Menus>
-            <Link className="link" to="/explore">
-              Explore
-            </Link>
+            <AccountButton className="icon" />
           </Menus>
-          {/*<Menus>Stats</Menus>*/}
-          {/*<Menus>Resources</Menus>*/}
           <Menus>
-            <Link className="link" to="/create">
-              Create
-            </Link>
+            <MdOutlineAccountBalanceWallet className="icon" size="35px" />
           </Menus>
-          <div className="icon-wrapper">
-            <Menus>
-              <AccountButton className="icon" />
-            </Menus>
-            <Menus>
-              <MdOutlineAccountBalanceWallet className="icon" size="35px" />
-            </Menus>
-          </div>
-        </MenusContainer>
-      </MainContainer>
-    </div>
+        </div>
+      </MenusContainer>
+    </MainContainer>
   );
 };
 

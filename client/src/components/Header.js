@@ -11,6 +11,8 @@ import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
   position: sticky;
+  top: 0;
+  z-index: 999;
 
   .header {
     display: flex;
