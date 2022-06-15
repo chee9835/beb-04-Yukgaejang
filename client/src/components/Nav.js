@@ -70,7 +70,7 @@ const Nav = () => {
         </Menus>
         <div className="icon-wrapper">
           <Menus>
-            <AccountButton className="icon"/>
+            <AccountButton className="icon" />
           </Menus>
           <Menus>
             <WalletButton className="icon" />

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   metaMaskAddress: "",
+  balance: "",
 };
 
 const metaMaskSlice = createSlice({
@@ -10,6 +11,9 @@ const metaMaskSlice = createSlice({
   reducers: {
     setMetaMaskAddress(state, action) {
       state.metaMaskAddress = action.payload;
+    },
+    setBalance(state, action) {
+      state.balance = action.payload;
     },
   },
 });

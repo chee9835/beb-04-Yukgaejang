@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
-import {RiAccountCircleFill} from "react-icons/ri";
+import { RiAccountCircleFill } from "react-icons/ri";
 
 const Background = styled.section`
   position: fixed;
@@ -16,7 +16,7 @@ const Background = styled.section`
   flex-direction: column;
   text-align: left;
   align-items: end;
-`
+`;
 const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
@@ -59,6 +59,7 @@ const TitleContainer = styled.div`
     min-width: 20px;
   }
 `
+
 const ContentContainer = styled.div`
   width: 400px;
   height: 100%;
@@ -90,7 +91,6 @@ const ContentContainer = styled.div`
     gap: 10px;
     border: 1px solid #e5e8eb;
     border-radius: 10px 10px 0 0;
-
   }
 
   .total {
@@ -122,11 +122,8 @@ const ContentContainer = styled.div`
       transition: 0.2s ease;
       opacity: 0.8;
     }
-
   }
-
-
-`
+`;
 const ModalWallet = () => {
     const [disabled, setDisabled] = useState(false);
 

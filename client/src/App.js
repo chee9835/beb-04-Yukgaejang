@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
+import Mypage from "./pages/Mypage";
 import Home from "./pages/Home";
 import Web3 from "web3";
 import { web3Actions } from "./store/web3Slice";
@@ -18,24 +19,28 @@ import ModalWallet from "./components/ModalWallet";
 import ModalNavBar from "./components/ModalNavBar";
 
 const App = () => {
-  const web3 = useSelector((state) => state.web3.web3);
   const themeMode = useSelector((state) => state.theme.themeMode);
 
   const dispatch = useDispatch();
 
+  console.log("App Mounted");
+  // web3 객체
   useEffect(() => {
     if (!window.ethereum) return;
 
     try {
-      const web = new Web3(window.ethereum);
+      const web = new Web3(
+        "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
+      );
+      console.log("@@@ web3 object created @@@");
+      console.log(web);
       dispatch(web3Actions.setWeb3(web));
     } catch (err) {
       console.log(err);
     }
   }, [dispatch]);
 
-  console.log(`web3: ${web3}`);
-
+  // 다크모드
   useEffect(() => {
     const darkMode = localStorage.getItem("darkMode");
     if (darkMode) {
@@ -54,6 +59,7 @@ const App = () => {
         <Route path="/explore" element={<Explore />} />
         <Route path="/create" element={<Create />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </ThemeProvider>

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  height: 100vh;
+
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
 
   .contents {
     display: flex;
@@ -87,6 +91,26 @@ const Container = styled.div`
       width: 567px;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .title {
+        color: white;
+      }
+
+      .description {
+        color: white;
+      }
+
+      .metamask-text {
+        color: white;
+      }
+
+      .metamask-button-wrapper {
+        border: 1px solid #151b22;
+      }
+    `}
 `;
 
 const Login = () => {

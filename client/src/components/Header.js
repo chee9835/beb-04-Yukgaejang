@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import styled, {css} from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import {AiOutlineSearch} from "react-icons/ai";
-import {AiOutlineMenu} from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -136,25 +136,25 @@ const MainContainer = styled.div`
     }
   }
 
-  ${({theme}) =>
-          theme.mode === "dark" &&
-          css`
-            .header {
-              background-color: #05111d;
-            }
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .header {
+        background-color: #05111d;
+      }
 
-            .logo-text {
-              color: white;
-            }
+      .logo-text {
+        color: white;
+      }
 
-            .icon {
-              color: #424c55;
+      .icon {
+        color: #424c55;
 
-              &:hover {
-                color: white;
-              }
-            }
-          `}
+        &:hover {
+          color: white;
+        }
+      }
+    `}
 `;
 
 const MenusContainer = styled.div`

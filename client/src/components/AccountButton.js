@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {RiAccountCircleLine} from "react-icons/ri";
-import {Link} from "react-router-dom";
+import { RiAccountCircleLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 32px;
