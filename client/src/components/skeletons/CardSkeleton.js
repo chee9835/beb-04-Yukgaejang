@@ -13,6 +13,7 @@ const Container = styled.div`
     border-top-right-radius: 10px;
     height: 199px;
     border-bottom: 1px solid #e5e8eb;
+    background-color: lightgray;
 
     // 스켈레톤 애니메이션
   }

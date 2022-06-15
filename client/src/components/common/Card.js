@@ -13,11 +13,25 @@ const Container = styled.div`
     transition: 0.2s ease;
   }
 
-  .image {
+  .nft-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 199px;
     border-bottom: 1px solid #e5e8eb;
+  }
+
+  .nft-image {
+    width: 50%;
+  }
+
+  .card-contents {
+    display: flex;
+    flex-direction: column;
+    height: 180px;
   }
 
   .name {
@@ -42,8 +56,8 @@ const Container = styled.div`
     color: #353840;
     text-align: center;
     line-height: 1.4;
-    margin: 20px;
     font-weight: 300;
+    margin-top: 30px;
   }
 
   .profile-image-wrapper {
@@ -80,21 +94,47 @@ const Container = styled.div`
     `}
 `;
 
-const Card = ({ image, profileImage, name, author, description }) => {
+const Card = ({ imageUrl, name, author, description }) => {
+  const parseAddress = (address) => {
+    if (address.length > 25) {
+      return `${address.slice(0, 25)}...`;
+    } else {
+      return address;
+    }
+  };
+
+  const parseDescription = (description) => {
+    if (description.length > 90) {
+      return `${description.slice(0, 90)}...`;
+    } else {
+      return description;
+    }
+  };
+
   return (
     <Container author={author}>
-      <div className="image">{image}</div>
-      <div className="name">{name}</div>
-      {author && (
-        <div className="author-wrapper">
-          by <span className="author">{author}</span>
+      <div className="nft-image-wrapper">
+        <img className="nft-image" src={imageUrl} alt="" />
+      </div>
+      <div className="card-contents">
+        <div className="name">{name}</div>
+        {author && (
+          <div className="author-wrapper">
+            by <span className="author">{parseAddress(author)}</span>
+          </div>
+        )}
+        <div className="description-wrapper">
+          <span className="description">{parseDescription(description)}</span>
         </div>
-      )}
-      <div className="description-wrapper">
-        <span className="description">{description}</span>
       </div>
       <div className="profile-image-wrapper">
-        <div className="profile-image" />
+        <img
+          className="profile-image"
+          src={imageUrl}
+          alt=""
+          width="44px"
+          height="44px"
+        />
       </div>
     </Container>
   );
