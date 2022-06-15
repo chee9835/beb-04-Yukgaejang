@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useRef} from "react";
 import styled from "styled-components";
-import { AiFillPicture } from "react-icons/ai";
+import {AiFillPicture} from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -29,19 +29,22 @@ const Container = styled.div`
   }
 `;
 
-const ImgInput = () => {
-  const ImgHandler = () => {
-    console.log("이미지");
-  };
+const ImgInput = (props) => {
 
-  return (
-    <Container>
-      <div className="container-inner" onClick={ImgHandler}>
-        <AiFillPicture size={"70px"} color={"#707A83"} />
-        <input type="file" className="imgInput" />
-      </div>
-    </Container>
-  );
+    const selectFile = useRef("");
+
+
+
+    return (
+        <Container>
+            <div className="container-inner" onClick={() => selectFile.current.click()}>
+                <AiFillPicture size={"70px"} color={"#707A83"}/>
+                <input type="file" className='imgInput' accept="image/*" ref={selectFile} onChange={(e)=>{
+                    props.onChange(e)
+                }}/>
+            </div>
+        </Container>
+    );
 };
 
 export default ImgInput;
