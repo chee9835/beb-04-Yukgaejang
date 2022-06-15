@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import {RiAccountCircleFill} from "react-icons/ri";
@@ -51,6 +52,13 @@ const TitleContainer = styled.div`
     font-size: 16px;
     font-weight: 600;
     text-align: left;
+  }
+  
+  .wallet-address {
+    flex: 0.3;
+    min-width: 20px;
+    text-overflow : ellipsis;
+    overflow: hidden;
   }
 `
 const ContentContainer = styled.div`
@@ -133,6 +141,7 @@ const ModalWallet = () => {
 
         // 로그인에 성공하면 리다이렉트
     };
+    const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
     return (
         <Background>
             <Container>
@@ -143,7 +152,7 @@ const ModalWallet = () => {
                                 <RiAccountCircleFill size='30px'/>
                                 <span className="title">My wallet</span>
                             </div>
-                            <span className='wallet-address'>지갑주소</span>
+                            <span className='wallet-address'>{metaMaskAddress}</span>
                         </div>
                     </div>
                 </TitleContainer>
