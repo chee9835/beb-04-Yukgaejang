@@ -5,19 +5,58 @@ import Card from "../components/common/Card";
 import abi from "../lib/abis/explore_ABI.json";
 import axios from "axios";
 import Web3 from "web3";
+import { FaEthereum } from "react-icons/fa";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
 
-  .heading-wrapper {
-    padding: 50px 0;
+  .mypage-legend {
+    position: relative;
+    height: 125px;
+    background-color: #f7f8f9;
   }
 
-  .heading {
-    font-size: 40px;
-    text-align: center;
+  .profile-image-wrapper {
+    background-color: white;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border: 1px solid gray;
+    bottom: -20px;
+    left: 16px;
+    border-radius: 50%;
+  }
+
+  .icons-wrapper {
+    height: 70px;
+  }
+
+  .profile-info-wrapper {
+    height: 140px;
+    padding: 0 16px;
+  }
+
+  .name {
+    font-size: 24px;
     font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .balance-wrapper {
+    display: none;
+  }
+
+  .balance {
+    font-size: 16px;
+    color: #353840;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+
+  .collected {
+    font-size: 18px;
+    font-weight: 500;
   }
 
   .contents {
@@ -26,7 +65,6 @@ const Container = styled.section`
 
   .tab-menu {
     display: flex;
-
     justify-content: center;
     height: 50px;
     border-bottom: 1px solid #e5e8eb;
@@ -73,6 +111,24 @@ const Container = styled.section`
   }
 
   @media screen and (min-width: 720px) {
+    .mypage-legend {
+      height: 320px;
+    }
+
+    .profile-image-wrapper {
+      width: 168px;
+      height: 168px;
+      left: 64px;
+    }
+
+    .profile-info-wrapper {
+      padding: 0 64px;
+    }
+
+    .balance-wrapper {
+      display: flex;
+    }
+
     .contents {
       grid-template-columns: 1fr 1fr 1fr;
     }
@@ -186,10 +242,21 @@ const Mypage = () => {
 
   return (
     <Container showObserver={showObserver}>
-      <div className="header" />
-      <div className="heading-wrapper">
-        <h1 className="heading">Explore Collections</h1>
+      <div className="mypage-legend">
+        <div className="profile-image-wrapper">
+          <div className="profile-image" />
+        </div>
       </div>
+      <div className="icons-wrapper"></div>
+      <div className="profile-info-wrapper">
+        <p className="name">Unnamed</p>
+        <div className="balance-wrapper">
+          <FaEthereum />
+          <p className="balance">0x3853...3e32</p>
+        </div>
+        <p className="collected">Collected</p>
+      </div>
+      <div className="header" />
       <div className="tab-menu">
         <div className="tab-wrapper">
           <span className="tab-text">My NFTs</span>
