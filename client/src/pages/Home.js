@@ -5,10 +5,6 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import HomeCard from "../components/HomeCard";
-import { useDispatch, useSelector } from "react-redux";
-import { themeActions } from "../store/themeSlice";
-
-import ThemeButton from "../components/ThemeButton";
 
 const Container = styled.div`
   display: flex;
@@ -157,10 +153,6 @@ const Container = styled.div`
 `;
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const themeMode = useSelector((state) => state.theme.themeMode);
-
   const bottomRef = useRef();
 
   const onClickLearnMore = () => {
@@ -169,13 +161,6 @@ const Home = () => {
       block: "end",
       inline: "nearest",
     });
-  };
-
-  const onClickToggleTheme = () => {
-    dispatch(themeActions.toggleThemeMode());
-    // themeMode indicates previous theme
-    if (themeMode === "light") localStorage.setItem("darkMode", true);
-    if (themeMode === "dark") localStorage.removeItem("darkMode");
   };
 
   return (
@@ -214,7 +199,6 @@ const Home = () => {
           <AiFillPlayCircle className="play-circle" size={"20px"} />
           <div className="learn-more">Learn more about OpenSea</div>
         </div>
-        <ThemeButton themeMode={themeMode} onClick={onClickToggleTheme} />
       </Container>
       <Footer />
       <div className="scroll-to-bottom" ref={bottomRef} />

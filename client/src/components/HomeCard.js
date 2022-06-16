@@ -4,7 +4,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div`
   width: 355px;
-  height: 419px;
+  height: 379px;
   border-radius: 10px;
   background-color: white;
   box-shadow: rgb(0 0 0 / 30%) 0 2px 15px;
@@ -25,14 +25,13 @@ const Container = styled.div`
   .contents {
     display: flex;
     justify-content: space-between;
-    height: 75px;
+    height: 80px;
     align-items: center;
     font-size: 14px;
     padding: 20px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? "white" : "#303339"};
+    background-color: white;
   }
 
   .profile-image-text-wrapper {
@@ -88,6 +87,10 @@ const Container = styled.div`
         &:hover {
           color: white;
         }
+      }
+
+      .contents {
+        background-color: #303339;
       }
     `}
 `;

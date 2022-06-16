@@ -20,7 +20,7 @@ const Container = styled.footer`
     display: flex;
     flex-direction: column;
     gap: 50px;
-    height: 80%;
+    height: 500px;
     padding: 40px 20px;
     border-bottom: 1px solid rgba(229, 232, 235, 0.25);
   }
@@ -37,16 +37,6 @@ const Container = styled.footer`
 
   .open-sea-description {
     line-height: 1.6;
-  }
-
-  .footer-bottom {
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding-top: 30px;
-    gap: 20px;
-    align-items: center;
   }
 
   .links-wrapper {
@@ -87,11 +77,6 @@ const Container = styled.footer`
     .footer-main {
       height: 500px;
       padding: 0 150px;
-    }
-
-    .footer-bottom {
-      flex-direction: row;
-      justify-content: space-between;
     }
 
     .contents {
@@ -170,13 +155,6 @@ const Footer = () => {
             >
               신상호
             </a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p className="copyright">© 2018 - 2022 Ozone Networks, Inc</p>
-          <div className="links-wrapper">
-            <p className="link">Privacy Policy</p>
-            <p className="link">Terms of Service</p>
           </div>
         </div>
       </div>
