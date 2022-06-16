@@ -107,6 +107,7 @@ const Container = styled.section`
   @media screen and (min-width: 720px) {
     .contents {
       flex-direction: row;
+      margin: 10px;
     }
   }
 

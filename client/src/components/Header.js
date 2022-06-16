@@ -26,6 +26,12 @@ const MainContainer = styled.div`
     background-color: white;
   }
 
+  .closemodalzone {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+
   .logo-wrapper {
     flex: 1 1 auto;
     height: 40px;
@@ -185,13 +191,7 @@ const Menus = styled.button`
 `;
 
 const Header = () => {
-  const [showInput, setShowInput] = useState(false);
-
   const dispatch = useDispatch();
-
-  const handleInput = () => {
-    setShowInput((showInput) => !showInput);
-  };
 
   const metaMaskAddress = useSelector(
     (state) => state.metaMask.metaMaskAddress
@@ -218,20 +218,20 @@ const Header = () => {
   return (
     <MainContainer>
       <section className="header">
-        <Link to="/">
-          <div className="logo-wrapper">
-            <img src="/open-sea-logo.png" width="42px" alt="로고" />
-            <p className="logo-text">OpenSea</p>
+        <section className="closemodalzone" onClick={closeModal}>
+          <Link to="/">
+            <div className="logo-wrapper">
+              <img src="/open-sea-logo.png" width="42px" alt="로고" />
+              <p className="logo-text">OpenSea</p>
+            </div>
+          </Link>
+          <div className="input-wrapper">
+            <Input
+              type="search"
+              placeholder="Search items, collections, and accounts"
+            />
           </div>
-        </Link>
-        {/*{showInput ?*/}
-        <div className="input-wrapper">
-          <Input
-            type="search"
-            placeholder="Search items, collections, and accounts"
-          />
-        </div>
-        {/*: null}*/}
+        </section>
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
             <AccountButton className="icon" />
@@ -240,11 +240,7 @@ const Header = () => {
             <WalletButton className="icon" />
           </Menus>
           <Menus className="search">
-            <AiOutlineSearch
-              className="icon"
-              onClick={handleInput}
-              size="30px"
-            />
+            <AiOutlineSearch className="icon" size="30px" />
           </Menus>
           <Menus className="menu" onClick={onClickMenuButton}>
             <AiOutlineMenu className="icon" size="30px" />
