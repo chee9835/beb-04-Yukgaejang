@@ -12,16 +12,15 @@ const Background = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 998;
+  z-index: 997;
   background-color: rgba(0, 0, 0, 0.2);
-  flex-direction: column;
-  text-align: left;
-  align-items: end;
 `;
 const Container = styled.div`
-  margin-top: 80px;
+  right: 0;
+  z-index: 998;
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
+  position: fixed;
 `;
 const TitleContainer = styled.div`
   width: 400px;
@@ -121,8 +120,6 @@ const ContentContainer = styled.div`
 `;
 
 const ModalLogin = () => {
-  const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
-
   const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState(false);
@@ -136,36 +133,13 @@ const ModalLogin = () => {
     // 로그인에 성공하면 리다이렉트
   };
 
-  const [isModalClicked, setIsModalClicked] = useState(true);
-
-  const handleModalOff = (e) => {
-    const clicked = e.target.closest(".background");
-    if (clicked) return closeModal();
-    else {
-      setIsModalClicked(true);
-    }
-  };
-
   const closeModal = () => {
     dispatch(modalActions.closeLoginModal());
   };
 
   return (
-    <Background
-      className="background"
-      onClick={(e) => {
-        // if (e.target !== e.currentTarget) return;
-        setIsModalClicked(false);
-        handleModalOff(e);
-      }}
-    >
-      <Container
-        className="container"
-        onClick={(e) => {
-          setIsModalClicked(true);
-          e.stopPropagation();
-        }}
-      >
+    <>
+      <Container>
         <TitleContainer disabled={disabled}>
           <div className="contents">
             <div className="title-wrapper">
@@ -192,7 +166,8 @@ const ModalLogin = () => {
           </div>
         </ContentContainer>
       </Container>
-    </Background>
+      <Background onClick={closeModal} />
+    </>
   );
 };
 
