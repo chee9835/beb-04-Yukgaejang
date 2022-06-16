@@ -4,6 +4,19 @@ import { parseAddress, parseDescription } from "../lib/utils";
 import { SiHiveBlockchain } from "react-icons/si";
 import { FiHeart } from "react-icons/fi";
 import { AiOutlineAlignLeft } from "react-icons/ai";
+import { modalActions } from "../store/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+const Background = styled.section`
+  position: fixed;
+  display: flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 997;
+  background-color: rgba(0, 0, 0, 0.2);
+`;
 
 const Container = styled.section`
   display: flex;
@@ -120,44 +133,53 @@ const Container = styled.section`
     `}
 `;
 
-const Nftpage = ({ imageUrl, name, author, description }) => {
+const ModalNft = ({ imageUrl, name, author, description }) => {
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    dispatch(modalActions.closeNftModal());
+  };
+
   return (
-    <Container>
-      <div className="contents">
-        <div className="nft-img-wrapper">
-          <div className="nft-img-header">
-            <div className="nft-img-header-left">
-              <SiHiveBlockchain style={{ transform: "rotate(90deg)" }} />
+    <>
+      <Container>
+        <div className="contents">
+          <div className="nft-img-wrapper">
+            <div className="nft-img-header">
+              <div className="nft-img-header-left">
+                <SiHiveBlockchain style={{ transform: "rotate(90deg)" }} />
+              </div>
+              <FiHeart className="nft-img-header-right" />
             </div>
-            <FiHeart className="nft-img-header-right" />
+            <img className="nft-img" src="/open-sea-logo.png" alt="nft" />
           </div>
-          <img className="nft-img" src="/open-sea-logo.png" alt="nft" />
-        </div>
-        <div className="nft-contents-wrapper">
-          <div className="name">
-            NAME
-            {/*{name}*/}
-          </div>
-          <div className="author-wrapper">
-            by{" "}
-            <span className="author">
-              author
-              {/*{parseAddress(author)}*/}
-            </span>
-          </div>
-          <div className="description-wrapper">
-            <div className="description-header">
-              <AiOutlineAlignLeft />
-              <div className="description-title">Description</div>
+          <div className="nft-contents-wrapper">
+            <div className="name">
+              NAME
+              {/*{name}*/}
             </div>
-            <span className="description-text">
-              {/*{parseDescription(description)}*/}
-            </span>
+            <div className="author-wrapper">
+              by{" "}
+              <span className="author">
+                author
+                {/*{parseAddress(author)}*/}
+              </span>
+            </div>
+            <div className="description-wrapper">
+              <div className="description-header">
+                <AiOutlineAlignLeft />
+                <div className="description-title">Description</div>
+              </div>
+              <span className="description-text">
+                {/*{parseDescription(description)}*/}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+      <Background onClick={closeModal} />
+    </>
   );
 };
 
-export default Nftpage;
+export default ModalNft;
