@@ -16,21 +16,17 @@ const Background = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 998;
+  z-index: 997;
   background-color: rgba(0, 0, 0, 0.2);
-  flex-direction: column;
-  text-align: left;
-  align-items: end;
 `;
 
 const Container = styled.div`
-  margin-top: 80px;
+  right: 0;
+  z-index: 998;
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
+  position: fixed;
   background-color: #fdfdfd;
-  display: flex;
-  flex-direction: column;
-  z-index: 998;
 `;
 
 const MenusContainer = styled.div`
@@ -68,32 +64,13 @@ const ModalNavBar = () => {
 
   const [isModalClicked, setIsModalClicked] = useState(true);
 
-  const handleModalOff = (e) => {
-    const clicked = e.target.closest(".background");
-    if (clicked) return closeModal(e);
-    else {
-      setIsModalClicked(true);
-    }
-  };
-
   const closeModal = () => {
     dispatch(modalActions.closeMenuModal());
   };
 
   return (
-    <Background
-      className="background"
-      onClick={(e) => {
-        setIsModalClicked(false);
-        handleModalOff(e);
-      }}
-    >
-      <Container
-        onClick={(e) => {
-          setIsModalClicked(true);
-          e.stopPropagation();
-        }}
-      >
+    <>
+      <Container>
         <MenusContainer onClick={closeModal}>
           <Link className="link" to="/explore">
             <div className="contents">
@@ -126,7 +103,8 @@ const ModalNavBar = () => {
           </div>
         </MenusContainer>
       </Container>
-    </Background>
+      <Background onClick={closeModal} />
+    </>
   );
 };
 
