@@ -7,6 +7,8 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Input from "./common/Input";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import { modalActions } from "../store/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -32,7 +34,7 @@ const MainContainer = styled.div`
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    padding-right: 110px;
+    padding-right: 50px;
   }
 
   .logo-text {
@@ -186,8 +188,32 @@ const Menus = styled.button`
 const Header = () => {
   const [showInput, setShowInput] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleInput = () => {
     setShowInput((showInput) => !showInput);
+  };
+
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
+  const onClickWalletButton = () => {
+    if (metaMaskAddress === "") {
+      dispatch(modalActions.openLoginModal());
+    } else {
+      dispatch(modalActions.openWalletModal());
+    }
+  };
+
+  const onClickMenuButton = () => {
+    dispatch(modalActions.openMenuModal());
+  };
+
+  const closeModal = () => {
+    dispatch(modalActions.closeMenuModal());
+    dispatch(modalActions.closeLoginModal());
+    dispatch(modalActions.closeWalletModal());
   };
 
   return (
@@ -208,10 +234,10 @@ const Header = () => {
         </div>
         {/*: null}*/}
         <MenusContainer className="menu-wrapper">
-          <Menus className="account">
+          <Menus className="account" onClick={closeModal}>
             <AccountButton className="icon" />
           </Menus>
-          <Menus className="wallet">
+          <Menus className="wallet" onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
           <Menus className="search">
@@ -221,7 +247,7 @@ const Header = () => {
               size="30px"
             />
           </Menus>
-          <Menus className="menu">
+          <Menus className="menu" onClick={onClickMenuButton}>
             <AiOutlineMenu className="icon" size="30px" />
           </Menus>
           <div className="nav">

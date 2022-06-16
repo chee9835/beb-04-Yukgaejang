@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { useSelector, useDispatch } from "react-redux";
+import { modalActions } from "../store/modalSlice";
 
 const Background = styled.section`
   position: fixed;
@@ -10,6 +12,7 @@ const Background = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 998;
   background-color: rgba(0, 0, 0, 0.2);
   flex-direction: column;
   text-align: left;
@@ -20,7 +23,6 @@ const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
 `;
-
 const TitleContainer = styled.div`
   width: 400px;
   height: 80px;
@@ -116,68 +118,82 @@ const ContentContainer = styled.div`
     background-color: #2081e2;
     border-radius: 10px;
   }
-`
-const ModalLogin = ({closeModalLogin}) => {
-    const [disabled, setDisabled] = useState(false);
+`;
 
-    const {loginWithMetaMask} = useMetaMask();
+const ModalLogin = () => {
+  const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
 
-    const onClickMetaMask = () => {
-        setDisabled(true);
+  const dispatch = useDispatch();
 
-        loginWithMetaMask();
+  const [disabled, setDisabled] = useState(false);
 
-        // 로그인에 성공하면 리다이렉트
-    };
+  const { loginWithMetaMask } = useMetaMask();
 
-    const [isModalClicked, setIsModalClicked] = useState(true);
+  const onClickMetaMask = () => {
+    setDisabled(true);
+    loginWithMetaMask();
+    closeModal();
+    // 로그인에 성공하면 리다이렉트
+  };
 
-    const handleModalOff = (e) => {
-        const clicked = e.target.closest('.background');
-        if (clicked) return closeModalLogin(e);
-        else {
-            setIsModalClicked(true);
-        }
-    };
+  const [isModalClicked, setIsModalClicked] = useState(true);
 
+  const handleModalOff = (e) => {
+    const clicked = e.target.closest(".background");
+    if (clicked) return closeModal();
+    else {
+      setIsModalClicked(true);
+    }
+  };
 
-    return (
-        <Background className="background" onClick={(e) => {
-            setIsModalClicked(false);
-            handleModalOff(e)
-        }}>
-            <Container className="container" onClick={(e) => {
-                setIsModalClicked(true);
-                e.stopPropagation();
-            }}>
-                <TitleContainer disabled={disabled}>
-                    <div className="contents">
-                        <div className='title-wrapper'>
-                            <RiAccountCircleFill size='30px'/>
-                            <span className="title">My wallet</span>
-                        </div>
-                    </div>
-                </TitleContainer>
-                <ContentContainer disabled={disabled}>
-                    <div className="contents">
-                        <p className="description">
-                            Connect with one of our available{" "}
-                            <span className="wallet-button">wallet</span> providers or create a
-                            new one.
-                        </p>
-                        <br/>
-                        <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
-                            <div className="metamask-icon-text-wrapper">
-                                <div className="icon"/>
-                                <span className="metamask-text">MetaMask</span>
-                            </div>
-                            <div className="chip">Popular</div>
-                        </div>
-                    </div>
-                </ContentContainer>
-            </Container>
-        </Background>
-    );
+  const closeModal = () => {
+    dispatch(modalActions.closeLoginModal());
+  };
+
+  return (
+    <Background
+      className="background"
+      onClick={(e) => {
+        // if (e.target !== e.currentTarget) return;
+        setIsModalClicked(false);
+        handleModalOff(e);
+      }}
+    >
+      <Container
+        className="container"
+        onClick={(e) => {
+          setIsModalClicked(true);
+          e.stopPropagation();
+        }}
+      >
+        <TitleContainer disabled={disabled}>
+          <div className="contents">
+            <div className="title-wrapper">
+              <RiAccountCircleFill size="30px" />
+              <span className="title">My wallet</span>
+            </div>
+          </div>
+        </TitleContainer>
+        <ContentContainer disabled={disabled}>
+          <div className="contents">
+            <p className="description">
+              Connect with one of our available{" "}
+              <span className="wallet-button">wallet</span> providers or create
+              a new one.
+            </p>
+            <br />
+            <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
+              <div className="metamask-icon-text-wrapper">
+                <div className="icon" />
+                <span className="metamask-text">MetaMask</span>
+              </div>
+              <div className="chip">Popular</div>
+            </div>
+          </div>
+        </ContentContainer>
+      </Container>
+    </Background>
+  );
 };
 
 export default ModalLogin;
