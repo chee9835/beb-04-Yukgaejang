@@ -26,6 +26,12 @@ const MainContainer = styled.div`
     background-color: white;
   }
 
+  .closemodalzone {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+
   .logo-wrapper {
     flex: 1 1 auto;
     height: 40px;
@@ -212,18 +218,20 @@ const Header = () => {
   return (
     <MainContainer>
       <section className="header">
-        <Link to="/">
-          <div className="logo-wrapper" onClick={closeModal}>
-            <img src="/open-sea-logo.png" width="42px" alt="로고" />
-            <p className="logo-text">OpenSea</p>
+        <section className="closemodalzone" onClick={closeModal}>
+          <Link to="/">
+            <div className="logo-wrapper">
+              <img src="/open-sea-logo.png" width="42px" alt="로고" />
+              <p className="logo-text">OpenSea</p>
+            </div>
+          </Link>
+          <div className="input-wrapper">
+            <Input
+              type="search"
+              placeholder="Search items, collections, and accounts"
+            />
           </div>
-        </Link>
-        <div className="input-wrapper">
-          <Input
-            type="search"
-            placeholder="Search items, collections, and accounts"
-          />
-        </div>
+        </section>
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
             <AccountButton className="icon" />
