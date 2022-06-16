@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { modalActions } from "../store/modalSlice";
 
 const Background = styled.section`
   position: fixed;
@@ -132,13 +134,22 @@ const ModalWallet = () => {
 
   const { loginWithMetaMask } = useMetaMask();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onClickMetaMask = () => {
     setDisabled(true);
 
     loginWithMetaMask();
-
+    closeModal();
+    navigate(`/`);
     // 로그인에 성공하면 리다이렉트
   };
+
+  const closeModal = () => {
+    dispatch(modalActions.closeLoginModal());
+  };
+
   const metaMaskAddress = useSelector(
     (state) => state.metaMask.metaMaskAddress
   );

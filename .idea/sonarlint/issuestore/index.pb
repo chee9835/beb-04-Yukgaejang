@@ -15,16 +15,10 @@ X
 (client/src/components/common/ImgInput.js,c/8/c8637a5d74fa38a75741282934d12e552c598c6e
 \
 ,client/src/components/common/ToggleButton.js,4/d/4dd2d0cf7a9013bc3dd61eaa911fe55f6dab94c7
-V
-&client/src/components/AccountButton.js,f/3/f3443f799d267d76cb86059ac6bef64fb0259413
 M
 client/src/store/web3Slice.js,0/6/06b7cdac22566d7e584d3dc0e4a41f7ef880031a
-I
-client/src/pages/Login.js,2/a/2a687fe6c7ca886d5d50fbc87691e53289e4b92c
 H
 client/src/pages/Home.js,5/a/5a18f1fd64c28282a015d43a188729185bcc9068
-C
-client/package.json,a/d/ad8a30996233c30cdd545dbf5f18765b86e6bf64
 Q
 !client/src/store/metaMaskSlice.js,c/2/c249260daad1b43de1444112aeb699930e072b74
 O
