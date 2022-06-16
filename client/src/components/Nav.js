@@ -141,9 +141,7 @@ const Nav = () => {
         </Menus>
         <div className="icon-wrapper">
           <Menus onClick={closeModal}>
-            <Link className="login-link" to="/login">
               <AccountButton className="icon" />
-            </Link>
           </Menus>
           <Menus onClick={onClickWalletButton}>
             <WalletButton className="icon" />

@@ -9,11 +9,11 @@ import { modalActions } from "../store/modalSlice";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 997;
+  z-index: 996;
   background-color: rgba(0, 0, 0, 0.2);
   flex-direction: column;
   text-align: left;
@@ -21,6 +21,7 @@ const Background = styled.section`
 `;
 
 const Container = styled.div`
+  right: 0;
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
   position: fixed;
@@ -147,7 +148,8 @@ const ModalWallet = () => {
   };
 
   const closeModal = () => {
-    dispatch(modalActions.closeLoginModal());
+    console.log("나야나")
+    dispatch(modalActions.closeWalletModal());
   };
 
   const metaMaskAddress = useSelector(
@@ -175,9 +177,8 @@ const ModalWallet = () => {
       return metaMaskBalance;
     }
   }
-
   return (
-    <Background>
+    <>
       <Container>
         <TitleContainer disabled={disabled}>
           <div className="contents">
@@ -204,7 +205,8 @@ const ModalWallet = () => {
           </div>
         </ContentContainer>
       </Container>
-    </Background>
+      <Background onClick={closeModal}/>
+    </>
   );
 };
 
