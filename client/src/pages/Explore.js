@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { web3Actions } from "../store/web3Slice";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
 import abi from "../lib/abis/abi.json";
 import axios from "axios";
-import Web3 from "web3";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -99,34 +97,38 @@ const Explore = () => {
 
   const web3 = useSelector((state) => state.web3.web3);
 
-  const dispatch = useDispatch();
+  // web3 객체
+  // useEffect(() => {
+  //   if (!window.ethereum) return;
 
-  useEffect(() => {
-    if (!window.ethereum) return;
-
-    try {
-      const web = new Web3(window.ethereum);
-      dispatch(web3Actions.setWeb3(web));
-    } catch (err) {
-      console.log(err);
-    }
-  }, [dispatch]);
+  //   try {
+  //     const web = new Web3(window.ethereum);
+  //     dispatch(web3Actions.setWeb3(web));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [dispatch]);
 
   const CONTRACT_ADDRESS = "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B";
 
+  // 데이터 페칭
   useEffect(() => {
-    if (!web3?.eth?.Contract) return;
+    console.log("useEffect triggered");
+
+    if (!web3) return;
     const contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
     const getMarketNFTs = async () => {
       setLoading(true);
       const nfts = await contract.methods.fetchMarketItems().call();
 
+      console.log("market fetched");
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
           const response = await axios.get(nft.tokenURI);
           const tokenMetadata = response.data;
 
+          console.log("metadata fetched");
           const nftObject = {
             tokenId: nft.tokenId,
             owner: nft.seller,
@@ -144,15 +146,17 @@ const Explore = () => {
       setLoadedArray(nftArray.splice(0, 3));
     };
     getMarketNFTs();
-  }, [web3?.eth?.Contract]);
+  }, [web3]);
 
   const targetRef = useRef();
 
+  // 무한스크롤
   const observer = useMemo(() => {
     return new IntersectionObserver((entries) => {
       if (!targetRef?.current) return;
 
       if (entries[0].isIntersecting) {
+        console.log("observed");
         setLoading(true);
         setShowObserver(false);
 
@@ -165,11 +169,9 @@ const Explore = () => {
           return;
         }
 
-        setTimeout(() => {
-          setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
-          setLoading(false);
-          setShowObserver(true);
-        }, 0);
+        setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
+        setLoading(false);
+        setShowObserver(true);
       }
     });
   }, [marketArray]);
@@ -207,7 +209,7 @@ const Explore = () => {
           />
         ))}
         {loading &&
-          Array((loadedArray.length % 3) + 3)
+          Array(3)
             .fill(0)
             .map((_, index) => <CardSkeleton key={index} />)}
       </div>
