@@ -248,22 +248,6 @@ const Mypage = () => {
   }, [marketArray]);
 
   useEffect(() => {
-    async function listenMMAccount() {
-      window.ethereum.on("accountsChanged", async function () {
-        // Time to reload your interface with accounts[0]!
-        const metamaskAccounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        console.log("asdasd");
-        console.log(metamaskAccounts[0]);
-        // accounts = await web3.eth.getAccounts();
-        window.location.reload();
-      });
-    }
-    listenMMAccount();
-  }, []);
-
-  useEffect(() => {
     if (!targetRef?.current) return;
 
     observer.observe(targetRef.current);
