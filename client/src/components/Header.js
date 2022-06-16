@@ -2,11 +2,12 @@ import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import { modalActions } from "../store/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Input from "../components/common/Input";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -211,12 +212,12 @@ const Header = () => {
             </div>
           </Link>
           {/*{showInput ?*/}
-          {/* <div className="input-wrapper">
-          <Input
-            type="search"
-            placeholder="Search items, collections, and accounts"
-          />
-        </div> */}
+          <div className="input-wrapper">
+            <Input
+              type="search"
+              placeholder="Search items, collections, and accounts"
+            />
+          </div>
         </div>
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
@@ -225,9 +226,9 @@ const Header = () => {
           <Menus className="wallet" onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
-          {/* <Menus className="search">
+          <Menus className="search">
             <AiOutlineSearch className="icon" size="30px" />
-          </Menus> */}
+          </Menus>
           <Menus className="menu" onClick={onClickMenuButton}>
             <AiOutlineMenu className="icon" size="30px" />
           </Menus>
