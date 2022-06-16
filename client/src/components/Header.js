@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
@@ -24,6 +24,12 @@ const MainContainer = styled.div`
     width: 100%;
     height: 80px;
     background-color: white;
+  }
+
+  .closemodalarea {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .logo-wrapper {
@@ -68,12 +74,7 @@ const MainContainer = styled.div`
       display: none;
     }
 
-    .logo-wrapper {
-      flex: 0;
-    }
-
     .input-wrapper {
-      flex: 1;
       min-width: 300px;
       width: 100%;
       display: flex;
@@ -83,10 +84,6 @@ const MainContainer = styled.div`
   @media screen and (min-width: 1000px) {
     .search {
       display: none;
-    }
-
-    .logo-wrapper {
-      flex: 0;
     }
 
     .input-wrapper {
@@ -107,10 +104,6 @@ const MainContainer = styled.div`
     @media screen and (min-width: 1200px) {
       .search {
         display: none;
-      }
-
-      .logo-wrapper {
-        flex: 0;
       }
 
       .input-wrapper {
@@ -185,13 +178,7 @@ const Menus = styled.button`
 `;
 
 const Header = () => {
-  const [showInput, setShowInput] = useState(false);
-
   const dispatch = useDispatch();
-
-  const handleInput = () => {
-    setShowInput((showInput) => !showInput);
-  };
 
   const metaMaskAddress = useSelector(
     (state) => state.metaMask.metaMaskAddress
@@ -218,20 +205,20 @@ const Header = () => {
   return (
     <MainContainer>
       <section className="header">
-        <Link to="/">
-          <div className="logo-wrapper">
-            <img src="/open-sea-logo.png" width="42px" alt="로고" />
-            <p className="logo-text">OpenSea</p>
+        <div className="closemodalarea" onClick={closeModal}>
+          <Link to="/">
+            <div className="logo-wrapper">
+              <img src="/open-sea-logo.png" width="42px" alt="로고" />
+              <p className="logo-text">OpenSea</p>
+            </div>
+          </Link>
+          <div className="input-wrapper">
+            <Input
+              type="search"
+              placeholder="Search items, collections, and accounts"
+            />
           </div>
-        </Link>
-        {/*{showInput ?*/}
-        <div className="input-wrapper">
-          <Input
-            type="search"
-            placeholder="Search items, collections, and accounts"
-          />
         </div>
-        {/*: null}*/}
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
             <AccountButton className="icon" />
@@ -240,11 +227,7 @@ const Header = () => {
             <WalletButton className="icon" />
           </Menus>
           <Menus className="search">
-            <AiOutlineSearch
-              className="icon"
-              onClick={handleInput}
-              size="30px"
-            />
+            <AiOutlineSearch className="icon" size="30px" />
           </Menus>
           <Menus className="menu" onClick={onClickMenuButton}>
             <AiOutlineMenu className="icon" size="30px" />
