@@ -171,7 +171,7 @@ const Mypage = () => {
 
     const getMarketNFTs = async () => {
       setLoading(true);
-
+      //지갑 연결
       const connectWallet = async () => {
         const metamaskAccounts = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -182,7 +182,7 @@ const Mypage = () => {
       };
 
       const metamaskAccount = await connectWallet();
-      console.log("asdasd", metamaskAccount);
+
       //계정 바뀌는거 감지학고 페이지 세로고침
       //지금은 메타마스크에서 계정 바꿔도 페이지 새로고침이 안돼서 바뀐 메타마스크 계정의 NFT를 보여주지 않음
 
@@ -246,6 +246,22 @@ const Mypage = () => {
       }
     });
   }, [marketArray]);
+
+  useEffect(() => {
+    async function listenMMAccount() {
+      window.ethereum.on("accountsChanged", async function () {
+        // Time to reload your interface with accounts[0]!
+        const metamaskAccounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        console.log("asdasd");
+        console.log(metamaskAccounts[0]);
+        // accounts = await web3.eth.getAccounts();
+        window.location.reload();
+      });
+    }
+    listenMMAccount();
+  }, []);
 
   useEffect(() => {
     if (!targetRef?.current) return;
