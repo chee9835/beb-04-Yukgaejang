@@ -21,12 +21,14 @@ const Container = styled.section`
   }
 
   .contents {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .tab-menu {
     display: flex;
-
     justify-content: center;
     height: 50px;
     border-bottom: 1px solid #e5e8eb;
