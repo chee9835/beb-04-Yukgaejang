@@ -15,7 +15,7 @@ contract cozNFTs is ERC721URIStorage, Ownable, ERC721Enumerable {
     ERC721(_name, _symbol)
   {
     setApprovalForAll(
-      address(0xa664B78C04f57F2ae6F203c0207e1Be521F2b009),
+      address(0x2bCC3383B4113ec9d77f243df7C41C237da8a68B),
       true
     );
     //trusted Market Address 미안합니다 너무 힘들어서 이렇게 했습니다.
