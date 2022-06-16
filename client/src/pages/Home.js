@@ -173,7 +173,7 @@ const Home = () => {
 
   const onClickToggleTheme = () => {
     dispatch(themeActions.toggleThemeMode());
-    // themeMode: previous theme
+    // themeMode indicates previous theme
     if (themeMode === "light") localStorage.setItem("darkMode", true);
     if (themeMode === "dark") localStorage.removeItem("darkMode");
   };

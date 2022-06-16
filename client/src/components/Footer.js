@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.footer`
   color: white;
@@ -69,6 +69,7 @@ const Container = styled.footer`
   }
 
   .name {
+    color: white;
     font-size: 14px;
     cursor: pointer;
 
@@ -108,6 +109,17 @@ const Container = styled.footer`
       align-items: flex-start;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .footer-sub {
+        background-color: #191e23;
+      }
+      .footer-main {
+        background-color: #05111d;
+      }
+    `}
 `;
 
 const Footer = () => {
@@ -126,10 +138,38 @@ const Footer = () => {
           </div>
           <div className="contributors-section">
             <p className="contributors">Contributors</p>
-            <p className="name">contributor 1</p>
-            <p className="name">contributor 2</p>
-            <p className="name">contributor 3</p>
-            <p className="name">contributor 4</p>
+            <a
+              className="name"
+              href="https://github.com/codeMonkey-shin"
+              rel="noreferrer"
+              target="_blank"
+            >
+              신동욱
+            </a>
+            <a
+              className="name"
+              href="https://github.com/hongildong2"
+              rel="noreferrer"
+              target="_blank"
+            >
+              유승준
+            </a>
+            <a
+              className="name"
+              href="https://github.com/chee9835"
+              rel="noreferrer"
+              target="_blank"
+            >
+              채희수
+            </a>
+            <a
+              className="name"
+              href="https://github.com/NONONCRUST"
+              rel="noreferrer"
+              target="_blank"
+            >
+              신상호
+            </a>
           </div>
         </div>
         <div className="footer-bottom">

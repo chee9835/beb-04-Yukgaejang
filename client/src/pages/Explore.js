@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled, { css } from "styled-components";
-import Web3 from "web3";
-import Card from "../components/common/Card";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
-import abi from "../lib/abis/abi.json";
+import { useDispatch, useSelector } from "react-redux";
 import { web3Actions } from "../store/web3Slice";
+import styled, { css } from "styled-components";
+import Card from "../components/common/Card";
+import abi from "../lib/abis/abi.json";
+import axios from "axios";
+import Web3 from "web3";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -123,9 +124,8 @@ const Explore = () => {
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
-          const tokenMetadata = await fetch(nft.tokenURI).then((response) =>
-            response.json()
-          );
+          const response = await axios.get(nft.tokenURI);
+          const tokenMetadata = response.data;
 
           const nftObject = {
             tokenId: nft.tokenId,
@@ -169,7 +169,7 @@ const Explore = () => {
           setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
           setLoading(false);
           setShowObserver(true);
-        }, 1000);
+        }, 0);
       }
     });
   }, [marketArray]);

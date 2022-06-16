@@ -137,7 +137,7 @@ const Login = () => {
         </p>
         <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
           <div className="metamask-icon-text-wrapper">
-            <div className="icon" />
+            <img src="/metamask-icon.png" alt="" width="22px" />
             <span className="metamask-text">MetaMask</span>
           </div>
           <div className="chip">Popular</div>

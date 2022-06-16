@@ -20,7 +20,6 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  console.log("App Mounted");
   // web3 객체
   useEffect(() => {
     if (!window.ethereum) return;
@@ -29,11 +28,9 @@ const App = () => {
       const web = new Web3(
         "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
       );
-      console.log("@@@ web3 object created @@@");
-      console.log(web);
       dispatch(web3Actions.setWeb3(web));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }, [dispatch]);
 

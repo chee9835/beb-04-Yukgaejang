@@ -184,7 +184,7 @@ const Header = () => {
   const [showInput, setShowInput] = useState(false);
 
   const handleInput = () => {
-    setShowInput(!showInput);
+    setShowInput((showInput) => !showInput);
   };
 
   return (

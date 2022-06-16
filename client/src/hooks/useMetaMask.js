@@ -16,7 +16,6 @@ const useMetaMask = () => {
     if (!metaMaskAddress) return;
 
     dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAddress));
-    console.log(res[0]);
   };
 
   return { loginWithMetaMask };

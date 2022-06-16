@@ -15,6 +15,7 @@ const Background = styled.section`
   text-align: left;
   align-items: end;
 `;
+
 const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;

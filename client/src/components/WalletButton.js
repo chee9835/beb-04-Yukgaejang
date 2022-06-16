@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {MdOutlineAccountBalanceWallet} from "react-icons/md";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+
 const Container = styled.div`
   width: 32px;
   height: 32px;
@@ -15,14 +16,11 @@ const Container = styled.div`
 `;
 
 const WalletButton = () => {
-
-    return (
-        <Container>
-            <MdOutlineAccountBalanceWallet
-                className='icon'
-                size={'35px'} />
-        </Container>
-    );
+  return (
+    <Container>
+      <MdOutlineAccountBalanceWallet className="icon" size={"35px"} />
+    </Container>
+  );
 };
 
 export default WalletButton;
