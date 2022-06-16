@@ -13,8 +13,6 @@ H
 client/package-lock.json,2/6/26a733df8ec5f9ebc34add7f3b884bb18c2b5048
 X
 (client/src/components/common/ImgInput.js,c/8/c8637a5d74fa38a75741282934d12e552c598c6e
-J
-client/src/hooks/useNFT.js,6/6/66c37ed80eeaba8277f49daf140adbacfe2f8220
 \
 ,client/src/components/common/ToggleButton.js,4/d/4dd2d0cf7a9013bc3dd61eaa911fe55f6dab94c7
 V
@@ -25,5 +23,11 @@ I
 client/src/pages/Login.js,2/a/2a687fe6c7ca886d5d50fbc87691e53289e4b92c
 H
 client/src/pages/Home.js,5/a/5a18f1fd64c28282a015d43a188729185bcc9068
-N
-client/src/store/themeSlice.js,2/9/29ebe72a1ae39754cc250365c7b4a87cf42048d4
+C
+client/package.json,a/d/ad8a30996233c30cdd545dbf5f18765b86e6bf64
+Q
+!client/src/store/metaMaskSlice.js,c/2/c249260daad1b43de1444112aeb699930e072b74
+O
+client/src/hooks/useMetaMask.js,1/8/18fb02b752d347a6fddb23bf79b30ae118d7180d
+H
+client/public/index.html,8/1/818a76598cddfc0ac5e6740251b5b4dc9ff67f2c
