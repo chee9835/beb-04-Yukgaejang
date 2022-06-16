@@ -15,12 +15,15 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { themeActions } from "./store/themeSlice";
 import Test from "./pages/Test";
+import ModalNavBar from "./components/ModalNavBar";
 import ModalLogin from "./components/ModalLogin";
 import ModalWallet from "./components/ModalWallet";
-import ModalNavBar from "./components/ModalNavBar";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
+  const menuModalOpen = useSelector((state) => state.modal.menuModalOpen);
+  const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
+  const walletModalOpen = useSelector((state) => state.modal.walletModalOpen);
 
   const dispatch = useDispatch();
 
@@ -54,7 +57,6 @@ const App = () => {
         const metamaskAccounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        console.log("asdasd");
         console.log(metamaskAccounts[0]);
         // accounts = await web3.eth.getAccounts();
         window.location.reload();
@@ -67,6 +69,9 @@ const App = () => {
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
       <Header />
+      {menuModalOpen && <ModalNavBar />}
+      {walletModalOpen && <ModalWallet />}
+      {loginModalOpen && <ModalLogin />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
