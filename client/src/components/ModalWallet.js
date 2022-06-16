@@ -138,6 +138,7 @@ const ModalWallet = () => {
         // 로그인에 성공하면 리다이렉트
     };
     const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
+    const metaMaskBalance = useSelector((state => state.metaMask.balance))
 
     function makeShort(metaMaskAddress) {
         if (metaMaskAddress === '') return '';
@@ -145,6 +146,14 @@ const ModalWallet = () => {
             return metaMaskAddress.slice(0, 7) + '...' + metaMaskAddress.slice(metaMaskAddress.length - 4, metaMaskAddress.length);
         }
     }
+    function showBalance(metaMaskBalance) {
+        console.log("metaMaskBalance = " + metaMaskBalance);
+        if (metaMaskBalance === '') return '$0.00 USD';
+        else {
+            return metaMaskBalance;
+        }
+    }
+
 
     return (
         <Background>
@@ -165,7 +174,7 @@ const ModalWallet = () => {
                         <div className="metamask-balance-wrapper" onClick={onClickMetaMask}>
                             <div className="metamask-balance-text-wrapper">
                                 <div className="total">Total balance</div>
-                                <div className="balance">$0.00 USD</div>
+                                <div className="balance">{showBalance(metaMaskBalance)}</div>
                             </div>
                             <button className="add-funds-button">Add Funds</button>
                         </div>
