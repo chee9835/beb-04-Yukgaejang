@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
@@ -45,7 +45,6 @@ const App = () => {
       localStorage.setItem("darkMode", true);
     }
   }, [dispatch]);
-
 
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>

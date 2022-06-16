@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -116,14 +117,17 @@ const Container = styled.div`
 const Login = () => {
   const [disabled, setDisabled] = useState(false);
 
+  const navigate = useNavigate();
+
   const { loginWithMetaMask } = useMetaMask();
 
-  const onClickMetaMask = () => {
+  const onClickMetaMask = async () => {
     setDisabled(true);
 
-    loginWithMetaMask();
+    await loginWithMetaMask();
 
-    // 로그인에 성공하면 리다이렉트
+    // needs verification whether login has successed or not
+    navigate(-1);
   };
 
   return (

@@ -2,7 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import palette from "../styles/palette";
 
 const MainContainer = styled.section`
   display: flex;
@@ -11,6 +12,14 @@ const MainContainer = styled.section`
   height: 100%;
   background-color: white;
   align-items: center;
+
+  .explore-link {
+    position: relative;
+  }
+
+  .create-link {
+    position: relative;
+  }
 
   ${({ theme }) =>
     theme.mode === "dark" &&
@@ -34,6 +43,30 @@ const Menus = styled.button`
   margin-left: 30px;
   cursor: pointer;
 
+  .explore-indication {
+    width: 90px;
+    height: 4px;
+    background-color: ${palette.primary};
+    position: absolute;
+    bottom: 0;
+    left: 1122px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: ${({ path }) => (path === "/explore" ? "block" : "none")};
+  }
+
+  .create-indication {
+    width: 90px;
+    height: 4px;
+    background-color: ${palette.primary};
+    position: absolute;
+    bottom: 0;
+    left: 1208px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: ${({ path }) => (path === "/create" ? "block" : "none")};
+  }
+
   &:hover {
     color: #0c1822;
   }
@@ -43,7 +76,15 @@ const Menus = styled.button`
     css`
       color: #cbcbcb;
 
-      .link {
+      .exlpore-link {
+        color: #cbcbcb;
+
+        &:hover {
+          color: white;
+        }
+      }
+
+      .create-link {
         color: #cbcbcb;
 
         &:hover {
@@ -53,18 +94,24 @@ const Menus = styled.button`
     `}
 `;
 const Nav = () => {
+  const location = useLocation();
+
+  const path = location.pathname;
+
   return (
     <MainContainer>
       <MenusContainer>
-        <Menus>
-          <Link className="link" to="/explore">
+        <Menus path={path}>
+          <Link className="explore-link" to="/explore">
             Explore
           </Link>
+          <div className="explore-indication" />
         </Menus>
-        <Menus>
-          <Link className="link" to="/create">
+        <Menus path={path}>
+          <Link className="create-link" to="/create">
             Create
           </Link>
+          <div className="create-indication" />
         </Menus>
         <div className="icon-wrapper">
           <Menus>

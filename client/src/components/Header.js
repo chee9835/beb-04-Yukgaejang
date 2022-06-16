@@ -47,6 +47,7 @@ const MainContainer = styled.div`
 
   .menu-wrapper {
     padding-left: 110px;
+    height: 100%;
   }
 
   .account {
