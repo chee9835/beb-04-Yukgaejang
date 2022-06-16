@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
 import abi from "../lib/abis/explore_ABI.json";
 import axios from "axios";
+import { CONTRACT_ADDRESS } from "../lib/contractAddress";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -89,8 +90,6 @@ const Container = styled.section`
     `}
 `;
 
-//여긴 그냥 크립토 펑크 가져오기
-//DB 구축
 const Explore = () => {
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
@@ -98,20 +97,6 @@ const Explore = () => {
   const [loadedArray, setLoadedArray] = useState([]);
 
   const web3 = useSelector((state) => state.web3.web3);
-
-  // web3 객체
-  // useEffect(() => {
-  //   if (!window.ethereum) return;
-
-  //   try {
-  //     const web = new Web3(window.ethereum);
-  //     dispatch(web3Actions.setWeb3(web));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [dispatch]);
-
-  const CONTRACT_ADDRESS = "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B";
 
   // 데이터 페칭
   useEffect(() => {

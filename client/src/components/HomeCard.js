@@ -4,7 +4,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div`
   width: 355px;
-  height: 379px;
+  height: 329px;
   border-radius: 10px;
   background-color: white;
   box-shadow: rgb(0 0 0 / 30%) 0 2px 15px;
@@ -15,11 +15,17 @@ const Container = styled.div`
     transition: 0.2s ease;
   }
 
-  .image {
-    height: 299px;
+  .image-wrapper {
+    display: flex;
+    height: 259px;
     background-color: gray;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    overflow: hidden;
+  }
+
+  .image {
+    width: 100%;
   }
 
   .contents {
@@ -75,7 +81,7 @@ const Container = styled.div`
     width: 550px;
     height: 493px;
 
-    .image {
+    .image-wrapper {
       height: 419px;
     }
   }
@@ -95,16 +101,18 @@ const Container = styled.div`
     `}
 `;
 
-const HomeCard = () => {
+const HomeCard = ({ name, owner, imageUrl }) => {
   return (
     <Container>
-      <div className="image" />
+      <div className="image-wrapper">
+        <img src={imageUrl} alt="" className="image" />
+      </div>
       <div className="contents">
         <div className="profile-image-text-wrapper">
-          <div className="profile-image" />
+          <img src={imageUrl} alt="" className="profile-image" />
           <div className="text-wrapper">
-            <p className="name">Summer Night Story</p>
-            <p className="author">tako_redpands</p>
+            <p className="name">{name}</p>
+            <p className="author">{owner}</p>
           </div>
         </div>
         <AiOutlineInfoCircle className="info-icon" size="24px" />
