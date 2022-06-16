@@ -28,7 +28,8 @@ const MainContainer = styled.div`
 
   .closemodalarea {
     display: flex;
-    width: 75%;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .logo-wrapper {
@@ -103,10 +104,6 @@ const MainContainer = styled.div`
     @media screen and (min-width: 1200px) {
       .search {
         display: none;
-      }
-
-      .logo-wrapper {
-        flex: 0;
       }
 
       .input-wrapper {
@@ -208,7 +205,7 @@ const Header = () => {
   return (
     <MainContainer>
       <section className="header">
-        <div className="closemodalarea">
+        <div className="closemodalarea" onClick={closeModal}>
           <Link to="/">
             <div className="logo-wrapper">
               <img src="/open-sea-logo.png" width="42px" alt="로고" />
