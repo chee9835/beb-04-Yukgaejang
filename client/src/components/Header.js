@@ -34,7 +34,7 @@ const MainContainer = styled.div`
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    padding-right: 110px;
+    padding-right: 50px;
   }
 
   .logo-text {
