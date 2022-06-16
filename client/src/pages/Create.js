@@ -134,6 +134,12 @@ const Create = () => {
     }
   }
 
+  const onReset = () => {
+    setImg("");
+    setName("");
+    setDescription("");
+  };
+
 
 
 
@@ -157,12 +163,13 @@ const Create = () => {
           method: "eth_sendTransaction",
           params: [transactionParameters],
         });
-        setImg("");
-        setName("");
-        setDescription("");
+
     } catch (e) {
       console.log(e);
     }
+    onReset()
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 
   const validate = () => {

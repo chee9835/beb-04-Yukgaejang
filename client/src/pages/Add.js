@@ -64,7 +64,6 @@ const Add = () => {
   const buttonDisabled =  tokenId === "" || price === "";
 
   async function addNFT(){
-    onReset()
     try {
       const abi = nftABI;
       const address = "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B";
@@ -88,6 +87,9 @@ const Add = () => {
     } catch (e) {
       console.log(e);
     }
+    onReset()
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
 
 
   }
