@@ -94,7 +94,6 @@ const Mypage = () => {
   const [marketArray, setMarketArray] = useState([]);
   const [metaMaskWeb3, setMetaMaskWeb3] = useState(null);
   const [loadedArray, setLoadedArray] = useState([]);
-
   useEffect(() => {
     if (!window.ethereum) return;
 
@@ -110,11 +109,29 @@ const Mypage = () => {
 
   useEffect(() => {
     if (!metaMaskWeb3?.eth?.Contract) return;
+
     const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
 
     const getMarketNFTs = async () => {
       setLoading(true);
-      const nfts = await contract.methods.fetchMyNFTs().call();
+
+      const connectWallet = async () => {
+        const metamaskAccounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        console.log("안에서");
+        console.log(metamaskAccounts[0]);
+        return metamaskAccounts[0];
+      };
+
+      const metamaskAccount = await connectWallet();
+      console.log("asdasd", metamaskAccount);
+      //계정 바뀌는거 감지학고 페이지 세로고침
+      //지금은 메타마스크에서 계정 바꿔도 페이지 새로고침이 안돼서 바뀐 메타마스크 계정의 NFT를 보여주지 않음
+
+      const nfts = await contract.methods
+        .fetchMyNFTs()
+        .call({ from: String(metamaskAccount) });
       console.log("@@@ nfts @@@");
       console.log(nfts);
 
