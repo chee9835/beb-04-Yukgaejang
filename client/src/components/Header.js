@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
@@ -26,10 +26,10 @@ const MainContainer = styled.div`
     background-color: white;
   }
 
-  .closemodalzone {
+  .closemodalarea {
     display: flex;
+    width: 100%;
     justify-content: space-between;
-    width: 80%;
   }
 
   .logo-wrapper {
@@ -74,12 +74,7 @@ const MainContainer = styled.div`
       display: none;
     }
 
-    .logo-wrapper {
-      flex: 0;
-    }
-
     .input-wrapper {
-      flex: 1;
       min-width: 300px;
       width: 100%;
       display: flex;
@@ -89,10 +84,6 @@ const MainContainer = styled.div`
   @media screen and (min-width: 1000px) {
     .search {
       display: none;
-    }
-
-    .logo-wrapper {
-      flex: 0;
     }
 
     .input-wrapper {
@@ -113,10 +104,6 @@ const MainContainer = styled.div`
     @media screen and (min-width: 1200px) {
       .search {
         display: none;
-      }
-
-      .logo-wrapper {
-        flex: 0;
       }
 
       .input-wrapper {
@@ -218,7 +205,7 @@ const Header = () => {
   return (
     <MainContainer>
       <section className="header">
-        <section className="closemodalzone" onClick={closeModal}>
+        <div className="closemodalarea" onClick={closeModal}>
           <Link to="/">
             <div className="logo-wrapper">
               <img src="/open-sea-logo.png" width="42px" alt="로고" />
@@ -231,7 +218,7 @@ const Header = () => {
               placeholder="Search items, collections, and accounts"
             />
           </div>
-        </section>
+        </div>
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
             <AccountButton className="icon" />

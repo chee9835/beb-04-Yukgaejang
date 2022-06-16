@@ -35,6 +35,11 @@ const MenusContainer = styled.div`
   justify-content: flex-end;
   text-align: right;
   margin-right: 40px;
+
+  .icon-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 const Menus = styled.button`
