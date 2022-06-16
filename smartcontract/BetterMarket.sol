@@ -20,6 +20,8 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
     uint256 itemId;
     address nftContract;
     uint256 tokenId;
+    string name;
+    string symbol;
     string tokenURI;
     address payable seller;
     address payable owner;
@@ -138,27 +140,31 @@ contract marketPlaceBoilerPlate is ReentrancyGuard {
   //fetch my items
   /* Returns only items that a user has purchased */
   function fetchMyNFTs() public view returns (MarketItem[] memory) {
-    uint256 totalItemCount = _tokenIds.current();
+    uint256 totalItemCount = _itemIds.current();
     uint256 itemCount = 0;
     uint256 currentIndex = 0;
 
     for (uint256 i = 0; i < totalItemCount; i++) {
-      if (idToMarketItem[i + 1].owner == msg.sender) {
+      if (idToMarketItem[i + 1].seller == msg.sender) {
         itemCount += 1;
       }
     }
 
-    MarketItem[] memory items = new MarketItem[](itemCount);
+    MarketItem[] memory myItems = new MarketItem[](itemCount);
     for (uint256 i = 0; i < totalItemCount; i++) {
-      if (idToMarketItem[i + 1].owner == msg.sender) {
+      if (idToMarketItem[i + 1].seller == msg.sender) {
         uint256 currentId = i + 1;
         MarketItem storage currentItem = idToMarketItem[currentId];
-        items[currentIndex] = currentItem;
+        myItems[currentIndex] = currentItem;
         currentIndex += 1;
       }
     }
-    return items;
+    return myItems;
   }
+  ///여기까지 V1, Deployed Market Contract/////////////////
+  //////여기부터 V2, 프로젝트에 반영되지 않음/////////////
+  //SaleProceedings MarketItem.sold로 확인하고 Withdraw 
 }
 
 /// Thanks for inspiration: https://github.com/dabit3/polygon-ethereum-nextjs-marketplace/
+

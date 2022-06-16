@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
@@ -6,10 +7,11 @@ import { RiAccountCircleFill } from "react-icons/ri";
 const Background = styled.section`
   position: fixed;
   display: flex;
-  top: 80px; //헤더 밑에 위치
+  top: 80px;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 998;
   background-color: rgba(0, 0, 0, 0.2);
   flex-direction: column;
   text-align: left;
@@ -19,8 +21,10 @@ const Background = styled.section`
 const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
-  animation: 1s ease-in 1s infinite reverse both running slidein;
-`;
+  position: fixed;
+  animation: fadeIn 15s ease-out;
+  transition: visibility 15s ease-out;
+`
 
 const TitleContainer = styled.div`
   width: 400px;
@@ -50,7 +54,13 @@ const TitleContainer = styled.div`
     font-weight: 600;
     text-align: left;
   }
-`;
+
+  .wallet-address {
+    flex: 0.5;
+    min-width: 20px;
+  }
+`
+
 const ContentContainer = styled.div`
   width: 400px;
   height: 100%;
@@ -116,45 +126,54 @@ const ContentContainer = styled.div`
   }
 `;
 const ModalWallet = () => {
-  const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(false);
 
-  const { loginWithMetaMask } = useMetaMask();
+    const {loginWithMetaMask} = useMetaMask();
 
-  const onClickMetaMask = () => {
-    setDisabled(true);
+    const onClickMetaMask = () => {
+        setDisabled(true);
 
-    loginWithMetaMask();
+        loginWithMetaMask();
 
-    // 로그인에 성공하면 리다이렉트
-  };
-  return (
-    <Background>
-      <Container>
-        <TitleContainer disabled={disabled}>
-          <div className="contents">
-            <div className="title-wrapper">
-              <div className="title-wrapper-left">
-                <RiAccountCircleFill size="30px" />
-                <span className="title">My wallet</span>
-              </div>
-              <span className="wallet-address">지갑주소</span>
-            </div>
-          </div>
-        </TitleContainer>
-        <ContentContainer disabled={disabled}>
-          <div className="contents">
-            <div className="metamask-balance-wrapper" onClick={onClickMetaMask}>
-              <div className="metamask-balance-text-wrapper">
-                <div className="total">Total balance</div>
-                <div className="balance">$0.00 USD</div>
-              </div>
-              <button className="add-funds-button">Add Funds</button>
-            </div>
-          </div>
-        </ContentContainer>
-      </Container>
-    </Background>
-  );
+        // 로그인에 성공하면 리다이렉트
+    };
+    const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
+
+    function makeShort(metaMaskAddress) {
+        if (metaMaskAddress === '') return '';
+        else {
+            return metaMaskAddress.slice(0, 7) + '...' + metaMaskAddress.slice(metaMaskAddress.length - 4, metaMaskAddress.length);
+        }
+    }
+
+    return (
+        <Background>
+            <Container>
+                <TitleContainer disabled={disabled}>
+                    <div className="contents">
+                        <div className='title-wrapper'>
+                            <div className='title-wrapper-left'>
+                                <RiAccountCircleFill size='30px'/>
+                                <span className="title">My wallet</span>
+                            </div>
+                            <span className='wallet-address'>{makeShort(metaMaskAddress)}</span>
+                        </div>
+                    </div>
+                </TitleContainer>
+                <ContentContainer disabled={disabled}>
+                    <div className="contents">
+                        <div className="metamask-balance-wrapper" onClick={onClickMetaMask}>
+                            <div className="metamask-balance-text-wrapper">
+                                <div className="total">Total balance</div>
+                                <div className="balance">$0.00 USD</div>
+                            </div>
+                            <button className="add-funds-button">Add Funds</button>
+                        </div>
+                    </div>
+                </ContentContainer>
+            </Container>
+        </Background>
+    );
 };
 
 export default ModalWallet;

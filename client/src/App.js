@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
@@ -14,6 +14,9 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { themeActions } from "./store/themeSlice";
 import Test from "./pages/Test";
+import ModalLogin from "./components/ModalLogin";
+import ModalWallet from "./components/ModalWallet";
+import ModalNavBar from "./components/ModalNavBar";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
@@ -43,29 +46,6 @@ const App = () => {
     }
   }, [dispatch]);
 
-  // 메타마스크 쿠키
-  // useEffect(() => {
-  //   const metaMaskCookie = document.cookie("metamask");
-  //   if (metaMaskCookie) {
-  //     dispatch(metaMaskActions.setMetaMaskAddress(metaMaskCookie));
-  //   }
-  // }, [dispatch]);
-
-  // 메타마스크 잔액
-  // useEffect(() => {
-  //   const getBalance = async () => {
-  //     try {
-  //       if (metaMaskAddress !== "") {
-  //         const balance = await web3.eth.getBalance(metaMaskAddress);
-  //         dispatch(metaMaskActions.setBalance(balance));
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   getBalance();
-  // }, [metaMaskAddress, web3.eth, dispatch]);
 
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>

@@ -15,12 +15,17 @@ const Container = styled.div`
   }
 `;
 
-const WalletButton = () => {
-  return (
-    <Container>
-      <MdOutlineAccountBalanceWallet className="icon" size={"35px"} />
-    </Container>
-  );
+
+const WalletButton = ({openModal}) => {
+
+    return (
+        <Container>
+            <MdOutlineAccountBalanceWallet
+                className='icon'
+                size={'30px'}
+                onClick={openModal}/>
+        </Container>
+    );
 };
 
 export default WalletButton;
