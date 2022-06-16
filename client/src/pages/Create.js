@@ -89,12 +89,10 @@ const Create = () => {
   const [description, setDescription] = useState("");
   const [fileUrl, updateFileUrl] = useState(``);
   const [validated, setValidated] = useState(true);
-  const [account, setAccount] = useState(
-    "0x4981BfE09E4963248aA2Fcf918031b816b88b526"
-  );
-  const client = create("https://ipfs.infura.io:5001/api/v0");
 
+  const client = create("https://ipfs.infura.io:5001/api/v0");
   const web3 = useSelector((state) => state.web3.web3);
+  const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
 
   async function getImageUri(e) {
     const file = e.target.files[0];
@@ -120,20 +118,15 @@ const Create = () => {
     try {
       const added = await client.add(metadata);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      await connectWallet();
+      console.log(metaMaskAddress)
       await mintNFT(url);
-      console.log(account);
     } catch (e) {
       console.log(e);
     }
   }
 
-  const connectWallet = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    setAccount(accounts[0]);
-  };
+
+
 
   async function mintNFT(NFTUri) {
     try {
@@ -144,14 +137,11 @@ const Create = () => {
         "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
       );
 
-      // Contract.setProvider(
-      //   "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
-      // );
       window.contract = new web3.eth.Contract(abi, address);
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
-        data: window.contract.methods.mintNFT(address, NFTUri).encodeABI(), //make call to NFT smart contract
+        data: window.contract.methods.mintNFT(metaMaskAddress, NFTUri).encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
       try {
