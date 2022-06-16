@@ -8,8 +8,9 @@ import ToggleButton from "./common/ToggleButton";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../store/modalSlice";
-import { BiCommentAdd } from "react-icons/bi";
+import { BiCommentAdd, BiLogIn } from "react-icons/bi";
 import { themeActions } from "../store/themeSlice";
+import { CgProfile } from "react-icons/cg";
 
 const Background = styled.section`
   position: fixed;
@@ -86,6 +87,10 @@ const ModalNavBar = () => {
 
   const dispatch = useDispatch();
 
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
   const onClickToggleButton = () => {
     dispatch(themeActions.toggleThemeMode());
   };
@@ -134,6 +139,19 @@ const ModalNavBar = () => {
             </div>
           </Link>
         </MenusContainer>
+        {metaMaskAddress && (
+          <MenusContainer onClick={closeModal}>
+            <Link className="link" to="/mypage">
+              <div className="contents">
+                <div className="menu">
+                  <CgProfile size="30px" />
+                  <span className="menu-name">Profile</span>
+                </div>
+                <IoIosArrowForward size="20px" />
+              </div>
+            </Link>
+          </MenusContainer>
+        )}
         <MenusContainer>
           <div className="contents">
             <div className="menu">
@@ -147,6 +165,20 @@ const ModalNavBar = () => {
             />
           </div>
         </MenusContainer>
+
+        {!metaMaskAddress && (
+          <MenusContainer onClick={closeModal}>
+            <Link className="link" to="/login">
+              <div className="contents">
+                <div className="menu">
+                  <BiLogIn size="30px" />
+                  <span className="menu-name">Login</span>
+                </div>
+                <IoIosArrowForward size="20px" />
+              </div>
+            </Link>
+          </MenusContainer>
+        )}
       </Container>
       <Background onClick={closeModal} />
     </>
