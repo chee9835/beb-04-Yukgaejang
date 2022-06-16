@@ -1,10 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Button from "../components/common/Button";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import HomeCard from "../components/HomeCard";
+import { useSelector } from "react-redux";
+import abi from "../lib/abis/explore_ABI.json";
+import { CONTRACT_ADDRESS } from "../lib/contractAddress";
+import axios from "axios";
+import { shortenAddress } from "../lib/utils";
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +71,7 @@ const Container = styled.div`
   }
 
   .mobile-learn-more-wrapper {
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -77,7 +82,7 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 720px) {
     flex-direction: row;
     padding: 40px 0;
     gap: 60px;
@@ -153,7 +158,11 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+  const [nft, setNft] = useState({});
+
   const bottomRef = useRef();
+
+  const web3 = useSelector((state) => state.web3.web3);
 
   const onClickLearnMore = () => {
     bottomRef?.current.scrollIntoView({
@@ -162,6 +171,28 @@ const Home = () => {
       inline: "nearest",
     });
   };
+
+  // 데이터 페칭
+  useEffect(() => {
+    if (!web3) return;
+    const contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
+
+    const getMarketNFTs = async () => {
+      const nfts = await contract.methods.fetchMarketItems().call();
+      const targetNft = nfts[8];
+
+      const response = await axios.get(targetNft.tokenURI);
+      const tokenMetadata = response.data;
+
+      const nftObject = {
+        owner: targetNft.seller,
+        name: tokenMetadata.name,
+        imageUrl: tokenMetadata.image,
+      };
+      setNft(nftObject);
+    };
+    getMarketNFTs();
+  }, [web3]);
 
   return (
     <>
@@ -194,7 +225,11 @@ const Home = () => {
             <div className="learn-more">Learn more about OpenSea</div>
           </div>
         </div>
-        <HomeCard />
+        <HomeCard
+          owner={nft?.owner && shortenAddress(nft.owner)}
+          name={nft?.name}
+          imageUrl={nft?.imageUrl}
+        />
         <div className="mobile-learn-more-wrapper" onClick={onClickLearnMore}>
           <AiFillPlayCircle className="play-circle" size={"20px"} />
           <div className="learn-more">Learn more about OpenSea</div>
