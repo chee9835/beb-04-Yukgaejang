@@ -4,6 +4,8 @@ import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
 import { Link, useLocation } from "react-router-dom";
 import palette from "../styles/palette";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions } from "../store/modalSlice";
 
 const MainContainer = styled.section`
   display: flex;
@@ -96,6 +98,26 @@ const Nav = () => {
 
   const path = location.pathname;
 
+  const dispatch = useDispatch();
+
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
+  const onClickWalletButton = () => {
+    if (metaMaskAddress === "") {
+      dispatch(modalActions.openLoginModal());
+    } else {
+      dispatch(modalActions.openWalletModal());
+    }
+  };
+
+  const closeModal = () => {
+    dispatch(modalActions.closeMenuModal());
+    dispatch(modalActions.closeLoginModal());
+    dispatch(modalActions.closeWalletModal());
+  };
+
   return (
     <MainContainer>
       <MenusContainer>
@@ -118,10 +140,10 @@ const Nav = () => {
           <div className="add-indication" />
         </Menus>
         <div className="icon-wrapper">
-          <Menus>
-            <AccountButton className="icon" />
+          <Menus onClick={closeModal}>
+              <AccountButton className="icon" />
           </Menus>
-          <Menus>
+          <Menus onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
         </div>
