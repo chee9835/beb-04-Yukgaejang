@@ -19,44 +19,53 @@ import ModalLogin from "./components/ModalLogin";
 import ModalWallet from "./components/ModalWallet";
 import ModalNavBar from "./components/ModalNavBar";
 import { ethers } from "ethers";
+import { metaMaskActions } from "./store/metaMaskSlice";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
 
   const dispatch = useDispatch();
 
-  // web3 객체
+  // web3 객체 연결
   useEffect(() => {
     if (!window.ethereum) return;
 
-    var provider = new ethers.providers.Web3Provider(window.ethereum);
+    try {
+      const web = new Web3(
+        "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
+      );
+      dispatch(web3Actions.setWeb3(web));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch]);
 
-    const isMetaMaskConnected = async () => {
-      const accounts = await provider.listAccounts();
-      console.log("Receiving accounts");
-      console.log(accounts);
-      return accounts.length > 0;
+  // 메타마스크 로그인 확인
+  useEffect(() => {
+    if (!window.ethereum) return;
+
+    const checkMetaMask = async () => {
+      var provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      const isMetaMaskConnected = async () => {
+        const accounts = await provider.listAccounts();
+
+        return accounts.length > 0 ? true : false;
+      };
+
+      const isLoggedIn = await isMetaMaskConnected();
+
+      if (isLoggedIn) {
+        const metaMaskAccounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        console.log(metaMaskAccounts);
+
+        dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAccounts[0]));
+      }
     };
 
-    isMetaMaskConnected().then((connected) => {
-      if (connected) {
-        //metamask is connected
-        console.log("로그인됨");
-
-        try {
-          const web = new Web3(
-            "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
-          );
-          console.log("@@@ web3 object created @@@");
-          console.log(web);
-          dispatch(web3Actions.setWeb3(web));
-        } catch (err) {
-          console.log(err);
-        }
-      } else {
-        //metamask is not connected
-      }
-    });
+    checkMetaMask();
   }, [dispatch]);
 
   // 다크모드
@@ -68,6 +77,7 @@ const App = () => {
     }
   }, [dispatch]);
 
+  // 계정 변경 감지
   useEffect(() => {
     async function listenMMAccount() {
       window.ethereum.on("accountsChanged", async function () {
