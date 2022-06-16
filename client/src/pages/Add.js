@@ -5,17 +5,29 @@ import Input from "../components/common/Input";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding: 0 500px;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  padding: 100px 40px;
+
+  .contents {
+    width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
 
   .title {
     font-size: 40px;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+  }
+
+  .label {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  @media screen and (min-width: 720px) {
+    padding: 100px;
   }
 
   ${({ theme }) =>
@@ -47,28 +59,33 @@ const Add = () => {
 
   return (
     <Container>
-      <p className="title">Add tokens to Market</p>
-      <Input
-        value={address}
-        onChange={onChangeAddress}
-        type="common"
-        placeholder="contract address"
-      />
-      <Input
-        value={tokenId}
-        onChange={onChangeTokenId}
-        type="common"
-        placeholder="token ID"
-      />
-      <Input
-        value={price}
-        onChange={onChangePrice}
-        type="common"
-        placeholder="price"
-      />
-      <Button type="primary" disabled={buttonDisabled}>
-        Send
-      </Button>
+      <div className="contents">
+        <p className="title">Add tokens to Market</p>
+        <label className="label">Contract Address</label>
+        <Input
+          value={address}
+          onChange={onChangeAddress}
+          type="common"
+          placeholder="contract address"
+        />
+        <label className="label">Token ID</label>
+        <Input
+          value={tokenId}
+          onChange={onChangeTokenId}
+          type="common"
+          placeholder="token ID"
+        />
+        <label className="label">Price</label>
+        <Input
+          value={price}
+          onChange={onChangePrice}
+          type="common"
+          placeholder="price"
+        />
+        <Button type="primary" disabled={buttonDisabled}>
+          Send
+        </Button>
+      </div>
     </Container>
   );
 };

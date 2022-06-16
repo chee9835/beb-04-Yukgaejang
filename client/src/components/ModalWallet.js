@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { modalActions } from "../store/modalSlice";
+import { parseAddress, showBalance } from "../lib/utils";
 
 const Background = styled.section`
   position: fixed;
@@ -63,6 +64,17 @@ const TitleContainer = styled.div`
     flex: 0.5;
     min-width: 20px;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #202225;
+
+      .title-wrapper {
+        border-bottom: #151b22;
+        color: white;
+      }
+    `}
 `;
 
 const ContentContainer = styled.div`
@@ -128,6 +140,20 @@ const ContentContainer = styled.div`
       opacity: 0.8;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #202225;
+
+      .metamask-balance-text-wrapper {
+        border: 1px solid #151b22;
+      }
+
+      .balance {
+        color: white;
+      }
+    `}
 `;
 
 const ModalWallet = () => {
@@ -148,7 +174,7 @@ const ModalWallet = () => {
   };
 
   const closeModal = () => {
-    console.log("나야나")
+    console.log("나야나");
     dispatch(modalActions.closeWalletModal());
   };
 
@@ -157,26 +183,6 @@ const ModalWallet = () => {
   );
   const metaMaskBalance = useSelector((state) => state.metaMask.balance);
 
-  function makeShort(metaMaskAddress) {
-    if (metaMaskAddress === "") return "";
-    else {
-      return (
-        metaMaskAddress.slice(0, 7) +
-        "..." +
-        metaMaskAddress.slice(
-          metaMaskAddress.length - 4,
-          metaMaskAddress.length
-        )
-      );
-    }
-  }
-  function showBalance(metaMaskBalance) {
-    console.log("metaMaskBalance = " + metaMaskBalance);
-    if (metaMaskBalance === "") return "$0.00 USD";
-    else {
-      return metaMaskBalance;
-    }
-  }
   return (
     <>
       <Container>
@@ -188,7 +194,7 @@ const ModalWallet = () => {
                 <span className="title">My wallet</span>
               </div>
               <span className="wallet-address">
-                {makeShort(metaMaskAddress)}
+                {parseAddress(metaMaskAddress)}
               </span>
             </div>
           </div>
@@ -205,7 +211,7 @@ const ModalWallet = () => {
           </div>
         </ContentContainer>
       </Container>
-      <Background onClick={closeModal}/>
+      <Background onClick={closeModal} />
     </>
   );
 };

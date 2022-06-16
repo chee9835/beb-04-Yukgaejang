@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 import { MdOutlineExploreOff } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { GiBreakingChain } from "react-icons/gi";
 import { RiMoonFill } from "react-icons/ri";
 import ToggleButton from "./common/ToggleButton";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../store/modalSlice";
+import { BiCommentAdd } from "react-icons/bi";
+import { themeActions } from "../store/themeSlice";
 
 const Background = styled.section`
   position: fixed;
@@ -31,6 +33,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 998;
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #303339;
+    `}
 `;
 
 const MenusContainer = styled.div`
@@ -61,19 +69,31 @@ const MenusContainer = styled.div`
     font-weight: 600;
     text-align: left;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #303339;
+      color: white;
+
+      .menu {
+        color: white;
+      }
+    `}
 `;
 
 const ModalNavBar = () => {
+  const themeMode = useSelector((state) => state.theme.themeMode);
+
   const dispatch = useDispatch();
 
-  const [isModalClicked, setIsModalClicked] = useState(true);
+  const onClickToggleButton = () => {
+    dispatch(themeActions.toggleThemeMode());
+  };
 
   const handleModalOff = (e) => {
     const clicked = e.target.closest(".background");
     if (clicked) return closeModal(e);
-    else {
-      setIsModalClicked(true);
-    }
   };
 
   const closeModal = () => {
@@ -84,13 +104,11 @@ const ModalNavBar = () => {
     <Background
       className="background"
       onClick={(e) => {
-        setIsModalClicked(false);
         handleModalOff(e);
       }}
     >
       <Container
         onClick={(e) => {
-          setIsModalClicked(true);
           e.stopPropagation();
         }}
       >
@@ -116,13 +134,28 @@ const ModalNavBar = () => {
             </div>
           </Link>
         </MenusContainer>
+        <MenusContainer onClick={closeModal}>
+          <Link className="link" to="/add">
+            <div className="contents">
+              <div className="menu">
+                <BiCommentAdd size="30px" />
+                <span className="menu-name">Add</span>
+              </div>
+              <IoIosArrowForward size="20px" />
+            </div>
+          </Link>
+        </MenusContainer>
         <MenusContainer>
           <div className="contents">
             <div className="menu">
               <RiMoonFill size="30px" />
               <span className="menu-name">My wallet</span>
             </div>
-            <ToggleButton size="20px" />
+            <ToggleButton
+              size="20px"
+              checked={themeMode === "dark"}
+              onClick={onClickToggleButton}
+            />
           </div>
         </MenusContainer>
       </Container>
