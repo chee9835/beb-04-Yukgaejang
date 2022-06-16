@@ -138,7 +138,7 @@ const ModalNavBar = () => {
           <div className="contents">
             <div className="menu">
               <RiMoonFill size="30px" />
-              <span className="menu-name">My wallet</span>
+              <span className="menu-name">Night mode</span>
             </div>
             <ToggleButton
               size="20px"
