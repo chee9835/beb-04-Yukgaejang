@@ -109,7 +109,7 @@ const HomeCard = ({ name, owner, imageUrl }) => {
       </div>
       <div className="contents">
         <div className="profile-image-text-wrapper">
-          <div className="profile-image" />
+          <img src={imageUrl} alt="" className="profile-image" />
           <div className="text-wrapper">
             <p className="name">{name}</p>
             <p className="author">{owner}</p>
