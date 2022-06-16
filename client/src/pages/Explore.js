@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { web3Actions } from "../store/web3Slice";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
-import abi from "../lib/abis/abi.json";
+import abi from "../lib/abis/explore_ABI.json";
 import axios from "axios";
 import Web3 from "web3";
 
