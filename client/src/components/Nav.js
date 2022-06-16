@@ -42,14 +42,15 @@ const Menus = styled.button`
   font-weight: 600;
   margin-left: 30px;
   cursor: pointer;
+  position: relative;
 
   .explore-indication {
     width: 90px;
     height: 4px;
     background-color: ${palette.primary};
     position: absolute;
-    bottom: 0;
-    left: 1122px;
+    bottom: -22px;
+    left: -16px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: ${({ path }) => (path === "/explore" ? "block" : "none")};
@@ -60,8 +61,8 @@ const Menus = styled.button`
     height: 4px;
     background-color: ${palette.primary};
     position: absolute;
-    bottom: 0;
-    left: 1208px;
+    bottom: -22px;
+    left: -16px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: ${({ path }) => (path === "/create" ? "block" : "none")};

@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdClose } from "react-icons/md";
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +52,7 @@ const Container = styled.div`
         type === "common" &&
         css`
           border: none;
+          background-color: #35383f;
 
           input {
             background-color: #35383f;
@@ -92,7 +92,6 @@ const Input = ({
     <Container validated={validated} type={type} width={width}>
       {type === "search" && <AiOutlineSearch size={"25px"} color={"#707A83"} />}
       <input placeholder={placeholder} {...props} />
-      {value && <MdClose size={"25px"} color={"#707A83"} />}
     </Container>
   );
 };
