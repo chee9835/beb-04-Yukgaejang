@@ -1,0 +1,101 @@
+.background {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+}
+.background > section {
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 480px;
+    background-color: #fff;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-show 1s;
+    overflow: hidden;
+}
+
+.background > section > div > input {
+    text-align: left;
+    font-size: 17px;
+    min-width: 400px;
+    min-height: 35px;
+    border: 1px solid #c1c1c1;
+    padding: 5px 20px;
+    margin-bottom: 15px;
+}
+
+.background > section > header div {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.background > section > header button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    all:unset;
+    box-sizing: border-box;
+    cursor:pointer;
+}
+.login__middle {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #c1c1c1;
+}
+.login__middle__left {
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+.login__middle__right {
+    all:unset;
+}
+.login__button {
+    margin-bottom: 20px;
+}
+.login__button > button {
+    text-align: center;
+    font-size: 17px;
+    min-width: 442px;
+    min-height: 43px;
+    margin-bottom: 10px;
+    padding: 5px 20px;
+}
+
+.localLogin {
+    color: #FFFFFF;
+    background-color: #000000;
+}
+.kakaoLogin {
+    color: #000000;
+    background-color: #fcea34;
+    border: #fcea34;
+}
+.facebookLogin {
+    color: #FFFFFF;
+    background-color: #215289;
+    border: #215289;
+}
+
+
+.login__footer > button {
+    all:unset;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+.login__footer > text {
+    color: #c1c1c1;
+}
+
+.hide {
+    color: orangered;
+    text-align: left;
+    font-size: 12px;
+}

@@ -20,6 +20,7 @@ import ModalNft from "./components/ModalNft";
 import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
 import Add from "./pages/Add";
+import ModalCompleteMsg from "./components/ModalCompleteMsg";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);

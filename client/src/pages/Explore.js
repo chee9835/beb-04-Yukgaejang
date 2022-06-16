@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
+import { modalActions } from "../store/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
@@ -182,7 +183,7 @@ const Explore = () => {
   return (
     <Container showObserver={showObserver}>
       <div className="header" />
-      <div className="heading-wrapper" onClick={onClickNft}>
+      <div className="heading-wrapper">
         <h1 className="heading">Explore Collections</h1>
       </div>
       <div className="tab-menu">

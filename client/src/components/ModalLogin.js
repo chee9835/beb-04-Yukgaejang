@@ -1,174 +1,97 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import useMetaMask from "../hooks/useMetaMask";
-import { RiAccountCircleFill } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { modalActions } from "../store/modalSlice";
+import React, {useState} from 'react';
+import './ModalLogin.css';
 
-const Background = styled.section`
-  position: fixed;
-  display: flex;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 997;
-  background-color: rgba(0, 0, 0, 0.2);
-`;
-const Container = styled.div`
-  right: 0;
-  z-index: 998;
-  box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
-  height: 100%;
-  position: fixed;
-`;
-const TitleContainer = styled.div`
-  width: 400px;
-  height: 80px;
-  background-color: #fdfdfd;
-  text-decoration: none;
-  border: none;
-  cursor: grab;
+const ModalLogin = (props) => {
+    const {close} = props;
 
-  .title-wrapper {
-    display: flex;
-    align-items: center;
-    color: #35383f;
-    padding: 20px;
-    border-bottom: 1px solid #e3e6e9;
-  }
-
-  .title {
-    margin-left: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
-  }
-`;
-const ContentContainer = styled.div`
-  width: 400px;
-  height: 100%;
-  background-color: #fdfdfd;
-  text-decoration: none;
-  border: none;
-  cursor: grab;
-  padding: 21px;
-
-  .description {
-    font-size: 16px;
-    text-align: left;
-    line-height: 1.6;
-    color: #35383f;
-    padding-left: 5px;
-  }
-
-  .wallet-button {
-    color: #2081e2;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .metamask-button-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 350px;
-    height: 58px;
-    border: 1px solid #e5e8eb;
-    padding: 15px;
-    border-radius: 10px;
-    cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-
-    opacity: ${({ disabled }) => (disabled ? "0.4" : "1")};
-
-    &:hover {
-      box-shadow: rgb(0 0 0 / 10%) 0 2px 15px;
-      transition: 0.2s ease;
+    const [inputId, setInputId] = useState('')
+    const [inputPw, setInputPw] = useState('')
+    const handleInputId = (e) => {
+        setInputId(e.target.value)
     }
-  }
+    const handleInputPw = (e) => {
+        setInputPw(e.target.value)
+    }
 
-  .metamask-icon-text-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
 
-  .icon {
-    width: 24px;
-    height: 24px;
-    background-color: gray;
-    border-radius: 50%;
-  }
+    const [keepLogin, setKeepLogin] = useState(true);
 
-  .metamask-text {
-    font-size: 14px;
-    font-weight: 700;
-  }
+    function keepLoginHandler() {
+        setKeepLogin(!keepLogin);
+    }
 
-  .chip {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 62px;
-    height: 26px;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    background-color: #2081e2;
-    border-radius: 10px;
-  }
-`;
+    const [idAlarm, setIdAlarm] = useState(false);
+    const [passwordAlarm, setPasswordAlarm] = useState(false);
 
-const ModalLogin = () => {
-  const dispatch = useDispatch();
+    function onClickLogin() {
+        if (inputId === '') {
+            setIdAlarm(true);
+        } else {
+            setIdAlarm(false);
+        }
+        if (inputPw === '') {
+            setPasswordAlarm(true);
+        } else {
+            setPasswordAlarm(false);
+        }
 
-  const [disabled, setDisabled] = useState(false);
+    }
 
-  const { loginWithMetaMask } = useMetaMask();
-
-  const onClickMetaMask = () => {
-    setDisabled(true);
-    loginWithMetaMask();
-    closeModal();
-    // 로그인에 성공하면 리다이렉트
-  };
-
-  const closeModal = () => {
-    dispatch(modalActions.closeLoginModal());
-  };
-
-  return (
-    <>
-      <Container>
-        <TitleContainer disabled={disabled}>
-          <div className="contents">
-            <div className="title-wrapper">
-              <RiAccountCircleFill size="30px" />
-              <span className="title">My wallet</span>
-            </div>
-          </div>
-        </TitleContainer>
-        <ContentContainer disabled={disabled}>
-          <div className="contents">
-            <p className="description">
-              Connect with one of our available{" "}
-              <span className="wallet-button">wallet</span> providers or create
-              a new one.
-            </p>
-            <br />
-            <div className="metamask-button-wrapper" onClick={onClickMetaMask}>
-              <div className="metamask-icon-text-wrapper">
-                <img src="/metamask-icon.png" alt="" width="20px" />
-                <span className="metamask-text">MetaMask</span>
-              </div>
-              <div className="chip">Popular</div>
-            </div>
-          </div>
-        </ContentContainer>
-      </Container>
-      <Background onClick={closeModal} />
-    </>
-  );
+    return (
+        <div className='background'>
+            <section>
+                <header>
+                    <div>
+                        <button className="close" onClick={close}>
+                            X
+                        </button>
+                    </div>
+                    <img src='/img/nike.png' alt={"logo"}/>
+                    <h1>나이키 로그인</h1>
+                </header>
+                <div>
+                    <input
+                        type="text"
+                        name="userid"
+                        onChange={handleInputId}
+                        placeholder={'아이디'}/>
+                    {idAlarm ? <div className="hide">필수 입력 항목입니다.</div> : null}
+                    <br/>
+                    <input
+                        type="password"
+                        name="password"
+                        onChange={handleInputPw}
+                        placeholder={'비밀번호'}/>
+                    {passwordAlarm ? <div className="hide">필수 입력 항목입니다.</div> : null}
+                </div>
+                <section className='login__middle'>
+                    <div className='login__middle__left'>
+                        <input
+                            type="checkbox"
+                            name="keepLogin"
+                            value="keepLogin"
+                            checked={keepLogin}
+                            onClick={keepLoginHandler}/>
+                        <label htmlFor="keepLogin">로그인 유지하기</label>
+                    </div>
+                    <button className='login__middle__right'>아이디/비밀번호 찾기</button>
+                </section>
+                <div className="login__button">
+                    <button className="localLogin" onClick={onClickLogin}>로그인</button>
+                    <br/>
+                    <button className="kakaoLogin">카카오계정으로 로그인</button>
+                    <br/>
+                    <button className="facebookLogin">페이스북으로 로그인</button>
+                </div>
+                <footer className='login__footer'>
+                    <text>{'회원이 아니신가요? '}</text>
+                    <button>회원가입</button>
+                    <br/>
+                    <button>비회원 주문 조회</button>
+                </footer>
+            </section>
+        </div>
+    );
 };
 
 export default ModalLogin;
