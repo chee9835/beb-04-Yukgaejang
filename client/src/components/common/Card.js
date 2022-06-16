@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { parseAddress, parseDescription } from "../../lib/utils";
 
 const Container = styled.div`
   width: 379px;
@@ -86,7 +87,7 @@ const Container = styled.div`
       background-color: #303339;
       border: 1px solid #151b22;
 
-      .image {
+      .nft-image-wrapper {
         border-bottom: 1px solid #151b22;
       }
 
@@ -97,22 +98,6 @@ const Container = styled.div`
 `;
 
 const Card = ({ imageUrl, name, author, description }) => {
-  const parseAddress = (address) => {
-    if (address.length > 25) {
-      return `${address.slice(0, 25)}...`;
-    } else {
-      return address;
-    }
-  };
-
-  const parseDescription = (description) => {
-    if (description.length > 70) {
-      return `${description.slice(0, 70)}...`;
-    } else {
-      return description;
-    }
-  };
-
   return (
     <Container author={author}>
       <div className="nft-image-wrapper">

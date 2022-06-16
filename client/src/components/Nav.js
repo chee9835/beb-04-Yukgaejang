@@ -61,8 +61,6 @@ const Nav = () => {
             Explore
           </Link>
         </Menus>
-        {/*<Menus>Stats</Menus>*/}
-        {/*<Menus>Resources</Menus>*/}
         <Menus>
           <Link className="link" to="/create">
             Create

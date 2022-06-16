@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import styled, { css } from "styled-components";
-import Web3 from "web3";
-import Card from "../components/common/Card";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
+import styled, { css } from "styled-components";
+import Card from "../components/common/Card";
 import abi from "../lib/abis/abi.json";
+import axios from "axios";
+import Web3 from "web3";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -120,9 +121,9 @@ const Mypage = () => {
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
-          const tokenMetadata = await fetch(nft.tokenURI).then((response) =>
-            response.json()
-          );
+          const response = await axios.get(nft.tokenURI);
+
+          const tokenMetadata = response.data;
 
           const nftObject = {
             tokenId: nft.tokenId,
@@ -156,20 +157,16 @@ const Mypage = () => {
         console.log(marketArray);
 
         const newArray = marketArray.splice(0, 3);
-        console.log("@@@ infinite Scroll @@@");
-        console.log(newArray);
 
         if (newArray.length === 0) {
           setLoading(false);
           setShowObserver(true);
           observer.disconnect();
-          console.log("@@@ observer disconnected @@@");
           return;
         }
 
         setTimeout(() => {
           setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
-
           setLoading(false);
           setShowObserver(true);
         }, 1000);
@@ -200,17 +197,15 @@ const Mypage = () => {
         </div>
       </div>
       <div className="contents">
-        {loadedArray.map((token, index) => {
-          return (
-            <Card
-              key={index}
-              name={token.name}
-              description={token.description}
-              author={token.owner}
-              imageUrl={token.imageUrl}
-            />
-          );
-        })}
+        {loadedArray.map((token, index) => (
+          <Card
+            key={index}
+            name={token.name}
+            description={token.description}
+            author={token.owner}
+            imageUrl={token.imageUrl}
+          />
+        ))}
         {loading &&
           Array(3)
             .fill(0)

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {MdOutlineAccountBalanceWallet} from "react-icons/md";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const Container = styled.div`
   width: 32px;
@@ -14,6 +14,7 @@ const Container = styled.div`
     }
   }
 `;
+
 
 const WalletButton = ({openModal}) => {
 

@@ -50,9 +50,7 @@ const ImgInput = ({ onChange, img }) => {
           className="imgInput"
           accept="image/*"
           ref={selectFile}
-          onChange={(e) => {
-            onChange(e);
-          }}
+          onChange={(e) => onChange(e)}
         />
         {img && <img className="img" src={img} alt="" />}
       </div>
