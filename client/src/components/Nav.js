@@ -44,7 +44,9 @@ const Menus = styled.button`
   cursor: pointer;
   position: relative;
 
-  .explore-indication {
+  .explore-indication,
+  .create-indication,
+  .add-indication {
     width: 90px;
     height: 4px;
     background-color: ${palette.primary};
@@ -53,19 +55,19 @@ const Menus = styled.button`
     left: -16px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+  }
+
+  .explore-indication {
     display: ${({ path }) => (path === "/explore" ? "block" : "none")};
   }
 
   .create-indication {
-    width: 90px;
-    height: 4px;
-    background-color: ${palette.primary};
-    position: absolute;
-    bottom: -22px;
-    left: -16px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     display: ${({ path }) => (path === "/create" ? "block" : "none")};
+  }
+
+  .add-indication {
+    left: -24px;
+    display: ${({ path }) => (path === "/add" ? "block" : "none")};
   }
 
   &:hover {
@@ -77,15 +79,9 @@ const Menus = styled.button`
     css`
       color: #cbcbcb;
 
-      .exlpore-link {
-        color: #cbcbcb;
-
-        &:hover {
-          color: white;
-        }
-      }
-
-      .create-link {
+      .explore-link,
+      .create-link,
+      .add-link {
         color: #cbcbcb;
 
         &:hover {
@@ -113,6 +109,12 @@ const Nav = () => {
             Create
           </Link>
           <div className="create-indication" />
+        </Menus>
+        <Menus path={path}>
+          <Link className="add-link" to="/add">
+            Add
+          </Link>
+          <div className="add-indication" />
         </Menus>
         <div className="icon-wrapper">
           <Menus>
