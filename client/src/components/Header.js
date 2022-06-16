@@ -158,6 +158,8 @@ const MainContainer = styled.div`
 `;
 
 const MenusContainer = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
   text-align: right;
   margin-left: 20px;
@@ -181,53 +183,53 @@ const Menus = styled.button`
 `;
 
 const Header = () => {
-  const [showInput, setShowInput] = useState(false);
+    const [showInput, setShowInput] = useState(false);
 
-  const handleInput = () => {
-    setShowInput(!showInput);
-  };
+    const handleInput = () => {
+        setShowInput(!showInput);
+    };
 
-  return (
-    <MainContainer>
-      <section className="header">
-        <Link to="/">
-          <div className="logo-wrapper">
-            <img src="/open-sea-logo.png" width="42px" alt="로고" />
-            <p className="logo-text">OpenSea</p>
-          </div>
-        </Link>
-        {/*{showInput ?*/}
-        <div className="input-wrapper">
-          <Input
-            type="search"
-            placeholder="Search items, collections, and accounts"
-          />
-        </div>
-        {/*: null}*/}
-        <MenusContainer className="menu-wrapper">
-          <Menus className="account">
-            <AccountButton className="icon" />
-          </Menus>
-          <Menus className="wallet">
-            <WalletButton className="icon" />
-          </Menus>
-          <Menus className="search">
-            <AiOutlineSearch
-              className="icon"
-              onClick={handleInput}
-              size="30px"
-            />
-          </Menus>
-          <Menus className="menu">
-            <AiOutlineMenu className="icon" size="30px" />
-          </Menus>
-          <div className="nav">
-            <Nav />
-          </div>
-        </MenusContainer>
-      </section>
-    </MainContainer>
-  );
+    return (
+        <MainContainer>
+            <section className="header">
+                <Link to="/">
+                    <div className="logo-wrapper">
+                        <img src="/open-sea-logo.png" width="42px" alt="로고"/>
+                        <p className="logo-text">OpenSea</p>
+                    </div>
+                </Link>
+                {/*{showInput ?*/}
+                <div className="input-wrapper">
+                    <Input
+                        type="search"
+                        placeholder="Search items, collections, and accounts"
+                    />
+                </div>
+                {/*: null}*/}
+                <MenusContainer className="menu-wrapper">
+                    <Menus className="account">
+                        <AccountButton className="icon"/>
+                    </Menus>
+                    <Menus className="wallet">
+                        <WalletButton className="icon" />
+                    </Menus>
+                    <Menus className="search">
+                        <AiOutlineSearch
+                            className="icon"
+                            onClick={handleInput}
+                            size="30px"
+                        />
+                    </Menus>
+                    <Menus className="menu">
+                        <AiOutlineMenu className="icon" size="30px"/>
+                    </Menus>
+                    <div className="nav">
+                        <Nav/>
+                    </div>
+                </MenusContainer>
+            </section>
+        </MainContainer>
+    );
 };
 
 export default Header;

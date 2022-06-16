@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import Web3 from "web3";
 import Card from "../components/common/Card";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
 import abi from "../lib/abis/abi.json";
-import { web3Actions } from "../store/web3Slice";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -90,36 +88,35 @@ const Container = styled.section`
 
 //여긴 그냥 크립토 펑크 가져오기
 //DB 구축
-const Explore = () => {
+const Mypage = () => {
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
   const [marketArray, setMarketArray] = useState([]);
+  const [metaMaskWeb3, setMetaMaskWeb3] = useState(null);
   const [loadedArray, setLoadedArray] = useState([]);
-
-  const web3 = useSelector((state) => state.web3.web3);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!window.ethereum) return;
 
     try {
       const web = new Web3(window.ethereum);
-      dispatch(web3Actions.setWeb3(web));
+      setMetaMaskWeb3(web);
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch]);
+  }, []);
 
   const CONTRACT_ADDRESS = "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B";
 
   useEffect(() => {
-    if (!web3?.eth?.Contract) return;
-    const contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
+    if (!metaMaskWeb3?.eth?.Contract) return;
+    const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
 
     const getMarketNFTs = async () => {
       setLoading(true);
-      const nfts = await contract.methods.fetchMarketItems().call();
+      const nfts = await contract.methods.fetchMyNFTs().call();
+      console.log("@@@ nfts @@@");
+      console.log(nfts);
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
@@ -144,7 +141,7 @@ const Explore = () => {
       setLoadedArray(nftArray.splice(0, 3));
     };
     getMarketNFTs();
-  }, [web3?.eth?.Contract]);
+  }, [metaMaskWeb3?.eth?.Contract]);
 
   const targetRef = useRef();
 
@@ -156,17 +153,23 @@ const Explore = () => {
         setLoading(true);
         setShowObserver(false);
 
+        console.log(marketArray);
+
         const newArray = marketArray.splice(0, 3);
+        console.log("@@@ infinite Scroll @@@");
+        console.log(newArray);
 
         if (newArray.length === 0) {
           setLoading(false);
           setShowObserver(true);
           observer.disconnect();
+          console.log("@@@ observer disconnected @@@");
           return;
         }
 
         setTimeout(() => {
           setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
+
           setLoading(false);
           setShowObserver(true);
         }, 1000);
@@ -192,22 +195,24 @@ const Explore = () => {
       </div>
       <div className="tab-menu">
         <div className="tab-wrapper">
-          <span className="tab-text">All</span>
+          <span className="tab-text">My NFTs</span>
           <div className="tab-underline" />
         </div>
       </div>
       <div className="contents">
-        {loadedArray.map((token, index) => (
-          <Card
-            key={index}
-            name={token.name}
-            description={token.description}
-            author={token.owner}
-            imageUrl={token.imageUrl}
-          />
-        ))}
+        {loadedArray.map((token, index) => {
+          return (
+            <Card
+              key={index}
+              name={token.name}
+              description={token.description}
+              author={token.owner}
+              imageUrl={token.imageUrl}
+            />
+          );
+        })}
         {loading &&
-          Array((loadedArray.length % 3) + 3)
+          Array(3)
             .fill(0)
             .map((_, index) => <CardSkeleton key={index} />)}
       </div>
@@ -216,4 +221,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Mypage;

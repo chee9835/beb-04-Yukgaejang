@@ -9,7 +9,6 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleThemeMode(state) {
-      console.log(state.themeMode);
       state.themeMode = state.themeMode === "light" ? "dark" : "light";
     },
     setThemeMode(state, action) {
