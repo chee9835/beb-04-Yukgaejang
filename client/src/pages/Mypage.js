@@ -6,6 +6,8 @@ import abi from "../lib/abis/explore_ABI.json";
 import axios from "axios";
 import Web3 from "web3";
 import { FaEthereum } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { parseAddress } from "../lib/utils";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
@@ -146,6 +148,14 @@ const Container = styled.section`
       .tab-menu {
         border-bottom: 1px solid #151b22;
       }
+
+      .mypage-legend {
+        background-color: #262b2f;
+      }
+
+      .balance {
+        color: white;
+      }
     `}
 `;
 
@@ -157,6 +167,12 @@ const Mypage = () => {
   const [marketArray, setMarketArray] = useState([]);
   const [metaMaskWeb3, setMetaMaskWeb3] = useState(null);
   const [loadedArray, setLoadedArray] = useState([]);
+
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
+  // 메타마스크 프로바이더 연결
   useEffect(() => {
     if (!window.ethereum) return;
 
@@ -173,30 +189,12 @@ const Mypage = () => {
   useEffect(() => {
     if (!metaMaskWeb3?.eth?.Contract) return;
 
-    const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
-
     const getMarketNFTs = async () => {
-      setLoading(true);
-      //지갑 연결
-      const connectWallet = async () => {
-        const metamaskAccounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        console.log("안에서");
-        console.log(metamaskAccounts[0]);
-        return metamaskAccounts[0];
-      };
-
-      const metamaskAccount = await connectWallet();
-
-      //계정 바뀌는거 감지학고 페이지 세로고침
-      //지금은 메타마스크에서 계정 바꿔도 페이지 새로고침이 안돼서 바뀐 메타마스크 계정의 NFT를 보여주지 않음
+      const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
 
       const nfts = await contract.methods
         .fetchMyNFTs()
-        .call({ from: String(metamaskAccount) });
-      console.log("@@@ nfts @@@");
-      console.log(nfts);
+        .call({ from: String(metaMaskAddress) });
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
@@ -220,8 +218,9 @@ const Mypage = () => {
       setMarketArray(nftArray);
       setLoadedArray(nftArray.splice(0, 3));
     };
+
     getMarketNFTs();
-  }, [metaMaskWeb3?.eth?.Contract]);
+  }, [metaMaskAddress, metaMaskWeb3?.eth?.Contract]);
 
   const targetRef = useRef();
 
@@ -275,7 +274,7 @@ const Mypage = () => {
         <p className="name">Unnamed</p>
         <div className="balance-wrapper">
           <FaEthereum />
-          <p className="balance">0x3853...3e32</p>
+          <p className="balance">{parseAddress(metaMaskAddress)}</p>
         </div>
         <p className="collected">Collected</p>
       </div>

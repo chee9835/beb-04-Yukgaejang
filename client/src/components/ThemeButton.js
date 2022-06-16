@@ -15,6 +15,7 @@ const Container = styled.div`
   right: 20px;
   cursor: pointer;
   box-shadow: 0 0 9px 2px rgba(0, 0, 0, 0.3);
+  z-index: 999;
 
   .icon {
     width: 25px;
@@ -25,6 +26,7 @@ const Container = styled.div`
     themeMode === "dark" &&
     css`
       background-color: #05111d;
+      color: white;
     `}
 `;
 

@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { parseAddress, parseDescription } from "../../lib/utils";
+import { shortenAddress, shortenDescription } from "../../lib/utils";
 
 const Container = styled.div`
-  width: 379px;
+  width: 340px;
   border: 1px solid #e5e8eb;
   border-radius: 10px;
   cursor: pointer;
@@ -33,7 +33,7 @@ const Container = styled.div`
   .card-contents {
     display: flex;
     flex-direction: column;
-    height: 180px;
+    height: 210px;
   }
 
   .name {
@@ -67,7 +67,7 @@ const Container = styled.div`
     width: 44px;
     height: 44px;
     position: absolute;
-    top: calc(50% - 14px);
+    top: calc(50% - 30px);
     left: calc(50% - 22px);
     border: 1px solid #e5e8eb;
     padding: 2px;
@@ -79,6 +79,10 @@ const Container = styled.div`
     height: 100%;
     border-radius: 50%;
     background-color: white;
+  }
+
+  @media screen and (min-width: 720px) {
+    width: 379px;
   }
 
   ${({ theme }) =>
@@ -107,11 +111,11 @@ const Card = ({ imageUrl, name, author, description }) => {
         <div className="name">{name}</div>
         {author && (
           <div className="author-wrapper">
-            by <span className="author">{parseAddress(author)}</span>
+            by <span className="author">{shortenAddress(author)}</span>
           </div>
         )}
         <div className="description-wrapper">
-          <span className="description">{parseDescription(description)}</span>
+          <span className="description">{shortenDescription(description)}</span>
         </div>
       </div>
       <div className="profile-image-wrapper">

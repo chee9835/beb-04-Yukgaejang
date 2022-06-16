@@ -53,10 +53,10 @@ const Container = styled.label`
   }
 `;
 
-const ToggleButton = ({ ...props }) => {
+const ToggleButton = ({ checked, ...props }) => {
   return (
     <Container>
-      <input className="input" type="checkbox" {...props} />
+      <input className="input" type="checkbox" checked={checked} {...props} />
       <span className="slider" />
     </Container>
   );
