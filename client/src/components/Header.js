@@ -2,9 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
-import Input from "./common/Input";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import { modalActions } from "../store/modalSlice";
@@ -212,12 +210,13 @@ const Header = () => {
               <p className="logo-text">OpenSea</p>
             </div>
           </Link>
-          <div className="input-wrapper">
-            <Input
-              type="search"
-              placeholder="Search items, collections, and accounts"
-            />
-          </div>
+          {/*{showInput ?*/}
+          {/* <div className="input-wrapper">
+          <Input
+            type="search"
+            placeholder="Search items, collections, and accounts"
+          />
+        </div> */}
         </div>
         <MenusContainer className="menu-wrapper">
           <Menus className="account" onClick={closeModal}>
@@ -226,9 +225,9 @@ const Header = () => {
           <Menus className="wallet" onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
-          <Menus className="search">
+          {/* <Menus className="search">
             <AiOutlineSearch className="icon" size="30px" />
-          </Menus>
+          </Menus> */}
           <Menus className="menu" onClick={onClickMenuButton}>
             <AiOutlineMenu className="icon" size="30px" />
           </Menus>

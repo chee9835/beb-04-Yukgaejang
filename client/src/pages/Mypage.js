@@ -19,7 +19,7 @@ const Container = styled.section`
     background-color: #f7f8f9;
   }
 
-  .profile-image-wrapper {
+  .mypage-profile-image-wrapper {
     background-color: white;
     position: absolute;
     width: 90px;
@@ -28,6 +28,10 @@ const Container = styled.section`
     bottom: -20px;
     left: 16px;
     border-radius: 50%;
+  }
+
+  .mypage-profile-image {
+    width: 100%;
   }
 
   .icons-wrapper {
@@ -123,7 +127,7 @@ const Container = styled.section`
       height: 320px;
     }
 
-    .profile-image-wrapper {
+    .mypage-profile-image-wrapper {
       width: 168px;
       height: 168px;
       left: 64px;
@@ -159,8 +163,6 @@ const Container = styled.section`
     `}
 `;
 
-//여긴 그냥 크립토 펑크 가져오기
-//DB 구축
 const Mypage = () => {
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
@@ -232,8 +234,6 @@ const Mypage = () => {
         setLoading(true);
         setShowObserver(false);
 
-        console.log(marketArray);
-
         const newArray = marketArray.splice(0, 3);
 
         if (newArray.length === 0) {
@@ -265,8 +265,12 @@ const Mypage = () => {
   return (
     <Container showObserver={showObserver}>
       <div className="mypage-legend">
-        <div className="profile-image-wrapper">
-          <div className="profile-image" />
+        <div className="mypage-profile-image-wrapper">
+          <img
+            className="mypage-profile-image"
+            src="/profile-image.png"
+            alt=""
+          />
         </div>
       </div>
       <div className="icons-wrapper"></div>

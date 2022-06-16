@@ -160,6 +160,7 @@ const Create = () => {
           method: "eth_sendTransaction",
           params: [transactionParameters],
         });
+
         setImg("");
         setName("");
         setDescription("");
