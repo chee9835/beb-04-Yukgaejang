@@ -44,14 +44,14 @@ const Container = styled.section`
   }
 
   .balance-wrapper {
-    display: none;
+    display: flex;
+    margin-bottom: 50px;
   }
 
   .balance {
     font-size: 16px;
     color: #353840;
     font-weight: 300;
-    margin-bottom: 40px;
   }
 
   .collected {
@@ -61,6 +61,12 @@ const Container = styled.section`
 
   .contents {
     display: grid;
+  }
+
+  .no-item {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
   }
 
   .tab-menu {
@@ -125,12 +131,12 @@ const Container = styled.section`
       padding: 0 64px;
     }
 
-    .balance-wrapper {
-      display: flex;
-    }
-
     .contents {
       grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .no-item {
+      font-size: 28px;
     }
   }
 
@@ -280,6 +286,9 @@ const Mypage = () => {
           <div className="tab-underline" />
         </div>
       </div>
+      {loadedArray.length === 0 && (
+        <p className="no-item">No items to display</p>
+      )}
       <div className="contents">
         {loadedArray.map((token, index) => (
           <Card
@@ -295,6 +304,7 @@ const Mypage = () => {
             .fill(0)
             .map((_, index) => <CardSkeleton key={index} />)}
       </div>
+
       <div className="observer" ref={targetRef} />
     </Container>
   );
