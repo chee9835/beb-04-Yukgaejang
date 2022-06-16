@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Create from "./pages/Create";
 import Explore from "./pages/Explore";
 import Mypage from "./pages/Mypage";
+import Nftpage from "./pages/Nftpage";
 import Home from "./pages/Home";
 import Web3 from "web3";
 import { web3Actions } from "./store/web3Slice";
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/create" element={<Create />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/nftpage" element={<Nftpage />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </ThemeProvider>
