@@ -15,34 +15,30 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { themeActions } from "./store/themeSlice";
 import Test from "./pages/Test";
+import ModalNavBar from "./components/ModalNavBar";
 import ModalLogin from "./components/ModalLogin";
 import ModalWallet from "./components/ModalWallet";
-import ModalNavBar from "./components/ModalNavBar";
 import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
+import Add from "./pages/Add";
 
 const App = () => {
+  console.log('1111111111');
   const themeMode = useSelector((state) => state.theme.themeMode);
+  const menuModalOpen = useSelector((state) => state.modal.menuModalOpen);
+  const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
+  const walletModalOpen = useSelector((state) => state.modal.walletModalOpen);
 
   const dispatch = useDispatch();
 
-  // web3 객체 연결
+  // web3 객체 연결 & 메타마스크 로그인 확인
   useEffect(() => {
     if (!window.ethereum) return;
 
-    try {
-      const web = new Web3(
-        "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
-      );
-      dispatch(web3Actions.setWeb3(web));
-    } catch (err) {
-      console.log(err);
-    }
-  }, [dispatch]);
-
-  // 메타마스크 로그인 확인
-  useEffect(() => {
-    if (!window.ethereum) return;
+    const web3 = new Web3(
+      "https://ropsten.infura.io/v3/dbb2298855e3436fb8ee3b408fc46f1b"
+    );
+    dispatch(web3Actions.setWeb3(web3));
 
     const checkMetaMask = async () => {
       var provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -56,12 +52,18 @@ const App = () => {
       const isLoggedIn = await isMetaMaskConnected();
 
       if (isLoggedIn) {
-        const metaMaskAccounts = await window.ethereum.request({
+        const metaMaskAddress = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        console.log(metaMaskAccounts);
+        console.log(metaMaskAddress[0]);
 
-        dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAccounts[0]));
+        const wei = await web3.eth.getBalance(metaMaskAddress[0]);
+
+        const balance = web3.utils.fromWei(wei, "ether");
+        console.log(balance);
+
+        dispatch(metaMaskActions.setMetaMaskAddress(metaMaskAddress[0]));
+        dispatch(metaMaskActions.setBalance(balance));
       }
     };
 
@@ -85,8 +87,6 @@ const App = () => {
         const metamaskAccounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        console.log("잔액");
-        console.log(window.ethereum.getBalance(metamaskAccounts[0]));
         // accounts = await web3.eth.getAccounts();
         window.location.reload();
       });
@@ -98,7 +98,9 @@ const App = () => {
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
       <Header />
-      <div>{}</div>
+      {menuModalOpen && <ModalNavBar />}
+      {walletModalOpen && <ModalWallet />}
+      {loginModalOpen && <ModalLogin />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
@@ -107,6 +109,7 @@ const App = () => {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/nftpage" element={<Nftpage />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/add" element={<Add />} />
       </Routes>
     </ThemeProvider>
   );

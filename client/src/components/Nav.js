@@ -4,6 +4,8 @@ import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
 import { Link, useLocation } from "react-router-dom";
 import palette from "../styles/palette";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions } from "../store/modalSlice";
 
 const MainContainer = styled.section`
   display: flex;
@@ -42,29 +44,32 @@ const Menus = styled.button`
   font-weight: 600;
   margin-left: 30px;
   cursor: pointer;
+  position: relative;
 
-  .explore-indication {
+  .explore-indication,
+  .create-indication,
+  .add-indication {
     width: 90px;
     height: 4px;
     background-color: ${palette.primary};
     position: absolute;
-    bottom: 0;
-    left: 1122px;
+    bottom: -22px;
+    left: -16px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+  }
+
+  .explore-indication {
     display: ${({ path }) => (path === "/explore" ? "block" : "none")};
   }
 
   .create-indication {
-    width: 90px;
-    height: 4px;
-    background-color: ${palette.primary};
-    position: absolute;
-    bottom: 0;
-    left: 1208px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     display: ${({ path }) => (path === "/create" ? "block" : "none")};
+  }
+
+  .add-indication {
+    left: -24px;
+    display: ${({ path }) => (path === "/add" ? "block" : "none")};
   }
 
   &:hover {
@@ -76,15 +81,9 @@ const Menus = styled.button`
     css`
       color: #cbcbcb;
 
-      .exlpore-link {
-        color: #cbcbcb;
-
-        &:hover {
-          color: white;
-        }
-      }
-
-      .create-link {
+      .explore-link,
+      .create-link,
+      .add-link {
         color: #cbcbcb;
 
         &:hover {
@@ -93,10 +92,31 @@ const Menus = styled.button`
       }
     `}
 `;
+
 const Nav = () => {
   const location = useLocation();
 
   const path = location.pathname;
+
+  const dispatch = useDispatch();
+
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
+  const onClickWalletButton = () => {
+    if (metaMaskAddress === "") {
+      dispatch(modalActions.openLoginModal());
+    } else {
+      dispatch(modalActions.openWalletModal());
+    }
+  };
+
+  const closeModal = () => {
+    dispatch(modalActions.closeMenuModal());
+    dispatch(modalActions.closeLoginModal());
+    dispatch(modalActions.closeWalletModal());
+  };
 
   return (
     <MainContainer>
@@ -113,11 +133,17 @@ const Nav = () => {
           </Link>
           <div className="create-indication" />
         </Menus>
+        <Menus path={path}>
+          <Link className="add-link" to="/add">
+            Add
+          </Link>
+          <div className="add-indication" />
+        </Menus>
         <div className="icon-wrapper">
-          <Menus>
-            <AccountButton className="icon" />
+          <Menus onClick={closeModal}>
+              <AccountButton className="icon" />
           </Menus>
-          <Menus>
+          <Menus onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
         </div>

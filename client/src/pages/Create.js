@@ -83,6 +83,7 @@ const Container = styled.div`
       }
     `}
 `;
+
 const Create = () => {
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
