@@ -95,6 +95,14 @@ const Create = () => {
   const web3 = useSelector((state) => state.web3.web3);
   const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
 
+  const onChangeName = (event) => {
+    setName(event.target.value);
+  };
+
+  const onChangeDescription = (event) => {
+    setDescription(event.target.value);
+  };
+
   async function getImageUri(e) {
     const file = e.target.files[0];
     try {
@@ -145,26 +153,13 @@ const Create = () => {
         data: window.contract.methods.mintNFT(metaMaskAddress, NFTUri).encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
-      try {
-        const txHash = await window.ethereum.request({
+        await window.ethereum.request({
           method: "eth_sendTransaction",
           params: [transactionParameters],
         });
         setImg("");
         setName("");
         setDescription("");
-        return {
-          success: true,
-          status:
-            "✅ Check out your transaction on Etherscan: https://robsten.etherscan.io/tx/" +
-            txHash,
-        };
-      } catch (error) {
-        return {
-          success: false,
-          status: "😥 Something went wrong: " + error.message,
-        };
-      }
     } catch (e) {
       console.log(e);
     }
@@ -216,7 +211,8 @@ const Create = () => {
             <Input
               type="common"
               placeholder="Item name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={onChangeName}
+              value={name}
               validated={validated}
               onBlur={validate}
             />
@@ -235,7 +231,8 @@ const Create = () => {
             </p>
             <Textarea
               placeholder="Provide a detailed description of your item"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={onChangeDescription}
+              value={description}
             />
           </div>
           <br />
