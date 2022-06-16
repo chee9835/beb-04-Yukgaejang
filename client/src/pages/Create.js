@@ -6,7 +6,7 @@ import Button from "../components/common/Button";
 import styled, { css } from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import { create } from "ipfs-http-client";
-import nftABI from "../db/testABI.json";
+import nftABI from "../lib/abis/mint_ABI.json";
 import { useSelector } from "react-redux";
 
 const Container = styled.div`

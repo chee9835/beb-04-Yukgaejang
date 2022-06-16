@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
-import abi from "../lib/abis/abi.json";
+import abi from "../lib/abis/explore_ABI.json";
 import axios from "axios";
 import Web3 from "web3";
 
