@@ -121,19 +121,19 @@ const Nav = () => {
   return (
     <MainContainer>
       <MenusContainer>
-        <Menus path={path}>
+        <Menus path={path} onClick={closeModal}>
           <Link className="explore-link" to="/explore">
             Explore
           </Link>
           <div className="explore-indication" />
         </Menus>
-        <Menus path={path}>
+        <Menus path={path} onClick={closeModal}>
           <Link className="create-link" to="/create">
             Create
           </Link>
           <div className="create-indication" />
         </Menus>
-        <Menus path={path}>
+        <Menus path={path} onClick={closeModal}>
           <Link className="add-link" to="/add">
             Add
           </Link>
@@ -141,7 +141,7 @@ const Nav = () => {
         </Menus>
         <div className="icon-wrapper">
           <Menus onClick={closeModal}>
-              <AccountButton className="icon" />
+            <AccountButton className="icon" />
           </Menus>
           <Menus onClick={onClickWalletButton}>
             <WalletButton className="icon" />
