@@ -12,6 +12,7 @@ const metaMaskSlice = createSlice({
     setMetaMaskAddress(state, action) {
       state.metaMaskAddress = action.payload;
     },
+
     setBalance(state, action) {
       state.balance = action.payload;
     },
