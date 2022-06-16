@@ -4,6 +4,7 @@ import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../store/modalSlice";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.section`
   position: fixed;
@@ -122,6 +123,8 @@ const ContentContainer = styled.div`
 const ModalLogin = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const [disabled, setDisabled] = useState(false);
 
   const { loginWithMetaMask } = useMetaMask();
@@ -131,6 +134,7 @@ const ModalLogin = () => {
     loginWithMetaMask();
     closeModal();
     // 로그인에 성공하면 리다이렉트
+    navigate("/");
   };
 
   const closeModal = () => {
