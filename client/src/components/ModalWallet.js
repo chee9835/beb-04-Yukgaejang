@@ -25,8 +25,6 @@ const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
   position: fixed;
-  animation: fadeIn 15s ease-out;
-  transition: visibility 15s ease-out;
   z-index: 997;
 `;
 
@@ -148,7 +146,6 @@ const ModalWallet = () => {
   };
 
   const closeModal = () => {
-    console.log("나야나")
     dispatch(modalActions.closeWalletModal());
   };
 
@@ -171,7 +168,6 @@ const ModalWallet = () => {
     }
   }
   function showBalance(metaMaskBalance) {
-    console.log("metaMaskBalance = " + metaMaskBalance);
     if (metaMaskBalance === "") return "$0.00 USD";
     else {
       return metaMaskBalance;
@@ -205,7 +201,7 @@ const ModalWallet = () => {
           </div>
         </ContentContainer>
       </Container>
-      <Background onClick={closeModal}/>
+      <Background onClick={closeModal} />
     </>
   );
 };
