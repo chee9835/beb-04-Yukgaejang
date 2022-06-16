@@ -26,6 +26,7 @@ const Container = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
   height: 100%;
   position: fixed;
+  background-color: #fdfdfd;
 `;
 
 const MenusContainer = styled.div`

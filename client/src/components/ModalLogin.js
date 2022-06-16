@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { modalActions } from "../store/modalSlice";
 
 const Background = styled.section`
