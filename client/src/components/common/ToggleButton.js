@@ -56,7 +56,13 @@ const Container = styled.label`
 const ToggleButton = ({ checked, ...props }) => {
   return (
     <Container>
-      <input className="input" type="checkbox" checked={checked} {...props} />
+      <input
+        className="input"
+        type="checkbox"
+        checked={checked}
+        readOnly
+        {...props}
+      />
       <span className="slider" />
     </Container>
   );
