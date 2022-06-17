@@ -17,13 +17,13 @@ const Background = styled.div`
   bottom: 0;
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.4);
-  overflow: hidden;
 `;
 
 const Container = styled.div`
   position: fixed;
-  top: 20%;
-  left: 20%;
+  top: 10%;
+  width: 100%;
+  height: 100%;
   padding: 40px 0;
   max-width: 1000px;
   z-index: 998;
@@ -81,12 +81,12 @@ const Container = styled.div`
   }
 
   .name {
-    max-width: 300px;
     word-wrap: break-word;
     text-align: center;
     font-weight: 500;
     margin-bottom: 30px 0;
     font-size: 40px;
+    margin-bottom: 30px;
   }
 
   .author-wrapper {
@@ -113,7 +113,6 @@ const Container = styled.div`
     flex-direction: column;
     width: 340px;
     height: 225px;
-
     color: #04112b;
   }
 
@@ -129,12 +128,26 @@ const Container = styled.div`
   }
 
   @media screen and (min-width: 720px) {
+    top: 20%;
+    left: 20%;
+    bottom: 10%;
+    width: 900px;
+    height: 450px;
+
+    .name {
+      color: white;
+    }
+
     .contents {
       flex-direction: row;
     }
 
     .nft-img-wrapper {
       min-height: 350px;
+    }
+
+    .nft-img {
+      max-height: 300px;
     }
   }
 
