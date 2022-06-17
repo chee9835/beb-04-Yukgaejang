@@ -211,7 +211,6 @@ const Header = () => {
               <p className="logo-text">OpenSea</p>
             </div>
           </Link>
-          {/*{showInput ?*/}
           <div className="input-wrapper">
             <Input
               type="search"

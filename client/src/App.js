@@ -20,14 +20,13 @@ import ModalNft from "./components/ModalNft";
 import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
 import Add from "./pages/Add";
-import ModalCompleteMsg from "./components/ModalCompleteMsg";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
   const menuModalOpen = useSelector((state) => state.modal.menuModalOpen);
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
   const walletModalOpen = useSelector((state) => state.modal.walletModalOpen);
-  const nftModalOpen = useSelector((state) => state.modal.walletModalOpen);
+  const nftModalOpen = useSelector((state) => state.modal.nftModalOpen);
 
   const dispatch = useDispatch();
 
