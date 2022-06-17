@@ -1,10 +1,9 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { parseAddress, parseDescription } from "../lib/utils";
+import styled from "styled-components";
 import { SiHiveBlockchain } from "react-icons/si";
 import { FiHeart } from "react-icons/fi";
 import { AiOutlineAlignLeft } from "react-icons/ai";
-import { modalActions } from "../store/modalSlice";
+import { modalActions } from "../../store/modalSlice";
 import { useDispatch } from "react-redux";
 
 const Background = styled.div`

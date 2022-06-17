@@ -13,14 +13,14 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { themeActions } from "./store/themeSlice";
-import ModalNavBar from "./components/ModalNavBar";
-import ModalLogin from "./components/ModalLogin";
-import ModalWallet from "./components/ModalWallet";
-import ModalNft from "./components/ModalNft";
+import ModalNavBar from "./components/modals/ModalNavBar";
+import ModalLogin from "./components/modals/ModalLogin";
+import ModalWallet from "./components/modals/ModalWallet";
+import ModalNft from "./components/modals/ModalNft";
 import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
 import Add from "./pages/Add";
-import ThemeButton from "./components/ThemeButton";
+import ThemeButton from "./components/buttons/ThemeButton";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
