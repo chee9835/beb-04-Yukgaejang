@@ -203,7 +203,7 @@ const ModalWallet = () => {
                 <div className="total">Total balance</div>
                 <div className="balance">{showBalance(metaMaskBalance)}</div>
               </div>
-              <button className="add-funds-button">Add Funds</button>
+              <button className="add-funds-button">Set Approval</button>
             </div>
           </div>
         </ContentContainer>

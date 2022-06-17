@@ -15,45 +15,37 @@ const Container = styled.div`
   padding: 50px 100px;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.color};
-
   .container-paper {
     display: flex;
     flex-direction: column;
   }
-
   .heading-wrapper {
     padding: 40px 0;
   }
-
   .heading {
     font-size: 40px;
     color: #04111d;
     font-weight: 600;
   }
-
   .required {
     color: red;
     padding: 0 2px;
   }
-
   .validation-check {
     color: #e95656;
     padding: 10px;
     text-shadow: 0.1px 0.1px 0.1px whitesmoke;
   }
-
   .content-wrapper {
     padding: 10px 0;
     max-width: 900px;
   }
-
   .content-title {
     font-size: 20px;
     font-weight: 500;
     text-shadow: 0.3px 0.3px 0.3px gray;
     color: #35383f;
   }
-
   .content-description {
     font-size: 15px;
     color: #6f7982;
@@ -61,23 +53,19 @@ const Container = styled.div`
     padding: 10px 0;
     line-height: 20px;
   }
-
   .button {
     width: 100px;
   }
-
   @media screen and (min-width: 1500px) {
     margin-top: 50px;
     padding: 0 20%;
   }
-
   ${({ theme }) =>
     theme.mode === "dark" &&
     css`
       .heading {
         color: white;
       }
-
       .content-title {
         color: white;
       }
@@ -93,7 +81,9 @@ const Create = () => {
 
   const client = create("https://ipfs.infura.io:5001/api/v0");
   const web3 = useSelector((state) => state.web3.web3);
-  const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
 
   const onChangeName = (event) => {
     setName(event.target.value);
@@ -127,7 +117,7 @@ const Create = () => {
     try {
       const added = await client.add(metadata);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      console.log(metaMaskAddress)
+      console.log(metaMaskAddress);
       await mintNFT(url);
     } catch (e) {
       console.log(e);
@@ -139,9 +129,6 @@ const Create = () => {
     setName("");
     setDescription("");
   };
-
-
-
 
   async function mintNFT(NFTUri) {
     try {
@@ -156,18 +143,19 @@ const Create = () => {
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
-        data: window.contract.methods.mintNFT(metaMaskAddress, NFTUri).encodeABI(), //make call to NFT smart contract
+        data: window.contract.methods
+          .mintNFT(metaMaskAddress, NFTUri)
+          .encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
-        await window.ethereum.request({
-          method: "eth_sendTransaction",
-          params: [transactionParameters],
-        });
-
+      await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
     } catch (e) {
       console.log(e);
     }
-    onReset()
+    onReset();
     // eslint-disable-next-line no-restricted-globals
     location.reload();
   }
