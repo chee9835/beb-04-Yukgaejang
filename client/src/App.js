@@ -106,6 +106,7 @@ const App = () => {
       {walletModalOpen && <ModalWallet />}
       {loginModalOpen && <ModalLogin />}
       {nftModalOpen && <ModalNft />}
+      <div id="modal-portal" />
       <ThemeButton themeMode={themeMode} onClick={onClickThemeButton} />
       <Routes>
         <Route path="/" element={<Home />} />

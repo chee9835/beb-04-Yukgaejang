@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { shortenAddress, shortenDescription } from "../../lib/utils";
+import ModalNft from "../modals/ModalNft";
 
 const Container = styled.div`
   width: 340px;
@@ -102,26 +103,45 @@ const Container = styled.div`
 `;
 
 const Card = ({ imageUrl, name, author, description }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const onClickCard = () => {
+    setModalOpen(true);
+  };
+
   return (
-    <Container author={author}>
-      <div className="nft-image-wrapper">
-        <img className="nft-image" src={imageUrl} alt="" />
-      </div>
-      <div className="card-contents">
-        <div className="name">{name}</div>
-        {author && (
-          <div className="author-wrapper">
-            by <span className="author">{shortenAddress(author)}</span>
-          </div>
-        )}
-        <div className="description-wrapper">
-          <span className="description">{shortenDescription(description)}</span>
+    <>
+      <Container author={author} onClick={onClickCard}>
+        <div className="nft-image-wrapper">
+          <img className="nft-image" src={imageUrl} alt="" />
         </div>
-      </div>
-      <div className="profile-image-wrapper">
-        <img className="profile-image" src={imageUrl} alt="" />
-      </div>
-    </Container>
+        <div className="card-contents">
+          <div className="name">{name}</div>
+          {author && (
+            <div className="author-wrapper">
+              by <span className="author">{shortenAddress(author)}</span>
+            </div>
+          )}
+          <div className="description-wrapper">
+            <span className="description">
+              {shortenDescription(description)}
+            </span>
+          </div>
+        </div>
+        <div className="profile-image-wrapper">
+          <img className="profile-image" src={imageUrl} alt="" />
+        </div>
+      </Container>
+      {modalOpen && (
+        <ModalNft
+          imageUrl={imageUrl}
+          name={name}
+          author={author}
+          description={description}
+          setModalOpen={setModalOpen}
+        />
+      )}
+    </>
   );
 };
 

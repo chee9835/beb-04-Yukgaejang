@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
-import { modalActions } from "../store/modalSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
 import abi from "../lib/abis/explore_ABI.json";
@@ -92,12 +91,6 @@ const Container = styled.section`
 `;
 
 const Explore = () => {
-  const dispatch = useDispatch();
-
-  const onClickNft = () => {
-    dispatch(modalActions.openNftModal());
-  };
-
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
   const [marketArray, setMarketArray] = useState([]);
@@ -107,8 +100,6 @@ const Explore = () => {
 
   // 데이터 페칭
   useEffect(() => {
-    console.log("useEffect triggered");
-
     if (!web3) return;
     const contract = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
@@ -116,13 +107,11 @@ const Explore = () => {
       setLoading(true);
       const nfts = await contract.methods.fetchMarketItems().call();
 
-      console.log("market fetched");
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
           const response = await axios.get(nft.tokenURI);
           const tokenMetadata = response.data;
 
-          console.log("metadata fetched");
           const nftObject = {
             tokenId: nft.tokenId,
             owner: nft.seller,
@@ -150,7 +139,6 @@ const Explore = () => {
       if (!targetRef?.current) return;
 
       if (entries[0].isIntersecting) {
-        console.log("observed");
         setLoading(true);
         setShowObserver(false);
 

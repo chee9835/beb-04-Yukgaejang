@@ -90,12 +90,12 @@ const Add = () => {
         method: "eth_sendTransaction",
         params: [transactionParameters],
       });
+
+      alert("Your NFT has been added to the Market!");
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }
-    resetInputs();
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
   }
   return (
     <Container>
