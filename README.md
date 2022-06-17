@@ -1,5 +1,8 @@
 # OpenSea Clone &middot; [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://circleci.com/gh/facebook/react)
 
+# Team
+beb-04-Yukgaejang
+
 ## Commands
 * **start:** run webpack dev server.
 * **build:** build project with webpack.
@@ -16,8 +19,7 @@
 * **styled-reset**
 * **web3**
 
-# Team
-beb-04-Yukgaejang
+
 
 ## Contributors
 * **신동욱**
