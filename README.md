@@ -1,6 +1,3 @@
-# beb-04-Yukgaejang
-beb-04-Yukgaejang
-
 # OpenSea Clone &middot; [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://circleci.com/gh/facebook/react)
 
 ## Commands
@@ -18,6 +15,9 @@ beb-04-Yukgaejang
 * **styled-components**
 * **styled-reset**
 * **web3**
+
+# Team
+beb-04-Yukgaejang
 
 ## Contributors
 * **신동욱**
