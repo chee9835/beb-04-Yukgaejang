@@ -127,12 +127,6 @@ const Create = () => {
     }
   }
 
-  const resetInputs = () => {
-    setImg("");
-    setName("");
-    setDescription("");
-  };
-
   async function mintNFT(NFTUri) {
     try {
       console.log(NFTUri);
@@ -155,14 +149,12 @@ const Create = () => {
         method: "eth_sendTransaction",
         params: [transactionParameters],
       });
+
+      alert("You just created NFT!");
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }
-
-    alert("완");
-    resetInputs();
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
   }
 
   const validate = () => {

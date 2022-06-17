@@ -168,7 +168,6 @@ const ModalWallet = () => {
     setDisabled(true);
 
     loginWithMetaMask();
-    closeModal();
     navigate(`/`);
     // 로그인에 성공하면 리다이렉트
   };
@@ -182,7 +181,7 @@ const ModalWallet = () => {
   );
   const metaMaskBalance = useSelector((state) => state.metaMask.balance);
 
-  async function addForMarket() {
+  const addForMarket = async () => {
     try {
       const abi = nftABI;
       const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
@@ -206,10 +205,12 @@ const ModalWallet = () => {
         method: "eth_sendTransaction",
         params: [transactionParameters],
       });
+
+      alert("Your account has been enabled!");
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <>
@@ -235,7 +236,7 @@ const ModalWallet = () => {
                 <div className="balance">{showBalance(metaMaskBalance)}</div>
               </div>
               <button className="add-funds-button" onClick={addForMarket}>
-                Add Account For Market
+                Enable Account
               </button>
             </div>
           </div>

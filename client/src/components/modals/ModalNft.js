@@ -1,38 +1,31 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import styled, { css } from "styled-components";
 import { SiHiveBlockchain } from "react-icons/si";
 import { FiHeart } from "react-icons/fi";
 import { AiOutlineAlignLeft } from "react-icons/ai";
-import { modalActions } from "../../store/modalSlice";
-import { useDispatch } from "react-redux";
+import { shortenAddress, shortenDescription } from "../../lib/utils";
+import { createPortal } from "react-dom";
 
 const Background = styled.div`
-  position: fixed;
   display: flex;
-  top: 80px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
-  z-index: 500;
-  background-color: rgba(0, 0, 0, 0.2);
-  justify-content: center;
-  align-items: center;
-`;
-const ContainerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  bottom: 0;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 `;
 
 const Container = styled.div`
-  position: relative;
-  top: 50%;
-  left: 50%;
-  padding: 40px 10px;
-  width: 65%;
-  min-width: 360px;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  padding: 40px 0;
   max-width: 1000px;
-  min-height: 500px;
   z-index: 998;
   background-color: white;
   gap: 20px;
@@ -41,6 +34,7 @@ const Container = styled.div`
 
   .contents {
     display: flex;
+    padding: 0 70px;
     gap: 20px;
     flex-direction: column;
     justify-content: center;
@@ -51,7 +45,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 340px;
-    height: 400px;
     border: 1px solid #e3e6e9;
     border-radius: 10px;
   }
@@ -88,10 +81,11 @@ const Container = styled.div`
   }
 
   .name {
+    max-width: 300px;
+    word-wrap: break-word;
     text-align: center;
     font-weight: 500;
-    size: 50px;
-    margin: ${({ author }) => (author ? "30px 0 10px" : "40px 0")};
+    margin-bottom: 30px 0;
     font-size: 40px;
   }
 
@@ -108,6 +102,7 @@ const Container = styled.div`
   }
 
   .description-title {
+    font-size: 20px;
     color: #04112b;
     padding: 10px;
     font-weight: 500;
@@ -118,10 +113,8 @@ const Container = styled.div`
     flex-direction: column;
     width: 340px;
     height: 225px;
-    border: 1px solid #e3e6e9;
-    border-radius: 10px;
+
     color: #04112b;
-    padding: 5px 0;
   }
 
   .description-header {
@@ -129,64 +122,105 @@ const Container = styled.div`
     align-items: center;
     height: 30px;
     padding: 0 10px;
-    border-bottom: 1px solid #e3e6e9;
+  }
+
+  .description-text-wrapper {
+    padding: 20px 10px;
   }
 
   @media screen and (min-width: 720px) {
     .contents {
       flex-direction: row;
     }
+
+    .nft-img-wrapper {
+      min-height: 350px;
+    }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #1a1b1e;
+
+      .nft-img-header {
+        background-color: #26292e;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      .description-title {
+        color: white;
+      }
+
+      .description-wrapper {
+        color: white;
+      }
+
+      .nft-img-wrapper {
+        border: 1px solid #05111d;
+      }
+
+      .nft-img-header {
+        border-bottom: 1px solid #05111d;
+      }
+    `}
 `;
 
-const ModalNft = ({ imageUrl, name, author, description }) => {
-  const dispatch = useDispatch();
+const ModalNft = ({ imageUrl, name, author, description, setModalOpen }) => {
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   const closeModal = () => {
-    dispatch(modalActions.closeNftModal());
+    setModalOpen(false);
   };
 
-  return (
+  return createPortal(
     <>
       <Background onClick={closeModal} />
-      <ContainerWrapper>
-        <Container>
-          <div className="contents">
-            <div className="nft-img-wrapper">
-              <div className="nft-img-header">
-                <div className="nft-img-header-left">
-                  <SiHiveBlockchain style={{ transform: "rotate(90deg)" }} />
-                </div>
-                <FiHeart className="nft-img-header-right" />
+      <Container onClick={closeModal}>
+        <div className="contents">
+          <div className="nft-img-wrapper">
+            <div className="nft-img-header">
+              <div className="nft-img-header-left">
+                <SiHiveBlockchain style={{ transform: "rotate(90deg)" }} />
               </div>
-              <img className="nft-img" src="/open-sea-logo.png" alt="nft" />
+              <FiHeart className="nft-img-header-right" />
             </div>
-            <div className="nft-contents-wrapper">
-              <div className="name">
-                NAME
-                {/*{name}*/}
+            <img className="nft-img" src={imageUrl} alt="" />
+          </div>
+          <div className="nft-contents-wrapper">
+            <p className="name">{name}</p>
+            <div className="author-wrapper">
+              by <span className="author">{shortenAddress(author)}</span>
+            </div>
+            <div className="description-wrapper">
+              <div className="description-header">
+                <AiOutlineAlignLeft />
+                <div className="description-title">Description</div>
               </div>
-              <div className="author-wrapper">
-                by{" "}
-                <span className="author">
-                  author
-                  {/*{parseAddress(author)}*/}
-                </span>
-              </div>
-              <div className="description-wrapper">
-                <div className="description-header">
-                  <AiOutlineAlignLeft />
-                  <div className="description-title">Description</div>
-                </div>
+              <div className="description-text-wrapper">
                 <span className="description-text">
-                  {/*{parseDescription(description)}*/}
+                  {shortenDescription(description)}
                 </span>
               </div>
             </div>
           </div>
-        </Container>
-      </ContainerWrapper>
-    </>
+        </div>
+      </Container>
+    </>,
+    document.getElementById("modal-portal")
   );
 };
 
