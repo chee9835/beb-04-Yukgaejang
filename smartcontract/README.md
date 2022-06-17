@@ -72,6 +72,10 @@ function createMarketItem(
   
   각각 마켓의 거래를 성사, 마켓의 모든 NFT를 리턴, 마켓에 있는 NFT중 나의 것을 리턴 하는 함수 입니다.
   
+  
+  ## OwnerOnlyNFT.sol
+  
+  ERC721 표준에 Access Control 기능을 추가하였습니다. mintNFT함수를 통해 다른사람에게 NFT를 발행할 수 있습니다.
          
   
   
