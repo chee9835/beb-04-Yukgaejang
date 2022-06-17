@@ -119,13 +119,7 @@ const Card = ({ imageUrl, name, author, description }) => {
         </div>
       </div>
       <div className="profile-image-wrapper">
-        <img
-          className="profile-image"
-          src={imageUrl}
-          alt=""
-          width="44px"
-          height="44px"
-        />
+        <img className="profile-image" src={imageUrl} alt="" />
       </div>
     </Container>
   );

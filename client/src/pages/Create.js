@@ -15,6 +15,7 @@ const Container = styled.div`
   padding: 50px 100px;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.color};
+
   .container-paper {
     display: flex;
     flex-direction: column;
@@ -56,9 +57,11 @@ const Container = styled.div`
   .button {
     width: 100px;
   }
-  @media screen and (min-width: 1500px) {
-    margin-top: 50px;
+  @media screen and (min-width: 720px) {
     padding: 0 20%;
+    .button {
+      margin-bottom: 50px;
+    }
   }
   ${({ theme }) =>
     theme.mode === "dark" &&
@@ -124,7 +127,7 @@ const Create = () => {
     }
   }
 
-  const onReset = () => {
+  const resetInputs = () => {
     setImg("");
     setName("");
     setDescription("");
@@ -155,7 +158,9 @@ const Create = () => {
     } catch (e) {
       console.log(e);
     }
-    onReset();
+
+    alert("완");
+    resetInputs();
     // eslint-disable-next-line no-restricted-globals
     location.reload();
   }

@@ -32,6 +32,8 @@ const Container = styled.div`
 
   .img {
     position: absolute;
+    width: 100%;
+    z-index: 999;
   }
 `;
 

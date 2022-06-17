@@ -207,7 +207,12 @@ const Header = () => {
         <div className="closemodalarea" onClick={closeModal}>
           <Link to="/">
             <div className="logo-wrapper">
-              <img src="/open-sea-logo.png" width="42px" alt="로고" />
+              <img
+                src="/open-sea-logo.png"
+                width="42px"
+                height="42px"
+                alt="로고"
+              />
               <p className="logo-text">OpenSea</p>
             </div>
           </Link>
@@ -225,10 +230,10 @@ const Header = () => {
           <Menus className="wallet" onClick={onClickWalletButton}>
             <WalletButton className="icon" />
           </Menus>
-          <Menus className="search">
+          <Menus className="search" aria-label="search">
             <AiOutlineSearch className="icon" size="30px" />
           </Menus>
-          <Menus className="menu" onClick={onClickMenuButton}>
+          <Menus className="menu" onClick={onClickMenuButton} aria-label="menu">
             <AiOutlineMenu className="icon" size="30px" />
           </Menus>
           <div className="nav">
