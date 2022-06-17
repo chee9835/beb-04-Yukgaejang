@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 100px 40px;
-  height: 100vh;
+  height: 700px;
 
   .contents {
     width: 720px;
@@ -33,6 +33,10 @@ const Container = styled.div`
     padding: 100px;
   }
 
+  @media screen and (min-width: 1080px) {
+    height: 1000px;
+  }
+
   ${({ theme }) =>
     theme.mode === "dark" &&
     css`
@@ -54,7 +58,7 @@ const Add = () => {
     setPrice(event.target.value);
   };
 
-  const onReset = () => {
+  const resetInputs = () => {
     setTokenId("");
     setPrice("");
   };
@@ -89,7 +93,7 @@ const Add = () => {
     } catch (e) {
       console.log(e);
     }
-    onReset();
+    resetInputs();
     // eslint-disable-next-line no-restricted-globals
     location.reload();
   }
