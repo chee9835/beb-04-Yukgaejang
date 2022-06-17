@@ -32,6 +32,8 @@ const Container = styled.div`
 
   .img {
     position: absolute;
+    width: 100%;
+    z-index: 999;
   }
 `;
 
@@ -50,9 +52,7 @@ const ImgInput = ({ onChange, img }) => {
           className="imgInput"
           accept="image/*"
           ref={selectFile}
-          onChange={(e) => {
-            onChange(e);
-          }}
+          onChange={(e) => onChange(e)}
         />
         {img && <img className="img" src={img} alt="" />}
       </div>

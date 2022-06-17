@@ -15,6 +15,7 @@ const globalStyle = css`
 
   a {
     text-decoration: none;
+    color: #0c1822;
 
     &:visited {
       color: #424c55;

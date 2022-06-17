@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import { shortenAddress, shortenDescription } from "../../lib/utils";
+import ModalNft from "../modals/ModalNft";
 
 const Container = styled.div`
-  width: 379px;
+  width: 340px;
   border: 1px solid #e5e8eb;
   border-radius: 10px;
   cursor: pointer;
@@ -32,7 +34,7 @@ const Container = styled.div`
   .card-contents {
     display: flex;
     flex-direction: column;
-    height: 180px;
+    height: 210px;
   }
 
   .name {
@@ -66,7 +68,7 @@ const Container = styled.div`
     width: 44px;
     height: 44px;
     position: absolute;
-    top: calc(50% - 14px);
+    top: calc(50% - 30px);
     left: calc(50% - 22px);
     border: 1px solid #e5e8eb;
     padding: 2px;
@@ -80,13 +82,17 @@ const Container = styled.div`
     background-color: white;
   }
 
+  @media screen and (min-width: 720px) {
+    width: 379px;
+  }
+
   ${({ theme }) =>
     theme.mode === "dark" &&
     css`
       background-color: #303339;
       border: 1px solid #151b22;
 
-      .image {
+      .nft-image-wrapper {
         border-bottom: 1px solid #151b22;
       }
 
@@ -97,48 +103,45 @@ const Container = styled.div`
 `;
 
 const Card = ({ imageUrl, name, author, description }) => {
-  const parseAddress = (address) => {
-    if (address.length > 25) {
-      return `${address.slice(0, 25)}...`;
-    } else {
-      return address;
-    }
-  };
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const parseDescription = (description) => {
-    if (description.length > 70) {
-      return `${description.slice(0, 70)}...`;
-    } else {
-      return description;
-    }
+  const onClickCard = () => {
+    setModalOpen(true);
   };
 
   return (
-    <Container author={author}>
-      <div className="nft-image-wrapper">
-        <img className="nft-image" src={imageUrl} alt="" />
-      </div>
-      <div className="card-contents">
-        <div className="name">{name}</div>
-        {author && (
-          <div className="author-wrapper">
-            by <span className="author">{parseAddress(author)}</span>
-          </div>
-        )}
-        <div className="description-wrapper">
-          <span className="description">{parseDescription(description)}</span>
+    <>
+      <Container author={author} onClick={onClickCard}>
+        <div className="nft-image-wrapper">
+          <img className="nft-image" src={imageUrl} alt="" />
         </div>
-      </div>
-      <div className="profile-image-wrapper">
-        <img
-          className="profile-image"
-          src={imageUrl}
-          alt=""
-          width="44px"
-          height="44px"
+        <div className="card-contents">
+          <div className="name">{name}</div>
+          {author && (
+            <div className="author-wrapper">
+              by <span className="author">{shortenAddress(author)}</span>
+            </div>
+          )}
+          <div className="description-wrapper">
+            <span className="description">
+              {shortenDescription(description)}
+            </span>
+          </div>
+        </div>
+        <div className="profile-image-wrapper">
+          <img className="profile-image" src={imageUrl} alt="" />
+        </div>
+      </Container>
+      {modalOpen && (
+        <ModalNft
+          imageUrl={imageUrl}
+          name={name}
+          author={author}
+          description={description}
+          setModalOpen={setModalOpen}
         />
-      </div>
-    </Container>
+      )}
+    </>
   );
 };
 

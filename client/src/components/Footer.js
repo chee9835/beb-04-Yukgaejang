@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.footer`
   color: white;
@@ -11,7 +11,10 @@ const Container = styled.footer`
   }
 
   .footer-main {
-    height: 500px;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
     background-color: #1868b7;
     padding: 0 20px;
   }
@@ -20,7 +23,7 @@ const Container = styled.footer`
     display: flex;
     flex-direction: column;
     gap: 50px;
-    height: 80%;
+    height: 500px;
     padding: 40px 20px;
     border-bottom: 1px solid rgba(229, 232, 235, 0.25);
   }
@@ -37,16 +40,6 @@ const Container = styled.footer`
 
   .open-sea-description {
     line-height: 1.6;
-  }
-
-  .footer-bottom {
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding-top: 30px;
-    gap: 20px;
-    align-items: center;
   }
 
   .links-wrapper {
@@ -69,6 +62,7 @@ const Container = styled.footer`
   }
 
   .name {
+    color: white;
     font-size: 14px;
     cursor: pointer;
 
@@ -84,13 +78,8 @@ const Container = styled.footer`
     }
 
     .footer-main {
-      height: 500px;
+      height: 100vh;
       padding: 0 150px;
-    }
-
-    .footer-bottom {
-      flex-direction: row;
-      justify-content: space-between;
     }
 
     .contents {
@@ -108,6 +97,17 @@ const Container = styled.footer`
       align-items: flex-start;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      .footer-sub {
+        background-color: #191e23;
+      }
+      .footer-main {
+        background-color: #05111d;
+      }
+    `}
 `;
 
 const Footer = () => {
@@ -126,17 +126,38 @@ const Footer = () => {
           </div>
           <div className="contributors-section">
             <p className="contributors">Contributors</p>
-            <p className="name">contributor 1</p>
-            <p className="name">contributor 2</p>
-            <p className="name">contributor 3</p>
-            <p className="name">contributor 4</p>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p className="copyright">© 2018 - 2022 Ozone Networks, Inc</p>
-          <div className="links-wrapper">
-            <p className="link">Privacy Policy</p>
-            <p className="link">Terms of Service</p>
+            <a
+              className="name"
+              href="https://github.com/codeMonkey-shin"
+              rel="noreferrer"
+              target="_blank"
+            >
+              신동욱
+            </a>
+            <a
+              className="name"
+              href="https://github.com/hongildong2"
+              rel="noreferrer"
+              target="_blank"
+            >
+              유승준
+            </a>
+            <a
+              className="name"
+              href="https://github.com/chee9835"
+              rel="noreferrer"
+              target="_blank"
+            >
+              채희수
+            </a>
+            <a
+              className="name"
+              href="https://github.com/NONONCRUST"
+              rel="noreferrer"
+              target="_blank"
+            >
+              신상호
+            </a>
           </div>
         </div>
       </div>

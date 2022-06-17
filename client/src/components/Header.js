@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
-import AccountButton from "./AccountButton";
-import WalletButton from "./WalletButton";
-import { AiOutlineSearch } from "react-icons/ai";
-import { AiOutlineMenu } from "react-icons/ai";
-import Input from "./common/Input";
+import AccountButton from "./buttons/AccountButton";
+import WalletButton from "./buttons/WalletButton";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import { modalActions } from "../store/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Input from "../components/common/Input";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -24,6 +25,12 @@ const MainContainer = styled.div`
     background-color: white;
   }
 
+  .closemodalarea {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .logo-wrapper {
     flex: 1 1 auto;
     height: 40px;
@@ -32,7 +39,7 @@ const MainContainer = styled.div`
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    padding-right: 110px;
+    padding-right: 50px;
   }
 
   .logo-text {
@@ -46,7 +53,7 @@ const MainContainer = styled.div`
   }
 
   .menu-wrapper {
-    padding-left: 110px;
+    height: 100%;
   }
 
   .account {
@@ -66,12 +73,7 @@ const MainContainer = styled.div`
       display: none;
     }
 
-    .logo-wrapper {
-      flex: 0;
-    }
-
     .input-wrapper {
-      flex: 1;
       min-width: 300px;
       width: 100%;
       display: flex;
@@ -81,10 +83,6 @@ const MainContainer = styled.div`
   @media screen and (min-width: 1000px) {
     .search {
       display: none;
-    }
-
-    .logo-wrapper {
-      flex: 0;
     }
 
     .input-wrapper {
@@ -105,10 +103,6 @@ const MainContainer = styled.div`
     @media screen and (min-width: 1200px) {
       .search {
         display: none;
-      }
-
-      .logo-wrapper {
-        flex: 0;
       }
 
       .input-wrapper {
@@ -183,53 +177,72 @@ const Menus = styled.button`
 `;
 
 const Header = () => {
-    const [showInput, setShowInput] = useState(false);
+  const dispatch = useDispatch();
 
-    const handleInput = () => {
-        setShowInput(!showInput);
-    };
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
 
-    return (
-        <MainContainer>
-            <section className="header">
-                <Link to="/">
-                    <div className="logo-wrapper">
-                        <img src="/open-sea-logo.png" width="42px" alt="로고"/>
-                        <p className="logo-text">OpenSea</p>
-                    </div>
-                </Link>
-                {/*{showInput ?*/}
-                <div className="input-wrapper">
-                    <Input
-                        type="search"
-                        placeholder="Search items, collections, and accounts"
-                    />
-                </div>
-                {/*: null}*/}
-                <MenusContainer className="menu-wrapper">
-                    <Menus className="account">
-                        <AccountButton className="icon"/>
-                    </Menus>
-                    <Menus className="wallet">
-                        <WalletButton className="icon" />
-                    </Menus>
-                    <Menus className="search">
-                        <AiOutlineSearch
-                            className="icon"
-                            onClick={handleInput}
-                            size="30px"
-                        />
-                    </Menus>
-                    <Menus className="menu">
-                        <AiOutlineMenu className="icon" size="30px"/>
-                    </Menus>
-                    <div className="nav">
-                        <Nav/>
-                    </div>
-                </MenusContainer>
-            </section>
-        </MainContainer>
-    );
+  const onClickWalletButton = () => {
+    if (metaMaskAddress === "") {
+      dispatch(modalActions.openLoginModal());
+    } else {
+      dispatch(modalActions.openWalletModal());
+    }
+  };
+
+  const onClickMenuButton = () => {
+    dispatch(modalActions.openMenuModal());
+  };
+
+  const closeModal = () => {
+    dispatch(modalActions.closeMenuModal());
+    dispatch(modalActions.closeLoginModal());
+    dispatch(modalActions.closeWalletModal());
+  };
+
+  return (
+    <MainContainer>
+      <section className="header">
+        <div className="closemodalarea" onClick={closeModal}>
+          <Link to="/">
+            <div className="logo-wrapper">
+              <img
+                src="/open-sea-logo.png"
+                width="42px"
+                height="42px"
+                alt="로고"
+              />
+              <p className="logo-text">OpenSea</p>
+            </div>
+          </Link>
+          <div className="input-wrapper">
+            <Input
+              type="search"
+              placeholder="Search items, collections, and accounts"
+            />
+          </div>
+        </div>
+        <MenusContainer className="menu-wrapper">
+          <Menus className="account" onClick={closeModal}>
+            <AccountButton className="icon" />
+          </Menus>
+          <Menus className="wallet" onClick={onClickWalletButton}>
+            <WalletButton className="icon" />
+          </Menus>
+          <Menus className="search" aria-label="search">
+            <AiOutlineSearch className="icon" size="30px" />
+          </Menus>
+          <Menus className="menu" onClick={onClickMenuButton} aria-label="menu">
+            <AiOutlineMenu className="icon" size="30px" />
+          </Menus>
+          <div className="nav">
+            <Nav />
+          </div>
+        </MenusContainer>
+      </section>
+    </MainContainer>
+  );
 };
 
 export default Header;

@@ -1,31 +1,82 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import styled, { css } from "styled-components";
-import Web3 from "web3";
-import Card from "../components/common/Card";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
-import abi from "../lib/abis/abi.json";
+import styled, { css } from "styled-components";
+import Card from "../components/common/Card";
+import abi from "../lib/abis/explore_ABI.json";
+import axios from "axios";
+import Web3 from "web3";
+import { FaEthereum } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { parseAddress } from "../lib/utils";
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
 
-  .heading-wrapper {
-    padding: 50px 0;
+  .mypage-legend {
+    position: relative;
+    height: 125px;
+    background-color: #f7f8f9;
   }
 
-  .heading {
-    font-size: 40px;
-    text-align: center;
+  .mypage-profile-image-wrapper {
+    background-color: white;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border: 1px solid gray;
+    bottom: -20px;
+    left: 16px;
+    border-radius: 50%;
+  }
+
+  .mypage-profile-image {
+    width: 100%;
+  }
+
+  .icons-wrapper {
+    height: 70px;
+  }
+
+  .profile-info-wrapper {
+    height: 140px;
+    padding: 0 16px;
+  }
+
+  .name {
+    font-size: 24px;
     font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .balance-wrapper {
+    display: flex;
+    margin-bottom: 50px;
+  }
+
+  .balance {
+    font-size: 16px;
+    color: #353840;
+    font-weight: 300;
+  }
+
+  .collected {
+    font-size: 18px;
+    font-weight: 500;
   }
 
   .contents {
     display: grid;
   }
 
+  .no-item {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
   .tab-menu {
     display: flex;
-
     justify-content: center;
     height: 50px;
     border-bottom: 1px solid #e5e8eb;
@@ -72,8 +123,26 @@ const Container = styled.section`
   }
 
   @media screen and (min-width: 720px) {
+    .mypage-legend {
+      height: 320px;
+    }
+
+    .mypage-profile-image-wrapper {
+      width: 168px;
+      height: 168px;
+      left: 64px;
+    }
+
+    .profile-info-wrapper {
+      padding: 0 64px;
+    }
+
     .contents {
       grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .no-item {
+      font-size: 28px;
     }
   }
 
@@ -83,11 +152,17 @@ const Container = styled.section`
       .tab-menu {
         border-bottom: 1px solid #151b22;
       }
+
+      .mypage-legend {
+        background-color: #262b2f;
+      }
+
+      .balance {
+        color: white;
+      }
     `}
 `;
 
-//여긴 그냥 크립토 펑크 가져오기
-//DB 구축
 const Mypage = () => {
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
@@ -95,6 +170,11 @@ const Mypage = () => {
   const [metaMaskWeb3, setMetaMaskWeb3] = useState(null);
   const [loadedArray, setLoadedArray] = useState([]);
 
+  const metaMaskAddress = useSelector(
+    (state) => state.metaMask.metaMaskAddress
+  );
+
+  // 메타마스크 프로바이더 연결
   useEffect(() => {
     if (!window.ethereum) return;
 
@@ -110,19 +190,19 @@ const Mypage = () => {
 
   useEffect(() => {
     if (!metaMaskWeb3?.eth?.Contract) return;
-    const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
 
     const getMarketNFTs = async () => {
-      setLoading(true);
-      const nfts = await contract.methods.fetchMyNFTs().call();
-      console.log("@@@ nfts @@@");
-      console.log(nfts);
+      const contract = new metaMaskWeb3.eth.Contract(abi, CONTRACT_ADDRESS);
+
+      const nfts = await contract.methods
+        .fetchMyNFTs()
+        .call({ from: String(metaMaskAddress) });
 
       const nftArray = await Promise.all(
         nfts.map(async (nft) => {
-          const tokenMetadata = await fetch(nft.tokenURI).then((response) =>
-            response.json()
-          );
+          const response = await axios.get(nft.tokenURI);
+
+          const tokenMetadata = response.data;
 
           const nftObject = {
             tokenId: nft.tokenId,
@@ -140,8 +220,9 @@ const Mypage = () => {
       setMarketArray(nftArray);
       setLoadedArray(nftArray.splice(0, 3));
     };
+
     getMarketNFTs();
-  }, [metaMaskWeb3?.eth?.Contract]);
+  }, [metaMaskAddress, metaMaskWeb3?.eth?.Contract]);
 
   const targetRef = useRef();
 
@@ -153,23 +234,17 @@ const Mypage = () => {
         setLoading(true);
         setShowObserver(false);
 
-        console.log(marketArray);
-
         const newArray = marketArray.splice(0, 3);
-        console.log("@@@ infinite Scroll @@@");
-        console.log(newArray);
 
         if (newArray.length === 0) {
           setLoading(false);
           setShowObserver(true);
           observer.disconnect();
-          console.log("@@@ observer disconnected @@@");
           return;
         }
 
         setTimeout(() => {
           setLoadedArray((loadedArray) => [...loadedArray, ...newArray]);
-
           setLoading(false);
           setShowObserver(true);
         }, 1000);
@@ -189,33 +264,50 @@ const Mypage = () => {
 
   return (
     <Container showObserver={showObserver}>
-      <div className="header" />
-      <div className="heading-wrapper">
-        <h1 className="heading">Explore Collections</h1>
+      <div className="mypage-legend">
+        <div className="mypage-profile-image-wrapper">
+          <img
+            className="mypage-profile-image"
+            src="/profile-image.png"
+            alt=""
+          />
+        </div>
       </div>
+      <div className="icons-wrapper"></div>
+      <div className="profile-info-wrapper">
+        <p className="name">Unnamed</p>
+        <div className="balance-wrapper">
+          <FaEthereum />
+          <p className="balance">{parseAddress(metaMaskAddress)}</p>
+        </div>
+        <p className="collected">Collected</p>
+      </div>
+      <div className="header" />
       <div className="tab-menu">
         <div className="tab-wrapper">
           <span className="tab-text">My NFTs</span>
           <div className="tab-underline" />
         </div>
       </div>
+      {loadedArray.length === 0 && (
+        <p className="no-item">No items to display</p>
+      )}
       <div className="contents">
-        {loadedArray.map((token, index) => {
-          return (
-            <Card
-              key={index}
-              name={token.name}
-              description={token.description}
-              author={token.owner}
-              imageUrl={token.imageUrl}
-            />
-          );
-        })}
+        {loadedArray.map((token, index) => (
+          <Card
+            key={index}
+            name={token.name}
+            description={token.description}
+            author={token.owner}
+            imageUrl={token.imageUrl}
+          />
+        ))}
         {loading &&
           Array(3)
             .fill(0)
             .map((_, index) => <CardSkeleton key={index} />)}
       </div>
+
       <div className="observer" ref={targetRef} />
     </Container>
   );
