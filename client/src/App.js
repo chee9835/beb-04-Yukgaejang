@@ -20,6 +20,7 @@ import ModalNft from "./components/ModalNft";
 import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
 import Add from "./pages/Add";
+import ThemeButton from "./components/ThemeButton";
 
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
@@ -29,6 +30,10 @@ const App = () => {
   const nftModalOpen = useSelector((state) => state.modal.nftModalOpen);
 
   const dispatch = useDispatch();
+
+  const onClickThemeButton = () => {
+    dispatch(themeActions.toggleThemeMode());
+  };
 
   // web3 객체 연결 & 메타마스크 로그인 확인
   useEffect(() => {
@@ -101,6 +106,7 @@ const App = () => {
       {walletModalOpen && <ModalWallet />}
       {loginModalOpen && <ModalLogin />}
       {nftModalOpen && <ModalNft />}
+      <ThemeButton themeMode={themeMode} onClick={onClickThemeButton} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
