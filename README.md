@@ -4,8 +4,8 @@
 beb-04-Yukgaejang
 
 ## Commands
-* **start:** run webpack dev server.
-* **build:** build project with webpack.
+* **npm run start:** run webpack dev server.
+* **npm run build:** build project with webpack.
 
 ## Packages
 * **react**
