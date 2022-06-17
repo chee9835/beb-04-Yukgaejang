@@ -11,7 +11,10 @@ const Container = styled.footer`
   }
 
   .footer-main {
-    height: 500px;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
     background-color: #1868b7;
     padding: 0 20px;
   }
@@ -75,7 +78,7 @@ const Container = styled.footer`
     }
 
     .footer-main {
-      height: 500px;
+      height: 100vh;
       padding: 0 150px;
     }
 
