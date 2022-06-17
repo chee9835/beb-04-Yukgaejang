@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import AccountButton from "./AccountButton";
-import WalletButton from "./WalletButton";
+import AccountButton from "./buttons/AccountButton";
+import WalletButton from "./buttons/WalletButton";
 import { Link, useLocation } from "react-router-dom";
 import palette from "../styles/palette";
 import { useDispatch, useSelector } from "react-redux";

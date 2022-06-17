@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useMetaMask from "../hooks/useMetaMask";
+import useMetaMask from "../../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { modalActions } from "../store/modalSlice";
+import { modalActions } from "../../store/modalSlice";
 
 const Background = styled.section`
   position: fixed;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import AccountButton from "./AccountButton";
-import WalletButton from "./WalletButton";
+import AccountButton from "./buttons/AccountButton";
+import WalletButton from "./buttons/WalletButton";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
