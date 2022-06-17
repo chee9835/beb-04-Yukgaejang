@@ -64,12 +64,6 @@ function createMarketItem(
   
   이 함수가 정상적으로 동작하려면 NFT컨트랙트의 오너가 마켓 컨트랙트에 대해 접근 권한을 부여해야합니다.
   
-  접근 권한 부여는 ERC721 표준에 명시되어있는 setApprovalForAll 이나 approve를 통해 컨트랙트 전체에 대한 권한 또는 해당 tokenID의 NFT에만 권한을 부여하는 것으로 이루어집니다.
-  
-  이번 프로젝트에서는 사용하는 NFT컨트랙트에 setApprovalForAll함수를 마켓 컨트랙트 주소에 대해 실행하도록 컨스트럭터에 집어 넣었습니다.
-  
-  다른 NFT컨트랙트를 이용한다면 직접 마켓 컨트랙트 주소를 이용해 사용자가 접근 권한을 부여 하는것이 가능할 것 입니다.
-  
   특이 사항으로는 MarketItem.seller를 msg.sender로, owner를 address(0)으로 지정합니다.
   
   msg.sender의 주소는 createMarketItem을 실행한 사람이 아닌 마켓 컨트랙트의 주소입니다. 마켓 컨트랙트 내에서 인터페이스를 통해 실행했기 때문입니다. owner는 address(0)으로 지정되지만 마켓 컨트랙트가 해당 NFT에 대해 접근 권한이 있기 때문에 거래성사시 구매자의 주소로 다시 변경이 가능합니다.
