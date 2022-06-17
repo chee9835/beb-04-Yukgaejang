@@ -58,14 +58,9 @@ const Add = () => {
     setPrice(event.target.value);
   };
 
-  const resetInputs = () => {
-    setTokenId("");
-    setPrice("");
-  };
-
   const buttonDisabled = tokenId === "" || price === "";
 
-  async function addNFT() {
+  const addNFT = async () => {
     try {
       const abi = nftABI;
       const address = "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B";
@@ -96,7 +91,7 @@ const Add = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
   return (
     <Container>
       <div className="contents">
