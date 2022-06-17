@@ -90,12 +90,18 @@ const Create = () => {
   const [description, setDescription] = useState("");
   const [fileUrl, updateFileUrl] = useState(``);
   const [validated, setValidated] = useState(true);
-  const [account, setAccount] = useState(
-    "0x4981BfE09E4963248aA2Fcf918031b816b88b526"
-  );
-  const client = create("https://ipfs.infura.io:5001/api/v0");
 
+  const client = create("https://ipfs.infura.io:5001/api/v0");
   const web3 = useSelector((state) => state.web3.web3);
+  const metaMaskAddress = useSelector((state => state.metaMask.metaMaskAddress))
+
+  const onChangeName = (event) => {
+    setName(event.target.value);
+  };
+
+  const onChangeDescription = (event) => {
+    setDescription(event.target.value);
+  };
 
   async function getImageUri(e) {
     const file = e.target.files[0];
@@ -121,20 +127,21 @@ const Create = () => {
     try {
       const added = await client.add(metadata);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      await connectWallet();
+      console.log(metaMaskAddress)
       await mintNFT(url);
-      console.log(account);
     } catch (e) {
       console.log(e);
     }
   }
 
-  const connectWallet = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    setAccount(accounts[0]);
+  const onReset = () => {
+    setImg("");
+    setName("");
+    setDescription("");
   };
+
+
+
 
   async function mintNFT(NFTUri) {
     try {
@@ -145,39 +152,24 @@ const Create = () => {
         "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
       );
 
-      // Contract.setProvider(
-      //   "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
-      // );
       window.contract = new web3.eth.Contract(abi, address);
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
-        data: window.contract.methods.mintNFT(address, NFTUri).encodeABI(), //make call to NFT smart contract
+        data: window.contract.methods.mintNFT(metaMaskAddress, NFTUri).encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
-      try {
-        const txHash = await window.ethereum.request({
+        await window.ethereum.request({
           method: "eth_sendTransaction",
           params: [transactionParameters],
         });
-        setImg("");
-        setName("");
-        setDescription("");
-        return {
-          success: true,
-          status:
-            "✅ Check out your transaction on Etherscan: https://rinkeby.etherscan.io/tx/" +
-            txHash,
-        };
-      } catch (error) {
-        return {
-          success: false,
-          status: "😥 Something went wrong: " + error.message,
-        };
-      }
+
     } catch (e) {
       console.log(e);
     }
+    onReset()
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 
   const validate = () => {
@@ -226,7 +218,8 @@ const Create = () => {
             <Input
               type="common"
               placeholder="Item name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={onChangeName}
+              value={name}
               validated={validated}
               onBlur={validate}
             />
@@ -245,7 +238,8 @@ const Create = () => {
             </p>
             <Textarea
               placeholder="Provide a detailed description of your item"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={onChangeDescription}
+              value={description}
             />
           </div>
           <br />

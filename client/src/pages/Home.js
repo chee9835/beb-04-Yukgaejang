@@ -179,7 +179,7 @@ const Home = () => {
 
     const getMarketNFTs = async () => {
       const nfts = await contract.methods.fetchMarketItems().call();
-      const targetNft = nfts[8];
+      const targetNft = nfts[10];
 
       const response = await axios.get(targetNft.tokenURI);
       const tokenMetadata = response.data;

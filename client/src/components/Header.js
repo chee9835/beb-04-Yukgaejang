@@ -2,13 +2,12 @@ import React from "react";
 import styled, { css } from "styled-components";
 import AccountButton from "./AccountButton";
 import WalletButton from "./WalletButton";
-import { AiOutlineSearch } from "react-icons/ai";
-import { AiOutlineMenu } from "react-icons/ai";
-import Input from "./common/Input";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import { modalActions } from "../store/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Input from "../components/common/Input";
 
 const MainContainer = styled.div`
   box-shadow: rgb(4 17 29 / 25%) 0 0 8px 0;
@@ -212,6 +211,7 @@ const Header = () => {
               <p className="logo-text">OpenSea</p>
             </div>
           </Link>
+          {/*{showInput ?*/}
           <div className="input-wrapper">
             <Input
               type="search"

@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import './ModalLogin.css';
+=======
+import React, { useState } from "react";
+import styled from "styled-components";
+import useMetaMask from "../hooks/useMetaMask";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../store/modalSlice";
+import { useNavigate } from "react-router-dom";
+>>>>>>> 7d4523471da21c71df457e40f895bd00008b3d63
 
 const ModalLogin = (props) => {
     const {close} = props;
@@ -14,12 +24,19 @@ const ModalLogin = (props) => {
     }
 
 
+<<<<<<< HEAD
     const [keepLogin, setKeepLogin] = useState(true);
+=======
+  const navigate = useNavigate();
+
+  const [disabled, setDisabled] = useState(false);
+>>>>>>> 7d4523471da21c71df457e40f895bd00008b3d63
 
     function keepLoginHandler() {
         setKeepLogin(!keepLogin);
     }
 
+<<<<<<< HEAD
     const [idAlarm, setIdAlarm] = useState(false);
     const [passwordAlarm, setPasswordAlarm] = useState(false);
 
@@ -34,6 +51,15 @@ const ModalLogin = (props) => {
         } else {
             setPasswordAlarm(false);
         }
+=======
+  const onClickMetaMask = () => {
+    setDisabled(true);
+    loginWithMetaMask();
+    closeModal();
+    // 로그인에 성공하면 리다이렉트
+    navigate("/");
+  };
+>>>>>>> 7d4523471da21c71df457e40f895bd00008b3d63
 
     }
 
