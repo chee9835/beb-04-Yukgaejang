@@ -6,6 +6,7 @@ import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { modalActions } from "../store/modalSlice";
 import { parseAddress, showBalance } from "../lib/utils";
+import nftABI from "../lib/abis/mint_ABI.json";
 
 const Background = styled.section`
   position: fixed;
@@ -158,6 +159,7 @@ const ModalWallet = () => {
   const [disabled, setDisabled] = useState(false);
 
   const { loginWithMetaMask } = useMetaMask();
+  const web3 = useSelector((state) => state.web3.web3);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -179,6 +181,32 @@ const ModalWallet = () => {
     (state) => state.metaMask.metaMaskAddress
   );
   const metaMaskBalance = useSelector((state) => state.metaMask.balance);
+
+  async function addForMarket() {
+    try {
+      const abi = nftABI;
+      const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
+      web3.eth.Contract.setProvider(
+          "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
+      );
+
+      window.contract = new web3.eth.Contract(abi, address);
+      const transactionParameters = {
+        to: address, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.contract.methods.setApprovalForAll("0x2bCC3383B4113ec9d77f243df7C41C237da8a68B", "true").encodeABI(), //make call to NFT smart contract
+      };
+      //sign transaction via Metamask
+      await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <>
@@ -203,7 +231,7 @@ const ModalWallet = () => {
                 <div className="total">Total balance</div>
                 <div className="balance">{showBalance(metaMaskBalance)}</div>
               </div>
-              <button className="add-funds-button">Add Funds</button>
+              <button className="add-funds-button" onClick={addForMarket}>Add Account For Market</button>
             </div>
           </div>
         </ContentContainer>
