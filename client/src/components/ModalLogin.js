@@ -4,7 +4,6 @@ import useMetaMask from "../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../store/modalSlice";
-import { useNavigate } from "react-router-dom";
 
 const Background = styled.section`
   position: fixed;
@@ -30,7 +29,6 @@ const TitleContainer = styled.div`
   text-decoration: none;
   border: none;
   cursor: grab;
-
   .title-wrapper {
     display: flex;
     align-items: center;
@@ -38,7 +36,6 @@ const TitleContainer = styled.div`
     padding: 20px;
     border-bottom: 1px solid #e3e6e9;
   }
-
   .title {
     margin-left: 10px;
     font-size: 16px;
@@ -54,7 +51,6 @@ const ContentContainer = styled.div`
   border: none;
   cursor: grab;
   padding: 21px;
-
   .description {
     font-size: 16px;
     text-align: left;
@@ -62,13 +58,11 @@ const ContentContainer = styled.div`
     color: #35383f;
     padding-left: 5px;
   }
-
   .wallet-button {
     color: #2081e2;
     font-weight: 600;
     cursor: pointer;
   }
-
   .metamask-button-wrapper {
     display: flex;
     align-items: center;
@@ -79,33 +73,27 @@ const ContentContainer = styled.div`
     padding: 15px;
     border-radius: 10px;
     cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-
     opacity: ${({ disabled }) => (disabled ? "0.4" : "1")};
-
     &:hover {
       box-shadow: rgb(0 0 0 / 10%) 0 2px 15px;
       transition: 0.2s ease;
     }
   }
-
   .metamask-icon-text-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
   }
-
   .icon {
     width: 24px;
     height: 24px;
     background-color: gray;
     border-radius: 50%;
   }
-
   .metamask-text {
     font-size: 14px;
     font-weight: 700;
   }
-
   .chip {
     display: flex;
     justify-content: center;
@@ -123,8 +111,6 @@ const ContentContainer = styled.div`
 const ModalLogin = () => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const [disabled, setDisabled] = useState(false);
 
   const { loginWithMetaMask } = useMetaMask();
@@ -134,7 +120,6 @@ const ModalLogin = () => {
     loginWithMetaMask();
     closeModal();
     // 로그인에 성공하면 리다이렉트
-    navigate("/");
   };
 
   const closeModal = () => {

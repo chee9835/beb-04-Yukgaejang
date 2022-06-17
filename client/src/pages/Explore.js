@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import CardSkeleton from "../components/skeletons/CardSkeleton";
-import { useSelector } from "react-redux";
+import { modalActions } from "../store/modalSlice";
+import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import Card from "../components/common/Card";
 import abi from "../lib/abis/explore_ABI.json";
@@ -91,6 +92,12 @@ const Container = styled.section`
 `;
 
 const Explore = () => {
+  const dispatch = useDispatch();
+
+  const onClickNft = () => {
+    dispatch(modalActions.openNftModal());
+  };
+
   const [loading, setLoading] = useState(false);
   const [showObserver, setShowObserver] = useState(true);
   const [marketArray, setMarketArray] = useState([]);

@@ -4,6 +4,7 @@ const initialState = {
   menuModalOpen: false,
   loginModalOpen: false,
   walletModalOpen: false,
+  nftModalOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -33,6 +34,12 @@ const modalSlice = createSlice({
     },
     closeWalletModal(state) {
       state.walletModalOpen = false;
+    },
+    openNfttModal(state) {
+      state.nftModalOpen = !state.nftModalOpen;
+    },
+    closeNftModal(state) {
+      state.nftModalOpen = !state.nftModalOpen;
     },
   },
 });
