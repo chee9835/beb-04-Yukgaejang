@@ -52,6 +52,7 @@ contract cozNFTs is ERC721URIStorage, ERC721Enumerable {
 
   function mintNFT(address recipient, string memory tokenURI)
     public
+    onlyOwner
     returns (uint256)
   {
     _tokenIds.increment();
@@ -64,7 +65,7 @@ contract cozNFTs is ERC721URIStorage, ERC721Enumerable {
     return newItemId;
   }
 
-  function mintMeNFT(string memory tokenURI) public returns (uint256) {
+  function mintMeNFT(string memory tokenURI) public onlyOwner returns (uint256) {
     _tokenIds.increment();
 
     uint256 newItemId = _tokenIds.current();
