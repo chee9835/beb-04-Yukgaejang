@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import useMetaMask from "../hooks/useMetaMask";
+import useMetaMask from "../../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { modalActions } from "../store/modalSlice";
-import { parseAddress, showBalance } from "../lib/utils";
-import nftABI from "../lib/abis/mint_ABI.json";
+import { modalActions } from "../../store/modalSlice";
+import { parseAddress, showBalance } from "../../lib/utils";
+import nftABI from "../../lib/abis/mint_ABI.json";
 
 const Background = styled.section`
   position: fixed;

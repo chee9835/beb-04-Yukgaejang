@@ -4,12 +4,12 @@ import { MdOutlineExploreOff } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { GiBreakingChain } from "react-icons/gi";
 import { RiMoonFill } from "react-icons/ri";
-import ToggleButton from "./common/ToggleButton";
+import ToggleButton from "../common/ToggleButton";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions } from "../store/modalSlice";
+import { modalActions } from "../../store/modalSlice";
 import { BiCommentAdd, BiLogIn } from "react-icons/bi";
-import { themeActions } from "../store/themeSlice";
+import { themeActions } from "../../store/themeSlice";
 import { CgProfile } from "react-icons/cg";
 
 const Background = styled.section`
