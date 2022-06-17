@@ -5,6 +5,7 @@ import { FiHeart } from "react-icons/fi";
 import { AiOutlineAlignLeft } from "react-icons/ai";
 import { shortenAddress, shortenDescription } from "../../lib/utils";
 import { createPortal } from "react-dom";
+import palette from "../../styles/palette";
 
 const Background = styled.div`
   display: flex;
@@ -55,8 +56,9 @@ const Container = styled.div`
     height: 30px;
     padding: 0 10px;
     border-bottom: 1px solid #e3e6e9;
-
-    color: #6f7982;
+    background-color: ${palette.primary};
+    color: white;
+    border-radius: 10px 10px 0 0;
   }
 
   .nft-img-header-left {
@@ -134,10 +136,6 @@ const Container = styled.div`
     width: 900px;
     height: 450px;
 
-    .name {
-      color: white;
-    }
-
     .contents {
       flex-direction: row;
     }
@@ -160,6 +158,10 @@ const Container = styled.div`
         background-color: #26292e;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+      }
+
+      .name {
+        color: white;
       }
 
       .description-title {
