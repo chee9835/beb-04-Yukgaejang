@@ -58,8 +58,10 @@ const Container = styled.div`
     width: 100px;
   }
   @media screen and (min-width: 720px) {
-    margin-top: 50px;
     padding: 0 20%;
+    .button {
+      margin-bottom: 50px;
+    }
   }
   ${({ theme }) =>
     theme.mode === "dark" &&
@@ -156,6 +158,8 @@ const Create = () => {
     } catch (e) {
       console.log(e);
     }
+
+    alert("완");
     resetInputs();
     // eslint-disable-next-line no-restricted-globals
     location.reload();
