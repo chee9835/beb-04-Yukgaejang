@@ -187,22 +187,25 @@ const ModalWallet = () => {
       const abi = nftABI;
       const address = "0x37264b70cCc8804a6555ad9d196389Cf524DA050";
       web3.eth.Contract.setProvider(
-          "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
+        "https://ropsten.infura.io/v3/6f134bd85c204246857c0eb8b36b18f5"
       );
 
       window.contract = new web3.eth.Contract(abi, address);
       const transactionParameters = {
         to: address, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
-        data: window.contract.methods.setApprovalForAll("0x2bCC3383B4113ec9d77f243df7C41C237da8a68B", "true").encodeABI(), //make call to NFT smart contract
+        data: window.contract.methods
+          .setApprovalForAll(
+            "0x2bCC3383B4113ec9d77f243df7C41C237da8a68B",
+            "true"
+          )
+          .encodeABI(), //make call to NFT smart contract
       };
       //sign transaction via Metamask
       await window.ethereum.request({
         method: "eth_sendTransaction",
         params: [transactionParameters],
       });
-
-
     } catch (e) {
       console.log(e);
     }
@@ -231,7 +234,9 @@ const ModalWallet = () => {
                 <div className="total">Total balance</div>
                 <div className="balance">{showBalance(metaMaskBalance)}</div>
               </div>
-              <button className="add-funds-button" onClick={addForMarket}>Add Account For Market</button>
+              <button className="add-funds-button" onClick={addForMarket}>
+                Add Account For Market
+              </button>
             </div>
           </div>
         </ContentContainer>
