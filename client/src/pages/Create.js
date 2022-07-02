@@ -96,7 +96,7 @@ const Create = () => {
     setDescription(event.target.value);
   };
 
-  async function getImageUri(e) {
+  const getImageUri = async (e) => {
     const file = e.target.files[0];
     try {
       const added = await client.add(file);
@@ -106,9 +106,9 @@ const Create = () => {
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
-  }
+  };
 
-  async function getNFTUri() {
+  const getNFTUri = async () => {
     let metadata = {
       name: name,
       description: description,
@@ -125,9 +125,9 @@ const Create = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async function mintNFT(NFTUri) {
+  const mintNFT = async (NFTUri) => {
     try {
       console.log(NFTUri);
       const abi = nftABI;
@@ -155,7 +155,7 @@ const Create = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const validate = () => {
     if (name === "") {
