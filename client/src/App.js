@@ -21,7 +21,7 @@ import { ethers } from "ethers";
 import { metaMaskActions } from "./store/metaMaskSlice";
 import Add from "./pages/Add";
 import ThemeButton from "./components/buttons/ThemeButton";
-
+import Modal from "./components/common/Modal";
 const App = () => {
   const themeMode = useSelector((state) => state.theme.themeMode);
   const menuModalOpen = useSelector((state) => state.modal.menuModalOpen);
@@ -101,6 +101,7 @@ const App = () => {
   return (
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
       <GlobalStyle />
+      {/*<Modal />*/}
       <Header />
       {menuModalOpen && <ModalNavBar />}
       {walletModalOpen && <ModalWallet />}
