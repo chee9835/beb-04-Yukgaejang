@@ -85,16 +85,11 @@ const App = () => {
 
   // 계정 변경 감지
   useEffect(() => {
-    async function listenMMAccount() {
-      window.ethereum.on("accountsChanged", async function () {
-        // Time to reload your interface with accounts[0]!
-        const metamaskAccounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        // accounts = await web3.eth.getAccounts();
+    const listenMMAccount = () => {
+      window.ethereum.on("accountsChanged", async () => {
         window.location.reload();
       });
-    }
+    };
     listenMMAccount();
   }, []);
 
