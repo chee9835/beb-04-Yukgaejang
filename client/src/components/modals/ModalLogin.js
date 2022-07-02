@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useMetaMask from "../../hooks/useMetaMask";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
@@ -43,6 +43,17 @@ const TitleContainer = styled.div`
     font-weight: 600;
     text-align: left;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #202225;
+
+      .title-wrapper {
+        border-bottom: #151b22;
+        color: white;
+      }
+    `}
 `;
 const ContentContainer = styled.div`
   width: 400px;
@@ -107,6 +118,28 @@ const ContentContainer = styled.div`
     background-color: #2081e2;
     border-radius: 10px;
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    css`
+      background-color: #202225;
+
+      .metamask-icon-text-wrapper {
+        border: 1px solid #151b22;
+      }
+
+      .description {
+        color: white;
+      }
+
+      .metamask-text {
+        color: white;
+      }
+
+      .balance {
+        color: white;
+      }
+    `}
 `;
 
 const ModalLogin = () => {
